@@ -1,0 +1,55 @@
+[keypadder]
+port = 8082	# HTTP port to use
+
+[[tab]]   # A new tab
+label = "French"
+cols = 3	# No. of columns on this tab
+keys = [
+  { label = "à", send  = "à" },
+  { label = "â" },
+  { label = "ç" },
+# new row will start here
+  { label = "è" },
+  { label = "ê" },
+  { label = "é" },
+#
+  { label = "ì" },
+  { label = "î" },
+  { label = "ï" },
+#
+  { label = "ò" },
+  { label = "ô" },
+  { label = "ë" },
+#
+  { label = "ù" },
+  { label = "û" },
+  { label = "ü" }
+]
+
+[[tab]]
+label = "MuseScore"
+cols = 4
+keys = [
+  { label = "Esc", send = "\u001b" },
+  { label = "\U0001d17b", send = "V" },
+  { label = "\U0001d17c", send = "S" },
+  { label = "\U0001d17d", send = "N" },
+#
+  { label = "\u266e", send = "=" },
+  { label = "\u266f", send = "+" },
+  { label = "\u266d", send = "-" },
+  { label = "BLANK" },
+#
+  { label = "\U0001d1df", send = "5" },
+  { label = "\U0001d15f", send = "6" },
+  { label = "\U0001d15d", send = "7" },
+  { label = "BLANK" },
+#
+  { label = "\U0001d162", send = "2" },
+  { label = "\U0001d161", send = "3" },
+  { label = "\U0001d160", send = "4" },
+  { label = "\u035c", rowspan = 2, send = "T" },
+#
+  { label = "\U0001d13d", colspan = 2, send = "0" },
+  { label = "." }
+]

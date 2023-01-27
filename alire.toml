@@ -1,0 +1,13 @@
+name = "keypadder"
+description = "Shiny new project"
+version = "0.1.0-dev"
+
+authors = ["Stephen Merrony"]
+maintainers = ["Stephen Merrony <merrony@gmail.com>"]
+maintainers-logins = ["SMerrony"]
+
+executables = ["keypadder"]
+[[depends-on]]
+aws = "^23.0.0"
+[[depends-on]]
+ada_toml = "~0.3.0"
