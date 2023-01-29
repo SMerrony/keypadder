@@ -6,11 +6,10 @@ with Ada.Directories;
 with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
 with Ada.Text_IO;             use Ada.Text_IO;
 
-with AWS.Response;
 with AWS.Server;
-with AWS.Status;
 
 with Config;
+with Frontend;
 
 procedure Keypadder is
 
@@ -21,22 +20,6 @@ procedure Keypadder is
    Verbose    : Boolean := True; --  FIXME debugging
 
    WS : AWS.Server.HTTP;
-   Do_Shutdown : Boolean := False;
-
-   function HW_CB (Request : AWS.Status.Data)
-      return AWS.Response.Data
-   is
-      URI : constant String := AWS.Status.URI (Request);
-   begin
-      if URI = "/hello" then
-         return AWS.Response.Build ("text/html", "<p>Hello world !");
-      elsif URI = "/shutdown" then
-         Do_Shutdown := True;
-         return AWS.Response.Build ("text/html", "<p>Shutting down...");
-      else
-         return AWS.Response.Build ("text/html", "<p>Hum...");
-      end if;
-   end HW_CB;
 
 begin
 
@@ -69,16 +52,21 @@ begin
       return;
    end if;
 
-   Config.Load_Config_File (To_String (Config_Arg), Verbose);
+   if not Config.Load_Config_File (To_String (Config_Arg), Verbose) then
+      return;
+   end if;
+
+   Frontend.Build_Main_Page;
 
    AWS.Server.Start (WS,
-                    Name => "Keypadder Server",
-                    Callback => HW_CB'Unrestricted_Access,
-                    Max_Connection => 2,
-                    Port => 9090);
+                  Name => "Keypadder Server",
+                  Callback => Frontend.Request_CB'Access,
+                  Max_Connection => 2,
+                  Port => Integer (Config.Conf.Keypadder_Conf.Port));
    loop
-      delay 10.0;
-      exit when Do_Shutdown;
+      delay 3.0;
+      exit when Frontend.Shutting_Down;
    end loop;
    AWS.Server.Shutdown (WS);
+
 end Keypadder;

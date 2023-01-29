@@ -5,25 +5,25 @@ port = 8082	# HTTP port to use
 label = "French"
 cols = 3	# No. of columns on this tab
 keys = [
-  { label = "à", send  = "à" },
-  { label = "â" },
-  { label = "ç" },
+  { label = "&agrave;", send  = "à" },
+  { label = "&acirc;",  send = "â" },
+  { label = "&ccedil;", send = "ç" },
 # new row will start here
-  { label = "è" },
-  { label = "ê" },
-  { label = "é" },
+  { label = "&egrave;", send = "è" },
+  { label = "&ecirc;",  send = "ê" },
+  { label = "&eacute;", send = "é" },
 #
-  { label = "ì" },
-  { label = "î" },
-  { label = "ï" },
+  { label = "&igrave;", send = "ì" },
+  { label = "&icirc;",  send = "î" },
+  { label = "&iuml;",   send = "ï" },
 #
-  { label = "ò" },
-  { label = "ô" },
-  { label = "ë" },
+  { label = "&ograve;", send = "ò" },
+  { label = "&ocirc;",  send = "ô" },
+  { label = "&euml;",   send = "ë" },
 #
-  { label = "ù" },
-  { label = "û" },
-  { label = "ü" }
+  { label = "&ugrave;", send = "ù" },
+  { label = "&ucirc;",  send = "û" },
+  { label = "&uuml;",   send = "ü" }
 ]
 
 [[tab]]
@@ -31,25 +31,25 @@ label = "MuseScore"
 cols = 4
 keys = [
   { label = "Esc", send = "\u001b" },
-  { label = "\U0001d17b", send = "V" },
-  { label = "\U0001d17c", send = "S" },
-  { label = "\U0001d17d", send = "N" },
+  { label = ">",   send = "V" },
+  { label = "Slur", send = "S" },
+  { label = "_", send = "N" },
 #
-  { label = "\u266e", send = "=" },
-  { label = "\u266f", send = "+" },
-  { label = "\u266d", send = "-" },
+  { label = "&#x266E;", send = "=" },
+  { label = "&#x266F;", send = "+" },
+  { label = "&#x266D;", send = "-" },
   { label = "BLANK" },
 #
-  { label = "\U0001d1df", send = "5" },
-  { label = "\U0001d15f", send = "6" },
-  { label = "\U0001d15d", send = "7" },
+  { label = "&#119135;", send = "5" },
+  { label = "&#x1D15E;", send = "6" },
+  { label = "&#x1D15D;", send = "7" },
   { label = "BLANK" },
 #
-  { label = "\U0001d162", send = "2" },
-  { label = "\U0001d161", send = "3" },
-  { label = "\U0001d160", send = "4" },
-  { label = "\u035c", rowspan = 2, send = "T" },
+  { label = "&#x1d162;", send = "2" },
+  { label = "&#x1D161;", send = "3" },
+  { label = "&#x1D160;", send = "4" },
+  { label = "Tie", rowspan = 2, send = "T" },
 #
-  { label = "\U0001d13d", colspan = 2, send = "0" },
+  { label = "Rest", colspan = 2, send = "0" },
   { label = "." }
 ]

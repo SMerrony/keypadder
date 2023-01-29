@@ -1,4 +1,5 @@
 --  SPDX-License-Identifier: GPL-3.0-or-later
+--  SPDX-FileCopyrightText: Copyright 2023 Stephen Merrony
 
 with Ada.Strings.Unbounded;     use Ada.Strings.Unbounded;
 
@@ -8,8 +9,6 @@ package Config is
    type Keypadder_Conf_T is record
       Port : Port_T;
    end record;
-
-   Keypadder_Conf : Keypadder_Conf_T;
 
    type Key_T is record
       Label   : Unbounded_String;
@@ -32,13 +31,17 @@ package Config is
    end record;
 
    Max_Tabs   : constant Positive := 8;
-   Tabs_Count : Natural := 0;
-
    type Tabs_T is array (1 .. Max_Tabs) of Tab_T;
 
-   Tabs : Tabs_T;
+   type Conf_T is record
+      Keypadder_Conf : Keypadder_Conf_T;
+      Tabs_Count     : Natural := 0;
+      Tabs           : Tabs_T;
+   end record;
 
-   procedure Load_Config_File (Filename : String; Verbose : Boolean := False);
+   Conf : Conf_T;
+
+   function Load_Config_File (Filename : String; Verbose : Boolean := False) return Boolean;
 
    Could_Not_Parse,
    Duplicate_Configuration,
