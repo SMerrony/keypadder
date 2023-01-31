@@ -10,6 +10,7 @@ with AWS.Server;
 
 with Config;
 with Frontend;
+with Injector;
 
 procedure Keypadder is
 
@@ -57,6 +58,8 @@ begin
    end if;
 
    Frontend.Build_Main_Page;
+
+   Injector.Injector_Task.Start;
 
    AWS.Server.Start (WS,
                   Name => "Keypadder Server",

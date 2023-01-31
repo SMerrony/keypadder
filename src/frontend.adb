@@ -1,24 +1,28 @@
 --  SPDX-License-Identifier: GPL-3.0-or-later
---  SPDX-FileCopyrightText:
+--  SPDX-FileCopyrightText:  Copyright 2023 Stephen Merrony
 
-
-with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Exceptions;    use Ada.Exceptions;
+with Ada.Strings.Fixed; use Ada.Strings.Fixed;
+with Ada.Text_IO;       use Ada.Text_IO;
 
 with AWS.Parameters;
 
 with Config;   use Config;
+with Injector;
 
 package body Frontend is
 
    function Request_CB (Request : AWS.Status.Data) return AWS.Response.Data is
       URI : constant String := AWS.Status.URI (Request);
       Parms : AWS.Parameters.List;
+      Current_Tab_Ix : Positive;
    begin
       if URI = "/" then
          return AWS.Response.Build ("text/html", To_String (Main_Page_HTML));
       elsif URI = "/buttonpress" then
          Parms := AWS.Status.Parameters (Request);
          Put_Line ("Got request: <" & To_String (AWS.Parameters.Get (Parms, 1).Name) & ">");
+         Decode_And_Send_Key (To_String (AWS.Parameters.Get (Parms, 1).Name), Current_Tab_Ix);
          return AWS.Response.Build ("text/html", "<p>NYI");
       elsif URI = "/shutdown" then
          Shutting_Down := True;
@@ -33,7 +37,7 @@ package body Frontend is
       Append (Main_Page_HTML, "<html><head><style>" & ASCII.LF &
                         "body {background-color: darkgray; color: white;}"  & ASCII.LF &
                         ".kp-pad {align-content: stretch;}" &
-                        ".kp-btn {font-size: 20mm; background-color: black; padding: 2mm; color: white;}"  & ASCII.LF &
+                        ".kp-btn {font-size: 20mm; border-radius: 4mm; background-color: black; padding: 2mm; color: white;}"  & ASCII.LF &
                         "</style></head>" & ASCII.LF &
                         "<body>" & ASCII.LF);
 
@@ -80,5 +84,18 @@ package body Frontend is
 
       Append (Main_Page_HTML, "</form></body></html>");
    end Build_Main_Page;
+
+   procedure Decode_And_Send_Key (Key_ID : String; Tab : out Positive) is
+      Tab_Ix : constant Positive := Positive'Value (Key_ID (Index (Key_ID, "t") + 1 .. Index (Key_ID, "i") - 1));
+      Key_Ix : constant Positive := Positive'Value (Key_ID (Index (Key_ID, "i") + 1 .. Key_ID'Last));
+   begin
+      Put_Line ("Decoded Tab:" & Tab_Ix'Image & " and Index:" & Key_Ix'Image);
+      Tab := Tab_Ix;
+      Injector.Injector_Task.Send (To_String (Conf.Tabs (Tab_Ix).Keys (Key_Ix).Send));
+   exception 
+      when Error : others =>
+         Put_Line ("Error in Decode_And_Send_Key: ");
+         Put_Line (Exception_Information (Error));
+   end Decode_And_Send_Key;
 
 end Frontend;
