@@ -92,7 +92,7 @@ package body Frontend is
       Put_Line ("Decoded Tab:" & Tab_Ix'Image & " and Index:" & Key_Ix'Image);
       Tab := Tab_Ix;
       Injector.Injector_Task.Send (To_String (Conf.Tabs (Tab_Ix).Keys (Key_Ix).Send));
-   exception 
+   exception
       when Error : others =>
          Put_Line ("Error in Decode_And_Send_Key: ");
          Put_Line (Exception_Information (Error));
