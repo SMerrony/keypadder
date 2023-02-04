@@ -3,7 +3,9 @@
 
 package body Uinput is
 
-   procedure Emit (FID : K_File_ID_T; E_Type, E_Code, E_Val : K_Int_T) is
+   procedure Emit (FID : K_File_ID_T;
+                   E_Type, E_Code : K_U16_T;
+                   E_Val : K_Int_T) is
       IE         : K_Input_Event_T;
       Dummy_SS   : K_SSize_T;
       IE_Address : constant System.Address := IE'Address;

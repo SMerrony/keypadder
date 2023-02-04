@@ -9,9 +9,10 @@
             "type": "gdb",
             "request": "launch",
             "target": "./bin/keypadder",
-            "arguments": "--config=examples/keypad.toml",
+            "arguments": "--config=${workspaceRoot}/examples/keypad.toml",
             "cwd": "${workspaceRoot}",
-            "valuesFormatting": "parseText"
+            "valuesFormatting": "parseText",
+            "gdbpath": "/home/steve/bin/sudo_gdb.sh"
         }
     ]
 }
