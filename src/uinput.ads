@@ -1,6 +1,8 @@
 --  SPDX-License-Identifier: GPL-3.0-or-later
 --  SPDX-FileCopyrightText:  Copyright 2023 Stephen Merrony
 
+--  Uinput provides the 64-bit Linux low-level I/O functions we need.
+
 with Ada.Unchecked_Conversion;
 with Interfaces; use Interfaces;
 with System;
@@ -67,7 +69,7 @@ package Uinput is
    end record;
    pragma Convention (C, K_Input_Event_T);
 
-   K_Input_Event_Size : constant K_Size_T := K_Input_Event_T'Size;
+   K_Input_Event_Size : constant K_Size_T := K_Input_Event_T'Size / 8;
 
    package IE_Pointers is new System.Address_To_Access_Conversions (K_Input_Event_T);
 
@@ -105,18 +107,15 @@ package Uinput is
    pragma Import (C, K_Open, "open");
 
    --  System file write call
-   procedure K_Write_IE (Written : out K_SSize_T;
-                      FID     : K_File_ID_T;
-                      IE_Addr : IE_Pointers.Object_Pointer;
-                      Count   : K_Size_T);
+   function K_Write_IE (FID     : K_File_ID_T;
+                        IE      : K_Input_Event_T;
+                        Count   : K_Size_T
+                       ) return K_SSize_T;
    pragma Import (C, K_Write_IE, "write");
-   pragma Import_Valued_Procedure (K_Write_IE);
 
    --  System file close call
-   procedure K_Close (Result : out K_Int_T;
-                      FID    : K_File_ID_T);
+   function K_Close (FID : K_File_ID_T) return K_Int_T;
    pragma Import (C, K_Close, "close");
-   pragma Import_Valued_Procedure (K_Close);
 
    --  The special Event Code we need...
    SYN_REPORT : constant K_U16_T := 0;
@@ -128,6 +127,12 @@ package Uinput is
    Cannot_Open,
    Cannot_Write,
    IOCTL_Error   : exception;
+
+   --  IOW is analagous to the _IOW macro in include/uapi/asm-generic/ioctl.h
+   function IOW (Code : Unsigned_32; Len : Integer) return K_Ioctl_ID_T;
+
+   --  IO is analagous to the _IO macro in include/uapi/asm-generic/ioctl.h
+   function IO (Code : Unsigned_32; Len : Integer) return K_Ioctl_ID_T;
 
    procedure Emit (FID            : K_File_ID_T;
                    E_Type, E_Code : K_U16_T;

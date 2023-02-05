@@ -11,6 +11,7 @@ with AWS.Server;
 with Config;
 with Frontend;
 with Injector;
+with Keys;
 
 procedure Keypadder is
 
@@ -52,6 +53,8 @@ begin
       Put_Line ("ERROR: Configuration file: " & To_String (Config_Arg) & " does not exist.");
       return;
    end if;
+
+   Keys.Setup_Key_Map;
 
    if not Config.Load_Config_File (To_String (Config_Arg), Verbose) then
       return;

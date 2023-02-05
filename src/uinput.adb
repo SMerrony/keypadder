@@ -3,22 +3,40 @@
 
 package body Uinput is
 
+   --  IOW is analagous to the _IOW macro in include/uapi/asm-generic/ioctl.h
+   function IOW (Code : Unsigned_32; Len : Integer) return K_Ioctl_ID_T is
+      Tmp : Unsigned_32 := Code;
+   begin
+      Tmp := Tmp + Shift_Left (Unsigned_32 (UINPUT_IOCTL_BASE), 8);
+      Tmp := Tmp + Shift_Left (Unsigned_32 (Len), 16);  --  arg length of 4 (?)
+      Tmp := Tmp + Shift_Left (Unsigned_32 (1), 30);  --  direction (write, out)
+      return K_Ioctl_ID_T (Tmp);
+   end IOW;
+
+   --  IO is analagous to the _IO macro in include/uapi/asm-generic/ioctl.h
+   function IO (Code : Unsigned_32; Len : Integer) return K_Ioctl_ID_T is
+      Tmp : Unsigned_32 := Code;
+   begin
+      Tmp := Tmp + Shift_Left (Unsigned_32 (UINPUT_IOCTL_BASE), 8);
+      Tmp := Tmp + Shift_Left (Unsigned_32 (Len), 16);  --  arg length of 4 (?)
+      return K_Ioctl_ID_T (Tmp);
+   end IO;
+
    procedure Emit (FID : K_File_ID_T;
                    E_Type, E_Code : K_U16_T;
                    E_Val : K_Int_T) is
       IE         : K_Input_Event_T;
-      Dummy_SS   : K_SSize_T;
-      IE_Address : constant System.Address := IE'Address;
+      Write_SS   : K_SSize_T;
    begin
       IE.IE_Type  := E_Type;
       IE.IE_Code  := E_Code;
       IE.IE_Value := E_Val;
 
-      K_Write_IE
-        (Written => Dummy_SS,
-         FID     => FID,
-         IE_Addr => IE_Pointers.To_Pointer (IE_Address),
-         Count   => K_Input_Event_Size);
+      Write_SS := K_Write_IE (FID, IE, K_Input_Event_Size);
+      if Write_SS = -1 then
+         C_Perror ("Write failed...");
+         raise Cannot_Write with "Write failed";
+      end if;
    end Emit;
 
 end Uinput;

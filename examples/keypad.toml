@@ -5,39 +5,39 @@ port = 8082	# HTTP port to use
 label = "French"
 cols = 3	# No. of columns on this tab
 keys = [
-  { label = "&agrave;", send  = "à" },
-  { label = "&acirc;",  send = "â" },
-  { label = "&ccedil;", send = "ç" },
+  { label = "&agrave;", send = "COMPOSE,GRAVE,A" },
+  { label = "&acirc;",  send = "COMPOSE,^6,A" },
+  { label = "&ccedil;", send = "COMPOSE,COMMA,C" },
 # new row will start here
-  { label = "&egrave;", send = "è" },
-  { label = "&ecirc;",  send = "ê" },
-  { label = "&eacute;", send = "é" },
+  { label = "&egrave;", send = "COMPOSE,GRAVE,E" },
+  { label = "&ecirc;",  send = "COMPOSE,^6,E" },
+  { label = "&eacute;", send = "COMPOSE,APOSTROPHE,E" },
 #
-  { label = "&igrave;", send = "ì" },
-  { label = "&icirc;",  send = "î" },
-  { label = "&iuml;",   send = "ï" },
+  { label = "&igrave;", send = "COMPOSE,GRAVE,I" },
+  { label = "&icirc;",  send = "COMPOSE,^6,I" },
+  { label = "&iuml;",   send = "COMPOSE,^2,I" },
 #
-  { label = "&ograve;", send = "ò" },
-  { label = "&ocirc;",  send = "ô" },
-  { label = "&euml;",   send = "ë" },
+  { label = "&ograve;", send = "COMPOSE,GRAVE,O" },
+  { label = "&ocirc;",  send = "COMPOSE,^6,O" },
+  { label = "&euml;",   send = "COMPOSE,^2,E" },
 #
-  { label = "&ugrave;", send = "ù" },
-  { label = "&ucirc;",  send = "û" },
-  { label = "&uuml;",   send = "ü" }
+  { label = "&ugrave;", send = "COMPOSE,GRAVE,U" },
+  { label = "&ucirc;",  send = "COMPOSE,^6,U" },
+  { label = "&uuml;",   send = "COMPOSE,^2,U" }
 ]
 
 [[tab]]
 label = "MuseScore"
 cols = 4
 keys = [
-  { label = "Esc", send = "\u001b" },
-  { label = ">",   send = "V" },
+  { label = "Esc",  send = "ESC" },
+  { label = ">",    send = "V" },
   { label = "Slur", send = "S" },
-  { label = "_", send = "N" },
+  { label = "_",    send = "N" },
 #
-  { label = "&#x266E;", send = "=" },
-  { label = "&#x266F;", send = "+" },
-  { label = "&#x266D;", send = "-" },
+  { label = "&#x266E;", send = "EQUAL" },
+  { label = "&#x266F;", send = "^EQUAL" },
+  { label = "&#x266D;", send = "MINUS" },
   { label = "BLANK" },
 #
   { label = "&#119135;", send = "5" },
@@ -51,5 +51,32 @@ keys = [
   { label = "Tie", rowspan = 2, send = "T" },
 #
   { label = "Rest", colspan = 2, send = "0" },
-  { label = "." }
+  { label = ".", send = "DOT" }
+]
+
+[[tab]]
+label = "NumPad"
+cols = 4
+keys = [
+   { label = "Num", send = "NUMLOCK" },
+   { label = "/", send = "KPSLASH" },
+   { label = "*", send = "KPASTERISK" },
+   { label = "-", send = "KPMINUS" },
+#
+   { label = "7", send = "KP7" },
+   { label = "8", send = "KP8" },
+   { label = "9", send = "KP9" },
+   { label = "+", rowspan = 2, send = "KPPLUS" },
+#
+   { label = "4", send = "KP4" },
+   { label = "5", send = "KP5" },
+   { label = "6", send = "KP6" },
+#
+   { label = "1", send = "KP1" },
+   { label = "2", send = "KP2" },
+   { label = "3", send = "KP3" },
+   { label = "&crarr;", rowspan = 2, send = "KPENTER" },
+#
+   { label = "0", colspan = 2, send = "KP0" },
+   { label = ".", send = "KPDOT" },
 ]

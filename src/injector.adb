@@ -2,7 +2,6 @@
 --  SPDX-FileCopyrightText:  Copyright 2023 Stephen Merrony
 
 with Ada.Text_IO;
-with Interfaces;  use Interfaces;
 
 with Uinput;      use Uinput;
 
@@ -11,31 +10,10 @@ package body Injector is
    task body Injector_Task is
       Uinput_FID  : K_File_ID_T;
       Usetup      : K_Uinput_Setup_T;
-      IE_Time     : K_Timeval_T;  --  defaults to zeroes
-      Key_IE      : K_Input_Event_T;
-      Report_IE   : constant K_Input_Event_T := (Time     => IE_Time,
-                                                 IE_Type  => EV_SYN,
-                                                 IE_Code  => SYN_REPORT,
-                                                 IE_Value => 0);
       Result      : K_Int_T;
-      Key_Val     : K_Int_T := 0;
+      Key_Val     : K_Int_T := 1; --  Key 0 is 'reserved' by the USB standard
       Request     : K_Ioctl_ID_T;
 
-      function IOW (Code : Unsigned_32; Len : Integer) return K_Ioctl_ID_T is
-         Tmp : Unsigned_32 := Code;
-      begin
-         Tmp := Tmp + Shift_Left (Unsigned_32 (UINPUT_IOCTL_BASE), 8);
-         Tmp := Tmp + Shift_Left (Unsigned_32 (Len), 16);  --  arg length of 4 (?)
-         Tmp := Tmp + Shift_Left (Unsigned_32 (1), 30);  --  direction (write, out)
-         return K_Ioctl_ID_T (Tmp);
-      end IOW;
-      function IO (Code : Unsigned_32; Len : Integer) return K_Ioctl_ID_T is
-         Tmp : Unsigned_32 := Code;
-      begin
-         Tmp := Tmp + Shift_Left (Unsigned_32 (UINPUT_IOCTL_BASE), 8);
-         Tmp := Tmp + Shift_Left (Unsigned_32 (Len), 16);  --  arg length of 4 (?)
-         return K_Ioctl_ID_T (Tmp);
-      end IO;
    begin
       accept Start do
          Uinput_FID := K_Open (Linux_Path, O_WRONLY + O_NONBLOCK);
@@ -43,9 +21,6 @@ package body Injector is
             Ada.Text_IO.Put_Line ("ERROR: Could not open " & Linux_Path);
             raise Cannot_Open;
          end if;
-         --  populate the unchanging fields in the Key_IE
-         Key_IE.Time := IE_Time;
-         Key_IE.IE_Type := EV_KEY;
 
          --  set up for keyboard events
          Request := IOW (UI_SET_EVBIT, 4);
@@ -55,7 +30,7 @@ package body Injector is
             raise IOCTL_Error with "UI_SET_EVBIT failed";
          end if;
 
-         --  enable all possible (0 .. 255) key values
+         --  enable all possible (1 .. 127) key values
          loop
             Result := K_IOCTL_3_Arg (Uinput_FID, IOW (UI_SET_KEYBIT, 4), K_Long_T (Key_Val));
             if Result = -1 then
@@ -63,7 +38,7 @@ package body Injector is
                raise IOCTL_Error with "Could not SET_KEYBIT";
             end if;
             Key_Val := Key_Val + 1;
-            exit when Key_Val = 256;
+            exit when Key_Val = 128;
          end loop;
 
          --  configure our dummy USB device...
@@ -94,18 +69,16 @@ package body Injector is
                Ada.Text_IO.Put_Line ("Injector got Send request for: " & Keys);
                for C in Keys'Range loop
                   --  Key press, report the event, send key release, and report again
-                  Key_IE.IE_Code := Char_To_K_U16 (Keys (C));
-                  Key_IE.IE_Value := 1;
-                  --  IE_IO.Write (Uinput_File, Key_IE);
-                  --  IE_IO.Write (Uinput_File, Report_IE);
-                  Key_IE.IE_Value := 0;
-                  --  IE_IO.Write (Uinput_File, Key_IE);
-                  --  IE_IO.Write (Uinput_File, Report_IE);
+                  Ada.Text_IO.Put_Line ("Emitting character: " & Keys (C));
+                  Emit (Uinput_FID, EV_KEY, Char_To_K_U16 (Keys (C)), 1);
+                  Emit (Uinput_FID, EV_SYN, SYN_REPORT, 0);
+                  Emit (Uinput_FID, EV_KEY, Char_To_K_U16 (Keys (C)), 0);
+                  Emit (Uinput_FID, EV_SYN, SYN_REPORT, 0);
                end loop;
             end Send;
          or
             accept Shutdown do
-               K_Close (Result, Uinput_FID);
+               Result := K_Close (Uinput_FID);
                return;
             end Shutdown;
          or
