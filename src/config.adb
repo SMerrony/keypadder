@@ -4,10 +4,46 @@
 with Ada.Exceptions; use Ada.Exceptions;
 with Ada.Text_IO;    use Ada.Text_IO;
 
+with GNAT.String_Split; use GNAT.String_Split;
+
 with TOML;
 with TOML.File_IO;
 
+with Keys;
+
 package body Config is
+
+   function Decode_Send_String (User_String : Unbounded_String) return Vector is
+      Decoded    : Vector;
+      Words      : Slice_Set;
+   begin
+      Create (Words, To_String (User_String), ",", Multiple);
+      for Word_Num in 1 .. Slice_Count (Words) loop
+         declare
+            Word : constant String := Slice (Words, Word_Num);
+         begin
+            if Word (Word'First) = '^' then
+               Decoded.Append ((Down, Keys.Keys_M ("LEFTSHIFT")));
+               if Keys.Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
+                  Decoded.Append ((Down, Keys.Keys_M (Word (Word'First + 1 .. Word'Last))));
+                  Decoded.Append ((Up,   Keys.Keys_M (Word (Word'First + 1 .. Word'Last))));
+                  Decoded.Append ((Up, Keys.Keys_M ("LEFTSHIFT")));
+               else
+                  raise Unknown_Key with Word;
+               end if;
+            else
+               if Keys.Keys_M.Contains (Word) then
+                  Put_Line ("Adding decoded conf: " & Word);
+                  Decoded.Append ((Down, Keys.Keys_M (Word)));
+                  Decoded.Append ((Up,   Keys.Keys_M (Word)));
+               else
+                  raise Unknown_Key with Word;
+               end if;
+            end if;
+         end;
+      end loop;
+      return Decoded;
+   end Decode_Send_String;
 
    function Load_Config_File (Filename : String; Verbose : Boolean := False)
                              return Boolean is
@@ -70,6 +106,7 @@ package body Config is
                            end if;
                            if TOML.Has (Key_Table, "send") then
                               Conf.Tabs (Tab_Ix).Keys (K).Send := TOML.As_Unbounded_String (TOML.Get (Key_Table, "send"));
+                              Conf.Tabs (Tab_Ix).Keys (K).Send_Events := Decode_Send_String (Conf.Tabs (Tab_Ix).Keys (K).Send);
                            end if;
                            if TOML.Has (Key_Table, "colspan") then
                               Conf.Tabs (Tab_Ix).Keys (K).Colspan := Natural (TOML.As_Integer (TOML.Get (Key_Table, "colspan")));

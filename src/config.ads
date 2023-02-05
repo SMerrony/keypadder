@@ -1,7 +1,11 @@
 --  SPDX-License-Identifier: GPL-3.0-or-later
 --  SPDX-FileCopyrightText: Copyright 2023 Stephen Merrony
 
+with Ada.Containers;            use Ada.Containers;
+with Ada.Containers.Vectors;
 with Ada.Strings.Unbounded;     use Ada.Strings.Unbounded;
+
+with Interfaces; use Interfaces;
 
 package Config is
 
@@ -10,11 +14,24 @@ package Config is
       Port : Port_T;
    end record;
 
+   type Up_Down_T is (Up, Down);
+   type Send_Event_T is record
+   --  Our internal representation of what needs to be sent
+   --  as a USB event.
+      Up_Down : Up_Down_T;
+      Value   : Unsigned_16;
+   end record;
+
+   package Event_Vectors is new
+     Ada.Containers.Vectors (Index_Type => Natural, Element_Type => Send_Event_T);
+   use Event_Vectors;
+
    type Key_T is record
-      Label   : Unbounded_String;
-      Send    : Unbounded_String;
+      Label       : Unbounded_String;
+      Send        : Unbounded_String;  -- the undecoded string from the TOML
+      Send_Events : Vector;
       Colspan,
-      Rowspan : Natural := 0;
+      Rowspan     : Natural := 0;
    end record;
 
    Max_Keys : constant Positive := 88;
@@ -46,6 +63,7 @@ package Config is
    Could_Not_Parse,
    Duplicate_Configuration,
    Incomplete_Configuration,
-   Unknown_Configuration_Item  : exception;
+   Unknown_Configuration_Item,
+   Unknown_Key                 : exception;
 
 end Config;
