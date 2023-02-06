@@ -31,18 +31,18 @@ begin
    Keys.Setup_Key_Map;
 
    while Arg_Ix <= Argument_Count loop
-      if Argument (Arg_Ix) = "-V" or else Argument (Arg_Ix) = "-version" then
+      if Argument (Arg_Ix) = "-V" or else Argument (Arg_Ix) = "--version" then
          Ada.Text_IO.Put_Line ("keypadder version: " & App_SemVer);
          goto FINISHED;
-      elsif Argument (Arg_Ix) = "-v" or else Argument (Arg_Ix) = "-verbose" then
+      elsif Argument (Arg_Ix) = "-v" or else Argument (Arg_Ix) = "--verbose" then
          Verbose := True;
       elsif Argument (Arg_Ix) = "-h" or else Argument (Arg_Ix) = "--help" then
          Put_Line ("Usage of keypadder:");
          Put_Line ("  --config=<config-file>  Configuration file for keypadder (required)");
          Put_Line ("  --dumpkeys              List all defined key mnemonics");
-         Put_Line ("  -h | -help              This help");
-         Put_Line ("  -V | -version           Show the version of keypadder and exit");
-         Put_Line ("  -v | -verbose           Show lots of detail when running");
+         Put_Line ("  -h | --help             This help");
+         Put_Line ("  -V | --version          Show the version of keypadder and exit");
+         Put_Line ("  -v | --verbose          Show lots of detail when running");
          goto FINISHED;
       elsif Argument (Arg_Ix)'Length > 9 and then Argument (Arg_Ix)(1 .. 9) = "--config=" then
          Config_Arg := To_Unbounded_String (Argument (Arg_Ix)(10 .. Argument (Arg_Ix)'Length));
