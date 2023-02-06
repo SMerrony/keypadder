@@ -5,25 +5,25 @@ port = 8082	# HTTP port to use
 label = "French"
 cols = 3	# No. of columns on this tab
 keys = [
-  { label = "&agrave;", send = "COMPOSE,GRAVE,A" },
-  { label = "&acirc;",  send = "COMPOSE,^6,A" },
-  { label = "&ccedil;", send = "COMPOSE,COMMA,C" },
+  { label = "&agrave;", send = "RIGHTALT,GRAVE,A" },
+  { label = "&acirc;",  send = "RIGHTALT,^6,A" },
+  { label = "&ccedil;", send = "RIGHTALT,COMMA,C" },
 # new row will start here
-  { label = "&egrave;", send = "COMPOSE,GRAVE,E" },
-  { label = "&ecirc;",  send = "COMPOSE,^6,E" },
-  { label = "&eacute;", send = "COMPOSE,APOSTROPHE,E" },
+  { label = "&egrave;", send = "RIGHTALT,GRAVE,E" },
+  { label = "&ecirc;",  send = "RIGHTALT,^6,E" },
+  { label = "&eacute;", send = "RIGHTALT,APOSTROPHE,E" },
 #
-  { label = "&igrave;", send = "COMPOSE,GRAVE,I" },
-  { label = "&icirc;",  send = "COMPOSE,^6,I" },
-  { label = "&iuml;",   send = "COMPOSE,^2,I" },
+  { label = "&igrave;", send = "RIGHTALT,GRAVE,I" },
+  { label = "&icirc;",  send = "RIGHTALT,^6,I" },
+  { label = "&iuml;",   send = "RIGHTALT,^2,I" },
 #
-  { label = "&ograve;", send = "COMPOSE,GRAVE,O" },
-  { label = "&ocirc;",  send = "COMPOSE,^6,O" },
-  { label = "&euml;",   send = "COMPOSE,^2,E" },
+  { label = "&ograve;", send = "RIGHTALT,GRAVE,O" },
+  { label = "&ocirc;",  send = "RIGHTALT,^6,O" },
+  { label = "&euml;",   send = "RIGHTALT,^2,E" },
 #
-  { label = "&ugrave;", send = "COMPOSE,GRAVE,U" },
-  { label = "&ucirc;",  send = "COMPOSE,^6,U" },
-  { label = "&uuml;",   send = "COMPOSE,^2,U" }
+  { label = "&ugrave;", send = "RIGHTALT,GRAVE,U" },
+  { label = "&ucirc;",  send = "RIGHTALT,^6,U" },
+  { label = "&uuml;",   send = "RIGHTALT,^2,U" }
 ]
 
 [[tab]]

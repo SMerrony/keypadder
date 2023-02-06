@@ -34,7 +34,7 @@ package body Config is
                end if;
             else
                if Keys_M.Contains (Word) then
-                  Put_Line ("Adding decoded conf: " & Word);
+                  --  Put_Line ("Adding decoded conf: " & Word);
                   Decoded.Append ((Down, Keys_M (Word)));
                   Decoded.Append ((Up,   Keys_M (Word)));
                else
@@ -97,7 +97,9 @@ package body Config is
                         Key_Table  : TOML_Value;
                         Blank      : constant Unbounded_String := To_Unbounded_String (" ");
                      begin
-                        Put_Line ("Keys defined:"  & Length (Keys_Array)'Image);
+                        if Verbose then
+                           Put_Line ("Keys defined:"  & Length (Keys_Array)'Image);
+                        end if;
                         Conf.Tabs (Tab_Ix).Keys_Count := Length (Keys_Array);
                         for K in 1 .. Length (Keys_Array) loop
                            Key_Table := Item (Keys_Array, K);

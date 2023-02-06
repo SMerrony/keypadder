@@ -1,9 +1,10 @@
 --  SPDX-License-Identifier: GPL-3.0-or-later
 --  SPDX-FileCopyrightText:  Copyright 2023 Stephen Merrony
 
-with Ada.Exceptions;    use Ada.Exceptions;
-with Ada.Strings.Fixed; use Ada.Strings.Fixed;
-with Ada.Text_IO;       use Ada.Text_IO;
+with Ada.Exceptions;        use Ada.Exceptions;
+with Ada.Strings.Fixed;     use Ada.Strings.Fixed;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Text_IO;           use Ada.Text_IO;
 
 with AWS.Parameters;
 
@@ -18,12 +19,12 @@ package body Frontend is
       Current_Tab_Ix : Positive;
    begin
       if URI = "/" then
-         return AWS.Response.Build ("text/html", To_String (Main_Page_HTML));
+         return AWS.Response.Build ("text/html", Build_Main_Page (1));
       elsif URI = "/buttonpress" then
          Parms := AWS.Status.Parameters (Request);
-         Put_Line ("Got request: <" & To_String (AWS.Parameters.Get (Parms, 1).Name) & ">");
+         --  Put_Line ("Got request: <" & To_String (AWS.Parameters.Get (Parms, 1).Name) & ">");
          Decode_And_Send_Key (To_String (AWS.Parameters.Get (Parms, 1).Name), Current_Tab_Ix);
-         return AWS.Response.Build ("text/html", "<p>NYI");
+         return AWS.Response.Build ("text/html", Build_Main_Page (Current_Tab_Ix));
       elsif URI = "/shutdown" then
          Shutting_Down := True;
          return AWS.Response.Build ("text/html", "<p>Shutting down...");
@@ -32,19 +33,28 @@ package body Frontend is
       end if;
    end Request_CB;
 
-   procedure Build_Main_Page is
+   function Build_Main_Page (Active_Tab : Positive) return String is
+      Header_HTML : constant String :=
+         "<html><head><style>" & ASCII.LF &
+         "body {background-color: darkgray; color: white;}"  & ASCII.LF &
+         ".kp-bar-item {font-size: 10mm} " &
+         ".kp-pad {align-content: stretch;} " &
+         ".kp-btn {font-size: 20mm; border-radius: 4mm; background-color: black; padding: 2mm; color: white;}"  & ASCII.LF &
+         "</style></head>" & ASCII.LF;
+      Trailer_HTML : constant String :=
+         "<script> function openTab(tabName) { " &
+         "var i; var x = document.getElementsByClassName('kp-pad');" &
+         "for (i=0; i<x.length; i++) { x[i].style.display = 'none';}" &
+         "document.getElementById(tabName).style.display = 'block'; } </script>" &
+         "</form></body></html>";
+      Main_Page_HTML : Unbounded_String := Null_Unbounded_String;
    begin
-      Append (Main_Page_HTML, "<html><head><style>" & ASCII.LF &
-                        "body {background-color: darkgray; color: white;}"  & ASCII.LF &
-                        ".kp-pad {align-content: stretch;}" &
-                        ".kp-btn {font-size: 20mm; border-radius: 4mm; background-color: black; padding: 2mm; color: white;}"  & ASCII.LF &
-                        "</style></head>" & ASCII.LF &
-                        "<body>" & ASCII.LF);
+      Append (Main_Page_HTML, Header_HTML);
 
       --  first the tab headers
-      Append (Main_Page_HTML, "<div class=""kp-bar kp-black"">");
+      Append (Main_Page_HTML, "<body><div class=""kp-bar kp-black"">");
       for T in 1 .. Conf.Tabs_Count loop
-         Append (Main_Page_HTML, "<button class=""kp-bar-item kp-button"" onclick=""openTab('" &
+         Append (Main_Page_HTML, "<button class=""kp-bar-item"" onclick=""openTab('" &
                                  Conf.Tabs (T).Label & "')"">" &
                                  Conf.Tabs (T).Label & "</button>" & ASCII.LF);
       end loop;
@@ -54,14 +64,14 @@ package body Frontend is
       --  now each tab
       for T in 1 .. Conf.Tabs_Count loop
          Append (Main_Page_HTML, "<div id=""" & Conf.Tabs (T).Label & """ class=""kp-pad""");
-         if T > 1 then --  hide secondary Tabs
+         if T /= Active_Tab then --  hide inactive Tabs
             Append (Main_Page_HTML, " style=""display:none""");
          end if;
          Append (Main_Page_HTML, ">" & ASCII.LF);
 
          --  the main content of each tab - i.e. the keys
-         Append (Main_Page_HTML, "<div style=""margin: 0 auto; display: grid; gap: 1rem; align-content: stretch; height: 95vh;");
-         Append (Main_Page_HTML, "grid-template-columns: repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
+         Append (Main_Page_HTML, "<div style=""margin: 0 auto; display: grid; gap: 1rem; align-content: stretch; height: 90vh;" &
+                                 "grid-template-columns: repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
          for K in 1 .. Conf.Tabs (T).Keys_Count loop
             Append (Main_Page_HTML, "<input type=""submit"" class=""kp-btn""");
             if Conf.Tabs (T).Keys (K).Colspan > 1 then
@@ -76,20 +86,17 @@ package body Frontend is
          Append (Main_Page_HTML, "</div></div>");
       end loop;
 
-      --  javascript to change displayed tab
-      Append (Main_Page_HTML, "<script> function openTab(tabName) {");
-      Append (Main_Page_HTML, "var i; var x = document.getElementsByClassName('kp-pad');");
-      Append (Main_Page_HTML, "for (i=0; i<x.length; i++) { x[i].style.display = 'none';}");
-      Append (Main_Page_HTML, "document.getElementById(tabName).style.display = 'block'; } </script>");
+      --  javascript to change displayed tab etc.
+      Append (Main_Page_HTML, Trailer_HTML);
 
-      Append (Main_Page_HTML, "</form></body></html>");
+      return To_String (Main_Page_HTML);
    end Build_Main_Page;
 
    procedure Decode_And_Send_Key (Key_ID : String; Tab : out Positive) is
       Tab_Ix : constant Positive := Positive'Value (Key_ID (Index (Key_ID, "t") + 1 .. Index (Key_ID, "i") - 1));
       Key_Ix : constant Positive := Positive'Value (Key_ID (Index (Key_ID, "i") + 1 .. Key_ID'Last));
    begin
-      Put_Line ("Decoded Tab:" & Tab_Ix'Image & " and Index:" & Key_Ix'Image);
+      --  Put_Line ("Decoded Tab:" & Tab_Ix'Image & " and Index:" & Key_Ix'Image);
       Tab := Tab_Ix;
       Injector.Injector_Task.Send (Conf.Tabs (Tab_Ix).Keys (Key_Ix).Send_Events);
    exception

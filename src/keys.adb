@@ -1,6 +1,9 @@
 --  SPDX-License-Identifier: GPL-3.0-or-later
 --  SPDX-FileCopyrightText:  Copyright 2023 Stephen Merrony
 
+with Ada.Strings.Fixed;
+with Ada.Text_IO;
+
 package body Keys is
 
    procedure Setup_Key_Map is
@@ -133,5 +136,16 @@ package body Keys is
       Keys_M.Include ("RIGHTMETA", 126);
       Keys_M.Include ("COMPOSE", 127);
    end Setup_Key_Map;
+
+   procedure List_All_Keys is
+      use Ada.Strings.Fixed;
+   begin
+      Ada.Text_IO.Put_Line ("Mnemonic       Value");
+      Ada.Text_IO.Put_Line ("--------------------");
+      for K in Keys_M.Iterate loop
+         Ada.Text_IO.Put_Line (Head (Key (K), 17, ' ') & Tail (Element (K)'Image, 3, ' '));
+      end loop;
+      Ada.Text_IO.Put_Line ("--------------------");
+   end List_All_Keys;
 
 end Keys;
