@@ -2,7 +2,6 @@
 --  SPDX-FileCopyrightText:  Copyright 2023 Stephen Merrony
 
 with Ada.Exceptions;        use Ada.Exceptions;
-with Ada.Strings.Fixed;     use Ada.Strings.Fixed;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Ada.Text_IO;           use Ada.Text_IO;
 
@@ -22,9 +21,9 @@ package body Frontend is
          return AWS.Response.Build ("text/html", Build_Main_Page (1));
       elsif URI = "/buttonpress" then
          Parms := AWS.Status.Parameters (Request);
-         --  Put_Line ("Got request: <" & To_String (AWS.Parameters.Get (Parms, 1).Name) & ">");
-         Decode_And_Send_Key (To_String (AWS.Parameters.Get (Parms, 1).Name), Current_Tab_Ix);
-         return AWS.Response.Build ("text/html", Build_Main_Page (Current_Tab_Ix));
+         Decode_And_Send_Key (To_String (AWS.Parameters.Get (Parms, 1).Value),
+                              To_String (AWS.Parameters.Get (Parms, 2).Value), Current_Tab_Ix);
+         return AWS.Response.Build ("text/html", "OK");
       elsif URI = "/shutdown" then
          Shutting_Down := True;
          return AWS.Response.Build ("text/html", "<p>Shutting down...");
@@ -35,7 +34,7 @@ package body Frontend is
 
    function Build_Main_Page (Active_Tab : Positive) return String is
       Header_HTML : constant String :=
-         "<html><head><style>" & ASCII.LF &
+         "<!DOCTYPE html><html><head><style>" & ASCII.LF &
          "body {background-color: darkgray; color: white;}"  & ASCII.LF &
          ".kp-bar-item {font-size: 10mm} " &
          ".kp-pad {align-content: stretch;} " &
@@ -45,7 +44,15 @@ package body Frontend is
          "<script> function openTab(tabName) { " &
          "var i; var x = document.getElementsByClassName('kp-pad');" &
          "for (i=0; i<x.length; i++) { x[i].style.display = 'none';}" &
-         "document.getElementById(tabName).style.display = 'block'; } </script>" &
+         "document.getElementById(tabName).style.display = 'block'; } " &
+         "function ajaxget(tab, id) { " &
+         "var form = new FormData(document.getElementById(""kpForm"")); " &
+         "form.append(""tab"", tab);  form.append(""id"", id); " &
+         "var data = new URLSearchParams(form).toString(); " &
+         "var xhr = new XMLHttpRequest(); " &
+         "xhr.open(""GET"", ""buttonpress?"" + data); " &
+         "xhr.send(); return false; }" &
+         "</script>" &
          "</form></body></html>";
       Main_Page_HTML : Unbounded_String := Null_Unbounded_String;
    begin
@@ -60,7 +67,8 @@ package body Frontend is
       end loop;
       Append (Main_Page_HTML, "</div>" & ASCII.LF);
 
-      Append (Main_Page_HTML, "<form action=""/buttonpress"">" & ASCII.LF);
+      --  Append (Main_Page_HTML, "<form id=""kpForm"" action=""/buttonpress"">" & ASCII.LF);
+      Append (Main_Page_HTML, "<form id=""kpForm"" onsubmit=""return ajaxget()"">" & ASCII.LF);
       --  now each tab
       for T in 1 .. Conf.Tabs_Count loop
          Append (Main_Page_HTML, "<div id=""" & Conf.Tabs (T).Label & """ class=""kp-pad""");
@@ -73,7 +81,7 @@ package body Frontend is
          Append (Main_Page_HTML, "<div style=""margin: 0 auto; display: grid; gap: 1rem; align-content: stretch; height: 90vh;" &
                                  "grid-template-columns: repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
          for K in 1 .. Conf.Tabs (T).Keys_Count loop
-            Append (Main_Page_HTML, "<input type=""submit"" class=""kp-btn""");
+            Append (Main_Page_HTML, "<input type=""button"" onClick=""return ajaxget(" & T'Image & "," & K'Image & ")"" class=""kp-btn""");
             if Conf.Tabs (T).Keys (K).Colspan > 1 then
                Append (Main_Page_HTML, " style=""grid-column: span" & Conf.Tabs (T).Keys (K).Colspan'Image & ";"" ");
             end if;
@@ -81,7 +89,7 @@ package body Frontend is
                Append (Main_Page_HTML, " style=""grid-row: span" & Conf.Tabs (T).Keys (K).Rowspan'Image & ";"" ");
             end if;
             Append (Main_Page_HTML, " name=""key_t" & T'Image (2 .. T'Image'Last) &
-                                    "i" & K'Image (2 .. K'Image'Last) & """ value=""" & Conf.Tabs (T).Keys (K).Label & """>");
+                                    "i" & K'Image (2 .. K'Image'Last) & """ value=""" & Conf.Tabs (T).Keys (K).Label & """/>");
          end loop;
          Append (Main_Page_HTML, "</div></div>");
       end loop;
@@ -92,9 +100,9 @@ package body Frontend is
       return To_String (Main_Page_HTML);
    end Build_Main_Page;
 
-   procedure Decode_And_Send_Key (Key_ID : String; Tab : out Positive) is
-      Tab_Ix : constant Positive := Positive'Value (Key_ID (Index (Key_ID, "t") + 1 .. Index (Key_ID, "i") - 1));
-      Key_Ix : constant Positive := Positive'Value (Key_ID (Index (Key_ID, "i") + 1 .. Key_ID'Last));
+   procedure Decode_And_Send_Key (T, I : String; Tab : out Positive) is
+      Tab_Ix : constant Positive := Positive'Value (T); -- (Key_ID (Index (Key_ID, "t") + 1 .. Index (Key_ID, "i") - 1));
+      Key_Ix : constant Positive := Positive'Value (I); -- (Key_ID (Index (Key_ID, "i") + 1 .. Key_ID'Last));
    begin
       --  Put_Line ("Decoded Tab:" & Tab_Ix'Image & " and Index:" & Key_Ix'Image);
       Tab := Tab_Ix;

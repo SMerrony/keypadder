@@ -17,7 +17,7 @@ package Frontend is
 
 private
 
-   procedure Decode_And_Send_Key (Key_ID : String; Tab : out Positive);
+   procedure Decode_And_Send_Key (T, I : String; Tab : out Positive);
    --  Find the key from the ID string and send the
    --  associated data via the Injector.
    --  The ID arrives in the form "key_t1i8" which indcates

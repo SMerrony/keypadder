@@ -40,14 +40,15 @@ keys = [
   { label = "&#x266D;", send = "MINUS" },  # Flat
   { label = "BLANK" },
 #
-  { label = "&#119135;", send = "5" },     # Crotchet
+#  { label = "&#119135;", send = "5" },     # Crotchet
+  { label = "&#x2669;", send = "5" },     # Crotchet
   { label = "&#x1D15E;", send = "6" },     # Minim
   { label = "&#x1D15D;", send = "7" },     # Semibreve
   { label = "BLANK" },
 #
   { label = "&#x1d162;", send = "2" },     # Demisemiquaver
-  { label = "&#x1D161;", send = "3" },     # Semiquaver
-  { label = "&#x1D160;", send = "4" },     # Quaver
+  { label = "&#x266C;", send = "3" },     # Semiquaver
+  { label = "&#x266A;", send = "4" },      # Quaver
   { label = "Tie", rowspan = 2, send = "T" },
 #
   { label = "Rest", colspan = 2, send = "0" },
