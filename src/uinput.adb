@@ -8,7 +8,7 @@ package body Uinput is
       Tmp : Unsigned_32 := Code;
    begin
       Tmp := Tmp + Shift_Left (Unsigned_32 (UINPUT_IOCTL_BASE), 8);
-      Tmp := Tmp + Shift_Left (Unsigned_32 (Len), 16);  --  arg length of 4 (?)
+      Tmp := Tmp + Shift_Left (Unsigned_32 (Len), 16);  --  arg length
       Tmp := Tmp + Shift_Left (Unsigned_32 (1), 30);  --  direction (write, out)
       return K_Ioctl_ID_T (Tmp);
    end IOW;
@@ -18,7 +18,7 @@ package body Uinput is
       Tmp : Unsigned_32 := Code;
    begin
       Tmp := Tmp + Shift_Left (Unsigned_32 (UINPUT_IOCTL_BASE), 8);
-      Tmp := Tmp + Shift_Left (Unsigned_32 (Len), 16);  --  arg length of 4 (?)
+      Tmp := Tmp + Shift_Left (Unsigned_32 (Len), 16);  --  arg length
       return K_Ioctl_ID_T (Tmp);
    end IO;
 

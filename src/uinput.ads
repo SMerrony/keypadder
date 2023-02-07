@@ -1,12 +1,9 @@
 --  SPDX-License-Identifier: GPL-3.0-or-later
 --  SPDX-FileCopyrightText:  Copyright 2023 Stephen Merrony
 
---  Uinput provides the 64-bit Linux low-level I/O functions we need.
+--  Uinput provides to just the needed 64-bit Linux low-level I/O functions and constants.
 
-with Ada.Unchecked_Conversion;
 with Interfaces; use Interfaces;
-with System;
-with System.Address_To_Access_Conversions;
 
 package Uinput is
 
@@ -24,7 +21,7 @@ package Uinput is
    type K_Ioctl_ID_T is new Unsigned_32;
    type K_Dummy_T    is new Integer_32;
 
-   UINPUT_IOCTL_BASE : constant Integer_32 := 85; --  ASCII 'U'
+   UINPUT_IOCTL_BASE : constant Integer_32 := 85; --  ASCII 'U' for USB
 
    Uinput_Max_Name_Size : constant Integer := 80;
    BUS_USB : constant K_U16_T := 3;
@@ -71,8 +68,6 @@ package Uinput is
 
    K_Input_Event_Size : constant K_Size_T := K_Input_Event_T'Size / 8;
 
-   package IE_Pointers is new System.Address_To_Access_Conversions (K_Input_Event_T);
-
    --  The short-form 2 arg (i.e. 1 parameter) ioctl call
    function K_IOCTL_2_Arg (FID      : K_File_ID_T;
                            IOCTL_ID : K_Ioctl_ID_T;
@@ -96,6 +91,7 @@ package Uinput is
                                  ) return K_Int_T;
    pragma Import (C, K_IOCTL_Uinput_Setup, "ioctl");
 
+   --  Display the last error message from the C library
    procedure C_Perror (Msg : String);
    pragma Import (C, C_Perror, "perror");
 
@@ -119,10 +115,6 @@ package Uinput is
 
    --  The special Event Code we need...
    SYN_REPORT : constant K_U16_T := 0;
-
-   pragma Warnings (Off, "types for unchecked conversion have different sizes");
-   function Char_To_K_U16 is new Ada.Unchecked_Conversion (Character, K_U16_T);
-   pragma Warnings (On, "types for unchecked conversion have different sizes");
 
    Cannot_Open,
    Cannot_Write,

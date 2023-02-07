@@ -139,13 +139,14 @@ package body Keys is
 
    procedure List_All_Keys is
       use Ada.Strings.Fixed;
+      use Ada.Text_IO;
    begin
-      Ada.Text_IO.Put_Line ("Mnemonic       Value");
-      Ada.Text_IO.Put_Line ("--------------------");
+      Put_Line ("Mnemonic       Value");
+      Put_Line ("--------------------");
       for K in Keys_M.Iterate loop
-         Ada.Text_IO.Put_Line (Head (Key (K), 17, ' ') & Tail (Element (K)'Image, 3, ' '));
+         Put_Line (Head (Key (K), 17, ' ') & Tail (Element (K)'Image, 3, ' '));
       end loop;
-      Ada.Text_IO.Put_Line ("--------------------");
+      Put_Line ("--------------------");
    end List_All_Keys;
 
 end Keys;
