@@ -68,13 +68,14 @@ package body Injector is
             accept Send (Send_Events : Config.Event_Vectors.Vector) do
                --  Ada.Text_IO.Put_Line ("Injector got Send request for: " & Keys);
                for E of Send_Events loop
-                  --  Key press, report the event, send key release, and report again
+                  --  Key press, report the event or send key release and report
                   if E.Up_Down = Config.Down then
                      Emit (Uinput_FID, EV_KEY, K_U16_T (E.Value), 1);
                   else
                      Emit (Uinput_FID, EV_KEY, K_U16_T (E.Value), 0);
                   end if;
                   Emit (Uinput_FID, EV_SYN, SYN_REPORT, 0);
+                  delay 0.01;
                end loop;
             end Send;
          or

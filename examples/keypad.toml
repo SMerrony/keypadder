@@ -92,3 +92,33 @@ keys = [
    {label="1",send="1"},{label="2",send="2"},{label="3",send="3"},{label="&crarr;",rowspan=2,send="KPENTER"},
    {label="0",colspan=2,send="0"},{label="#",send="BACKSLASH"}
 ]
+
+[[tab]]
+label ="Emojis"
+cols = 4
+keys = [
+   {label="&#x1f600;", send="@,1,F,6,0,0,SPACE"}, # grinning face
+   {label="&#x1f602;", send="@,1,F,6,0,2,SPACE"}, # face with tears of joy
+   {label="&#x1f61f;", send="@,1,F,6,1,F,SPACE"}, # worried face
+   {label="&#x1f609;", send="@,1,F,6,0,9,SPACE"}, # winking face
+#
+   {label="&#x1f92d;", send="@,1,F,9,2,D,SPACE"}, # face with hand over mouth
+   {label="&#x1f92b;", send="@,1,F,9,2,B,SPACE"}, # shushing face
+   {label="&#x1f914;", send="@,1,F,9,1,4,SPACE"}, # thinking face
+   {label="&#x1f928;", send="@,1,F,9,2,8,SPACE"}, # zipper-mouth face
+ #
+   {label="&#x1f37e;", send="@,1,F,3,7,E,SPACE"}, # popping cork
+   {label="&#x1f377;", send="@,1,F,3,7,7,SPACE"}, # glass of wine
+   {label="&#x1f378;", send="@,1,F,3,7,8,SPACE"}, # cocktail
+   {label="&#x1f37a;", send="@,1,F,3,7,A,SPACE"}, # beer   
+#
+   {label="&#x1f3b7;", send="@,1,F,3,B,7,SPACE"}, # sax
+   {label="&#x1f3b9;", send="@,1,F,3,B,9,SPACE"}, # keyboard
+   {label="&#x1f3bb;", send="@,1,F,3,B,B,SPACE"}, # violin
+   {label="&#x1f941;", send="@,1,F,9,4,1,SPACE"}, # side-drum
+#
+   {label="&#x1f436;", send="@,1,F,4,3,6,SPACE"}, # dog face
+   {label="&#x1f431;", send="@,1,F,4,3,1,SPACE"}, # cat face
+   {label="&#x1f44d;", send="@,1,F,4,4,D,SPACE"}, # thumbs-up
+   {label="&#x1f44e;", send="@,1,F,4,4,E,SPACE"}, # thumbs-down     
+]

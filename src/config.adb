@@ -24,6 +24,7 @@ package body Config is
             Word : constant String := Slice (Words, Word_Num);
          begin
             if Word (Word'First) = '^' then
+               --  Shifted word...
                Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
                if Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
                   Decoded.Append ((Down, Keys_M (Word (Word'First + 1 .. Word'Last))));
@@ -32,9 +33,17 @@ package body Config is
                else
                   raise Unknown_Key with Word;
                end if;
+            elsif Word (Word'First) = '@' then
+               --  Unicode prefix...
+               Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
+               Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
+               Decoded.Append ((Down, Keys_M ("U")));
+               Decoded.Append ((Up, Keys_M ("U")));
+               Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
+               Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
             else
                if Keys_M.Contains (Word) then
-                  --  Put_Line ("Adding decoded conf: " & Word);
+                  --  Normal word...
                   Decoded.Append ((Down, Keys_M (Word)));
                   Decoded.Append ((Up,   Keys_M (Word)));
                else
