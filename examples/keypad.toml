@@ -5,8 +5,8 @@ port = 8082	# HTTP port to use
 label = "French"
 cols = 3	# No. of columns on this tab
 keys = [
-  { label = "&agrave;", send = "RIGHTALT,GRAVE,A" },
-  { label = "&acirc;",  send = "RIGHTALT,^6,A" },
+  { label = "&agrave;", send = "RIGHTALT,GRAVE,A" }, # Raw USB keypresses
+  { label = "&acirc;",  send = "@,0,0,E,2,SPACE" },  # Unicode method
   { label = "&ccedil;", send = "RIGHTALT,COMMA,C" },
 # new row will start here
   { label = "&egrave;", send = "RIGHTALT,GRAVE,E" },

@@ -34,11 +34,11 @@ package body Frontend is
 
    function Build_Main_Page (Active_Tab : Positive) return String is
       Header_HTML : constant String :=
-         "<!DOCTYPE html><html><head><style>" & ASCII.LF &
-         "body {background-color: darkgray; color: white;}"  & ASCII.LF &
+         "<!DOCTYPE html><html><head><style>" &
+         "body {background-color: darkgray; color: white;}" &
          ".kp-bar-item {font-size: 10mm} " &
          ".kp-pad {align-content: stretch;} " &
-         ".kp-btn {font-size: 20mm; border-radius: 4mm; background-color: black; padding: 2mm; color: white;}"  & ASCII.LF &
+         ".kp-btn {font-size: 20mm; border-radius: 4mm; background-color: black; padding: 2mm; color: white;}" &
          "</style></head>" & ASCII.LF;
       Trailer_HTML : constant String :=
          "<script> function openTab(tabName) { " &
@@ -59,7 +59,7 @@ package body Frontend is
       Append (Main_Page_HTML, Header_HTML);
 
       --  first the tab headers
-      Append (Main_Page_HTML, "<body><div class=""kp-bar kp-black"">");
+      Append (Main_Page_HTML, "<body><div class=""kp-bar"">");
       for T in 1 .. Conf.Tabs_Count loop
          Append (Main_Page_HTML, "<button class=""kp-bar-item"" onclick=""openTab('" &
                                  Conf.Tabs (T).Label & "')"">" &
@@ -67,7 +67,6 @@ package body Frontend is
       end loop;
       Append (Main_Page_HTML, "</div>" & ASCII.LF);
 
-      --  Append (Main_Page_HTML, "<form id=""kpForm"" action=""/buttonpress"">" & ASCII.LF);
       Append (Main_Page_HTML, "<form id=""kpForm"" onsubmit=""return ajaxget()"">" & ASCII.LF);
       --  now each tab
       for T in 1 .. Conf.Tabs_Count loop
@@ -88,8 +87,7 @@ package body Frontend is
             if Conf.Tabs (T).Keys (K).Rowspan > 1 then
                Append (Main_Page_HTML, " style=""grid-row: span" & Conf.Tabs (T).Keys (K).Rowspan'Image & ";"" ");
             end if;
-            Append (Main_Page_HTML, " name=""key_t" & T'Image (2 .. T'Image'Last) &
-                                    "i" & K'Image (2 .. K'Image'Last) & """ value=""" & Conf.Tabs (T).Keys (K).Label & """/>");
+            Append (Main_Page_HTML, " value=""" & Conf.Tabs (T).Keys (K).Label & """/>");
          end loop;
          Append (Main_Page_HTML, "</div></div>");
       end loop;

@@ -75,7 +75,7 @@ package body Injector is
                      Emit (Uinput_FID, EV_KEY, K_U16_T (E.Value), 0);
                   end if;
                   Emit (Uinput_FID, EV_SYN, SYN_REPORT, 0);
-                  delay 0.01;
+                  delay 0.005; --  seems to be more robust with this small delay
                end loop;
             end Send;
          or
