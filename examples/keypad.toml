@@ -30,25 +30,24 @@ keys = [
 label = "MuseScore"
 cols = 4
 keys = [
-  { label = "Esc",  send = "ESC" },
-  { label = ">",    send = "V" },
-  { label = "Slur", send = "S" },
-  { label = "_",    send = "N" },
+  { label = "Esc", send = "ESC" },
+  { label = ">",   send = "V" },
+  { label = ".",   send = "^S" },
+  { label = "_",   send = "N" },
 #
-  { label = "&#x266E;", send = "EQUAL" },  # Natural
-  { label = "&#x266F;", send = "^EQUAL" }, # Sharp
-  { label = "&#x266D;", send = "MINUS" },  # Flat
+  { label = "&#x266e;", send = "EQUAL" },  # Natural
+  { label = "&#x266f;", send = "^EQUAL" }, # Sharp
+  { label = "&#x266d;", send = "MINUS" },  # Flat
   { label = "BLANK" },
 #
-#  { label = "&#119135;", send = "5" },     # Crotchet
-  { label = "&#x2669;", send = "5" },     # Crotchet
-  { label = "&#x1D15E;", send = "6" },     # Minim
-  { label = "&#x1D15D;", send = "7" },     # Semibreve
+  { label = "&#x2669;",  send = "5" },     # Crotchet
+  { label = "&#x1d15e;", send = "6" },     # Minim
+  { label = "&#x1d15d;", send = "7" },     # Semibreve
   { label = "BLANK" },
 #
   { label = "&#x1d162;", send = "2" },     # Demisemiquaver
-  { label = "&#x266C;", send = "3" },     # Semiquaver
-  { label = "&#x266A;", send = "4" },      # Quaver
+  { label = "&#x266c;",  send = "3" },     # Semiquaver
+  { label = "&#x266a;",  send = "4" },     # Quaver
   { label = "Tie", rowspan = 2, send = "T" },
 #
   { label = "Rest", colspan = 2, send = "0" },

@@ -39,7 +39,7 @@ package body Frontend is
          ".kp-bar-item {font-size: 10mm} " &
          ".kp-pad {align-content: stretch;} " &
          ".kp-btn {font-size: 20mm; border-radius: 4mm; background-color: black; padding: 2mm; color: white;}" &
-         "</style></head>" & ASCII.LF;
+         "</style><title>Keypadder</title></head>" & ASCII.LF;
       Trailer_HTML : constant String :=
          "<script> function openTab(tabName) { " &
          "var i; var x = document.getElementsByClassName('kp-pad');" &
@@ -87,7 +87,7 @@ package body Frontend is
             if Conf.Tabs (T).Keys (K).Rowspan > 1 then
                Append (Main_Page_HTML, " style=""grid-row: span" & Conf.Tabs (T).Keys (K).Rowspan'Image & ";"" ");
             end if;
-            Append (Main_Page_HTML, " value=""" & Conf.Tabs (T).Keys (K).Label & """/>");
+            Append (Main_Page_HTML, " value=""" & Conf.Tabs (T).Keys (K).Label & """>" & ASCII.LF);
          end loop;
          Append (Main_Page_HTML, "</div></div>");
       end loop;
