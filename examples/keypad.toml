@@ -38,12 +38,12 @@ keys = [
   { label = "&#x266e;", send = "EQUAL" },  # Natural
   { label = "&#x266f;", send = "^EQUAL" }, # Sharp
   { label = "&#x266d;", send = "MINUS" },  # Flat
-  { label = "BLANK" },
+  { label = "Save",     send = "!S" },     # Save
 #
   { label = "&#x2669;",  send = "5" },     # Crotchet
   { label = "&#x1d15e;", send = "6" },     # Minim
   { label = "&#x1d15d;", send = "7" },     # Semibreve
-  { label = "BLANK" },
+  { label = "Redo",      send = "!^Z" },   # Redo
 #
   { label = "&#x1d162;", send = "2" },     # Demisemiquaver
   { label = "&#x266c;",  send = "3" },     # Semiquaver

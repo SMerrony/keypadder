@@ -23,13 +23,34 @@ package body Config is
          declare
             Word : constant String := Slice (Words, Word_Num);
          begin
-            if Word (Word'First) = '^' then
+            if Word'Length > 2 and then Word (Word'First) = '!' and then Word (Word'First + 1) = '^' then
+               Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
+               Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
+               if Keys_M.Contains (Word (Word'First + 2 .. Word'Last)) then
+                  Decoded.Append ((Down, Keys_M (Word (Word'First + 2 .. Word'Last))));
+                  Decoded.Append ((Up,   Keys_M (Word (Word'First + 2 .. Word'Last))));
+                  Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
+                  Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
+               else
+                  raise Unknown_Key with Word;
+               end if;
+            elsif Word (Word'First) = '^' then
                --  Shifted word...
                Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
                if Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
                   Decoded.Append ((Down, Keys_M (Word (Word'First + 1 .. Word'Last))));
                   Decoded.Append ((Up,   Keys_M (Word (Word'First + 1 .. Word'Last))));
                   Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
+               else
+                  raise Unknown_Key with Word;
+               end if;
+            elsif Word (Word'First) = '!' then
+               --  Controlled word...
+               Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
+               if Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
+                  Decoded.Append ((Down, Keys_M (Word (Word'First + 1 .. Word'Last))));
+                  Decoded.Append ((Up,   Keys_M (Word (Word'First + 1 .. Word'Last))));
+                  Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
                else
                   raise Unknown_Key with Word;
                end if;

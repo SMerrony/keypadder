@@ -16,7 +16,8 @@ It makes use of all of the features currently implemented by the application.
     - [The `send` Item](#the-send-item)
       - [Simple Examples](#simple-examples)
       - [^ Examples](#-examples)
-      - [@ Examples](#-examples-1)
+      - [! Examples](#-examples-1)
+      - [@ Examples](#-examples-2)
 
 
 ## Overall Structure
@@ -114,12 +115,20 @@ You must use upper case for these strings.
 
 *Your system will need to have the right-ALT key configured as the 'compose' key for this to work.
 u888
-There are two additional strings (`^` and `@`) which have special meanings defined below.
+There are some additional strings - currently `^`, `!`, `BLANK`, and `@` - which have special meanings defined below.
 
 The `^` symbol directs Keypadder to send the next keystroke shifted.
 #### ^ Examples
 * `send = "^W"` will send a Shift-W keystroke
 * `send = "^F,R,E,D"` with send Shift-F, then unshifted r, e and d keys
+
+The `!` symbol directs Keypadder to send the next keystroke with the "control" modifier.
+You may combine it with the `^` shift modifier - always in the order `!^`.
+#### ! Examples
+* `send = "!S"` will send the Ctrl-S keystroke
+* `send = "!^S"` will send the Ctrl-Shift-S keystroke
+
+The `BLANK` string simply causes Keypadder to leave the key unlabelled.
 
 The `@` symbol is shorthand for the Unicode prefix.  It is analagous to the Ctrl-Shift-U keyboard combination used to type Unicode characters in Linux.
 
