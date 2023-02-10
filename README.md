@@ -3,6 +3,7 @@ Keypadder is a programmable virtual keypad you can access via a mobile phone or 
 
 ![Screenshot1](./Screenshots/v0_1_0_French.png)
 ![Screenshot2](./Screenshots/v0_1_0_Musescore.png)
+![Screenshot3](./Screenshots/v0_1_0_Emojis.png)
 
 ## Key Features
 
