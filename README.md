@@ -6,8 +6,10 @@ Keypadder is a programmable virtual keypad for your Linux desktop that you can a
 ![Screenshot3](./Screenshots/v0_1_0_Emojis.png)
 
 Keypadder runs on your desktop machine and provides a mobile/tablet-friendly web page that you use
-from an old tablet or phone to send awkward or difficult-to-remember key combinations to the currently-focused
-application.
+from a tablet or phone to send frequently-used, awkward, or difficult-to-remember key combinations
+to the currently-focused desktop application.
+
+Amongst other things, the author uses it with Thunderbird and LibreOffice Writer for typing accented characters, with MuseScore to provide a keypad similar to commercial score writing application, and with Firefox for accented characters and Emojis in social media.
 
 ## Key Features
 
