@@ -18,18 +18,20 @@ application.
 * No app required on phone/tablet - it uses the browser
 * Keys can send multiple keystrokes, can use for macros
 
-(Keypadder currently only runs on 64-bit Linux systems)
+(Keypadder currently runs only on 64-bit Linux systems)
 
 ## Build and Install
-Keypadder is built using the [Alire](https://alire.ada.dev/) build system.
 
 A binary (.deb) version for 64-bit Debian-based systems *may* be available as part of a release.
 
-### Source
+### Build from Source
 Keypadder is [hosted on GitHub](https://github.com/SMerrony/keypadder).
-It is written in GNU Ada (GNAT). 
+It is written entirely in GNU Ada (GNAT) and built using the [Alire](https://alire.ada.dev/) build system.
 
-** TODO  - Add more detail here once Alire crate is available **
+Until the Alire crate is available, you should download (or clone) the source from Github
+and run `alr build` in the top-level directory.
+
+***TODO  - Add more detail here once Alire crate is available***
 
 ## Running Keypadder
 `keypadder -h` will give a list of all options. 
@@ -47,3 +49,5 @@ Usage of keypadder:
 
 Eg: `sudo ./bin/keypadder examples/keypad.toml`
 
+### Creating Your Own Keypads
+See our [Configuration Guide](docs/ConfigurationGuide.md).
