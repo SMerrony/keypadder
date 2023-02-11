@@ -119,5 +119,20 @@ keys = [
    {label="&#x1f436;", send="@,1,F,4,3,6,SPACE"}, # dog face
    {label="&#x1f431;", send="@,1,F,4,3,1,SPACE"}, # cat face
    {label="&#x1f44d;", send="@,1,F,4,4,D,SPACE"}, # thumbs-up
-   {label="&#x1f44e;", send="@,1,F,4,4,E,SPACE"}, # thumbs-down     
+   {label="&#x1f44e;", send="@,1,F,4,4,E,SPACE"}, # thumbs-down
+]
+
+
+[[tab]]
+label = "Multimedia"
+cols = 3
+keys = [
+  { label = "&#x23EF;",  send = "PLAYPAUSE" },
+  { label = "&#x1F519;", send = "BACK" },
+  { label = "&#x27A1;",   send = "FORWARD" },
+  { label = "&#x1F50A;", send = "VOLUMEUP" },
+  { label = "&#x1F508;", send = "VOLUMEDOWN" },
+  { label = "&#x1F507;", send = "MUTE" },
+  { label = "&#x1F505;", send = "BRIGHTNESSDOWN" },
+  { label = "&#x1F506;", send = "BRIGHTNESSUP" },
 ]

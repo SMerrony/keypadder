@@ -1,6 +1,7 @@
 name = "keypadder"
-description = "Shiny new project"
+description = "Programmable virtual keypad for your Linux desktop"
 version = "0.1.0-dev"
+tags = ["linux", "keyboard", "mobile", "programmable", "tablet", "macro", "keypad", "macropad"]
 
 authors = ["Stephen Merrony"]
 maintainers = ["Stephen Merrony <merrony@gmail.com>"]
