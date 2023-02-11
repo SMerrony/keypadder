@@ -1,5 +1,5 @@
 # Keypadder
-Keypadder is a programmable virtual keypad you can access via a mobile phone or tablet.
+Keypadder is a programmable virtual keypad for your Linux desktop that you can access via a mobile phone or tablet.
 
 ![Screenshot1](./Screenshots/v0_1_0_French.png)
 ![Screenshot2](./Screenshots/v0_1_0_Musescore.png)
@@ -32,14 +32,14 @@ It is written in GNU Ada (GNAT).
 ```
 $ ./bin/keypadder -h
 Usage of keypadder:
-  --config=<config-file>  Configuration file for keypadder (required)
-  --dumpkeys              List all defined key mnemonics
-  -h | --help             This help
-  -V | --version          Show the version of keypadder and exit
-  -v | --verbose          Show lots of detail when running
+  <config-file>       Configuration file for keypadder (required to run)
+  --dumpkeys          List all defined key mnemonics
+  -h | --help         This help
+  -V | --version      Show the version of keypadder and exit
+  -v | --verbose      Show lots of detail when running
   ```
 
 **Keypadder must be run with root privileges in order to inject keystrokes into your system.**
 
-Eg: `sudo ./bin/keypadder --config=examples/keypad.toml`
+Eg: `sudo ./bin/keypadder examples/keypad.toml`
 

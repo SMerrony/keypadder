@@ -38,17 +38,19 @@ begin
          Verbose := True;
       elsif Argument (Arg_Ix) = "-h" or else Argument (Arg_Ix) = "--help" then
          Put_Line ("Usage of keypadder:");
-         Put_Line ("  --config=<config-file>  Configuration file for keypadder (required)");
-         Put_Line ("  --dumpkeys              List all defined key mnemonics");
-         Put_Line ("  -h | --help             This help");
-         Put_Line ("  -V | --version          Show the version of keypadder and exit");
-         Put_Line ("  -v | --verbose          Show lots of detail when running");
+         Put_Line ("  <config-file>       Configuration file for keypadder (required to run)");
+         Put_Line ("  --dumpkeys          List all defined key mnemonics");
+         Put_Line ("  -h | --help         This help");
+         Put_Line ("  -V | --version      Show the version of keypadder and exit");
+         Put_Line ("  -v | --verbose      Show lots of detail when running");
          goto FINISHED;
       elsif Argument (Arg_Ix)'Length > 9 and then Argument (Arg_Ix)(1 .. 9) = "--config=" then
          Config_Arg := To_Unbounded_String (Argument (Arg_Ix)(10 .. Argument (Arg_Ix)'Length));
       elsif Argument (Arg_Ix) = "--dumpkeys" then
          Keys.List_All_Keys;
          goto FINISHED;
+      elsif Argument (Arg_Ix)(1) /= '-' then
+         Config_Arg := To_Unbounded_String (Argument (Arg_Ix));
       end if;
       Arg_Ix := Arg_Ix + 1;
    end loop;
