@@ -5,14 +5,18 @@ Keypadder is a programmable virtual keypad for your Linux desktop that you can a
 ![Screenshot2](./Screenshots/v0_1_0_Musescore.png)
 ![Screenshot3](./Screenshots/v0_1_0_Emojis.png)
 
+Keypadder runs on your desktop machine and provides a mobile/tablet-friendly web page that you use
+from an old tablet or phone to send awkward or difficult-to-remember key combinations to the currently-focused
+application.
+
 ## Key Features
 
-* Simple TOML definition for pads
+* Simple TOML definition for pads - examples provided
 * Flexible layout possibilities to suit portrait or landscape modes
+* Runs enitrely locally, no internet required, no JavaScript libraries
 * Keytops can be strings &/or HTML entities eg. `&agrave;`
 * No app required on phone/tablet - it uses the browser
 * Keys can send multiple keystrokes, can use for macros
-* Keystrokes are sent to the currently focused application
 
 (Keypadder currently only runs on 64-bit Linux systems)
 
