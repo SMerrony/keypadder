@@ -16,9 +16,9 @@ with Frontend;
 with Injector;
 with Keys;
 
-procedure Keypadder is
+with Keypadder_Config;
 
-   App_SemVer : constant String := "0.1.0";  --  TODO Update App_SemVer for each release
+procedure Keypadder is
 
    Arg_Ix     : Natural := 1;
    Config_Arg : Unbounded_String := Null_Unbounded_String;
@@ -32,7 +32,7 @@ begin
 
    while Arg_Ix <= Argument_Count loop
       if Argument (Arg_Ix) = "-V" or else Argument (Arg_Ix) = "--version" then
-         Ada.Text_IO.Put_Line ("keypadder version: " & App_SemVer);
+         Ada.Text_IO.Put_Line ("keypadder version: " & Keypadder_Config.Crate_Version);
          goto FINISHED;
       elsif Argument (Arg_Ix) = "-v" or else Argument (Arg_Ix) = "--verbose" then
          Verbose := True;
