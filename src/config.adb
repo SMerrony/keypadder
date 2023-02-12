@@ -82,7 +82,10 @@ package body Config is
    begin
       Toml_Parse_Result := File_IO.Load_File (Filename);
       if not Toml_Parse_Result.Success then
-         raise Could_Not_Parse with To_String (Toml_Parse_Result.Message);
+         raise Could_Not_Parse with Filename & ":"
+           & Toml_Parse_Result.Location.Line'Image & ":"
+           & Toml_Parse_Result.Location.Column'Image & ": "
+           & To_String (Toml_Parse_Result.Message);
       end if;
 
       declare
