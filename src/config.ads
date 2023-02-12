@@ -58,7 +58,8 @@ package Config is
 
    Conf : Conf_T;
 
-   function Load_Config_File (Filename : String; Verbose : Boolean := False) return Boolean;
+   function Load_Config_File (Filename : String; Verbose : Boolean := False) return Boolean
+      with Pre => (Filename'Length > 0);
 
    Could_Not_Parse,
    Duplicate_Configuration,

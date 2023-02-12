@@ -35,10 +35,11 @@ package body Frontend is
    function Build_Main_Page (Active_Tab : Positive) return String is
       Header_HTML : constant String :=
          "<!DOCTYPE html><html><head><style>" &
-         "body {background-color: darkgray; color: white;}" &
+         "html {height: 100%;} " &
+         "body {min-height: 100%; background-color: darkgray; color: white;}" &
          ".kp-bar-item {font-size: 10mm} " &
          ".kp-pad {align-content: stretch;} " &
-         ".kp-btn {font-size: 20mm; border-radius: 4mm; background-color: black; padding: 2mm; color: white;}" &
+         ".kp-btn {margin: 0; font-size: calc(4vw + 4vh + 2vmin); border-radius: 4mm; background-color: black; padding: 2mm; color: white;}" &
          "</style><meta charset=""UTF-8""><title>Keypadder</title></head>" & ASCII.LF;
       Trailer_HTML : constant String :=
          "<script> function openTab(tabName) { " &
@@ -77,7 +78,8 @@ package body Frontend is
          Append (Main_Page_HTML, ">" & ASCII.LF);
 
          --  the main content of each tab - i.e. the keys
-         Append (Main_Page_HTML, "<div style=""margin: 0 auto; display: grid; gap: 1rem; align-content: stretch; height: 90vh;" &
+         Append (Main_Page_HTML, "<div style=""margin: 0 auto; display: grid; gap: 1rem; align-content: stretch; " &
+                                 "position: fixed; top: 15mm; left: 0; right: 0; bottom: 0; " &
                                  "grid-template-columns: repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
          for K in 1 .. Conf.Tabs (T).Keys_Count loop
             Append (Main_Page_HTML, "<input type=""button"" onClick=""return ajaxget(" & T'Image & "," & K'Image & ")"" class=""kp-btn""");
