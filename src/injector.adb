@@ -4,6 +4,7 @@
 with Ada.Text_IO;
 
 with Uinput;      use Uinput;
+with Keys;
 
 package body Injector is
 
@@ -11,7 +12,6 @@ package body Injector is
       Uinput_FID  : K_File_ID_T;
       Usetup      : K_Uinput_Setup_T;
       Result      : K_Int_T;
-      Key_Val     : K_Int_T := 1; --  Key 0 is 'reserved' by the USB standard
       Request     : K_Ioctl_ID_T;
 
    begin
@@ -30,15 +30,13 @@ package body Injector is
             raise IOCTL_Error with "UI_SET_EVBIT failed";
          end if;
 
-         --  enable all possible (1 .. 127) key values
-         loop
+         --  enable all possible key values
+         for Key_Val of Keys.Keys_M loop
             Result := K_IOCTL_3_Arg (Uinput_FID, IOW (UI_SET_KEYBIT, 4), K_Long_T (Key_Val));
             if Result = -1 then
                Ada.Text_IO.Put_Line ("ERROR: Could not SET_KEYBIT");
                raise IOCTL_Error with "Could not SET_KEYBIT";
             end if;
-            Key_Val := Key_Val + 1;
-            exit when Key_Val = 128;
          end loop;
 
          --  configure our dummy USB device...
