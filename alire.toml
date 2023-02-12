@@ -1,6 +1,6 @@
 name = "keypadder"
 description = "Programmable virtual keypad for your Linux desktop"
-version = "0.1.0-dev"
+version = "0.2.0"
 tags = ["linux", "keyboard", "mobile", "programmable", "tablet", "macro", "keypad", "macropad"]
 
 authors = ["Stephen Merrony"]
@@ -8,6 +8,13 @@ maintainers = ["Stephen Merrony <merrony@gmail.com>"]
 maintainers-logins = ["SMerrony"]
 
 executables = ["keypadder"]
+
+[available.'case(os)']
+linux   = true
+macos   = false
+windows = false
+'...'   = false
+
 [[depends-on]]
 aws = "^23.0.0"
 [[depends-on]]

@@ -1,0 +1,10 @@
+keypadder (0.2.0) stable; urgency=low
+
+  [SMerrony]
+  * Usability:   Minor layout improvements
+
+  [mgrojo]
+  * Usability:   Add support for all the keys available
+
+ -- SMerrony <merrony@gmail.com>  Sun, 12 Feb 2023 10:00:00 +0200
+ 

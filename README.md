@@ -9,7 +9,7 @@ Keypadder runs on your desktop machine and provides a mobile/tablet-friendly web
 from a tablet or phone to send frequently-used, awkward, or difficult-to-remember key combinations
 to the currently-focused desktop application.
 
-Amongst other things, the author uses it with Thunderbird and LibreOffice Writer for typing accented characters, with MuseScore to provide a keypad similar to commercial score writing application, and with Firefox for accented characters and Emojis in social media.
+Amongst other things, the author uses it with Thunderbird and LibreOffice Writer for typing accented characters, with MuseScore to provide a keypad similar to a certain commercial score writing application, and with Firefox for accented characters and Emojis in social media.
 
 ## Key Features
 

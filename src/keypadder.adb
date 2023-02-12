@@ -18,7 +18,7 @@ with Keys;
 
 procedure Keypadder is
 
-   App_SemVer : constant String := "0.1.0";  --  TODO Update App_SemVer for each release
+   App_SemVer : constant String := "0.2.0";  --  TODO Update App_SemVer for each release
 
    Arg_Ix     : Natural := 1;
    Config_Arg : Unbounded_String := Null_Unbounded_String;
