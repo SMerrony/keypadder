@@ -1,4 +1,4 @@
-# Writing Configuration Files for Keypadder
+# Writing Configuration Files for Keypadder <!-- omit in toc -->
 Keypadder requires a [TOML](https://toml.io/) configuration ("conf") file to be specified when it is launched (via the `--config` option).
 
 The conf file tells Keypadder what port number it should run on, and describes the layout and function of each keypad tab.
@@ -6,18 +6,17 @@ The conf file tells Keypadder what port number it should run on, and describes t
 A sample configuration [keypad.toml](../examples/keypad.toml) is provided in the `examples` subdirectory. 
 It makes use of all of the features currently implemented by the application.
 
-- [Writing Configuration Files for Keypadder](#writing-configuration-files-for-keypadder)
-  - [Overall Structure](#overall-structure)
-  - [The `[keypadder]` Section](#the-keypadder-section)
-  - [The `[[tab]]` Section(s)](#the-tab-sections)
-  - [The `keys` Section](#the-keys-section)
-    - [The `label` Item](#the-label-item)
-    - [The `colspan` and `rowspan` Items](#the-colspan-and-rowspan-items)
-    - [The `send` Item](#the-send-item)
-      - [Simple Examples](#simple-examples)
-      - [^ Examples](#-examples)
-      - [! Examples](#-examples-1)
-      - [@ Examples](#-examples-2)
+- [Overall Structure](#overall-structure)
+- [The `[keypadder]` Section](#the-keypadder-section)
+- [The `[[tab]]` Section(s)](#the-tab-sections)
+- [The `keys` Section](#the-keys-section)
+  - [The `label` Item](#the-label-item)
+  - [The `colspan` and `rowspan` Items](#the-colspan-and-rowspan-items)
+  - [The `send` Item](#the-send-item)
+    - [Simple Examples](#simple-examples)
+    - [^ Examples](#-examples)
+    - [! Examples](#-examples-1)
+    - [@ Examples](#-examples-2)
 
 
 ## Overall Structure
@@ -30,18 +29,25 @@ Note that the layout of your conf file has no effect on the width of the keypad 
 
 ## The `[keypadder]` Section
 This section contains overall configuration items for Keypadder.
-Currently, one item is defined - the `port` definition.  It is mandatory.
+Currently, two items are defined - the `port` definition is mandatory, and an optional `tabswitch` setting.
 
 Eg. 
 ```
 [keypadder]
 port = 8082
+tabswitch = "dropdown"
 ```
 
-This tells keypadder what TCP/IP port to run on.  It will form part of the URL for accessing Keypadder from your mobile device.  For example, with the above port definition, you might access keypadder via the URL `http://myserver:8082/` where the number following the colon corresponds to your specified port.
+The port item tells keypadder what TCP/IP port to run on.  It will form part of the URL for accessing Keypadder from your mobile device.  For example, with the above port definition, you might access keypadder via the URL `http://mydesktop:8082/` where the number following the colon corresponds to your specified port.
+
+The `tabswitch` item is optional and can contain one of two values `"tabs"` or `"dropdown"`.
+It affects the style of tab selector; either shaped tabs, or a dropdown select box.
+If omitted, Keypadder assumes the tabbed style if there are seven (7) or fewer tabs, and a dropdown
+if there are eight (8) or more.
 
 ## The `[[tab]]` Section(s)
 You add one `[[tab]]` section for each tab (page) of buttons you want to display.
+The maximum number of tabs is currently set at thirty-two (32).
 There are a couple of compulsory config items for the tab itself, then a table of key definitions (see below).
 
 Every tab must contain a `label`, a `cols`, and a `keys` item.
@@ -73,6 +79,8 @@ keys = [
 ```
 
 There are also two optional layout options: `colspan` and `rowspan`.
+
+The maximum number of keys per tab is currently set to eighty-eight (88).
 
 ### The `label` Item
 This defines what appears on your keypad.
