@@ -97,6 +97,7 @@ package body Config is
                Put_Line ("Configuration for " & To_String (TK) & " is...");
             end if;
 
+            --  kepadder section
             if To_String (TK) = "keypadder" then
                declare
                   Keypadder_Table : constant TOML_Value := Get (Toml_Parse_Result.Value, "keypadder");
@@ -105,7 +106,22 @@ package body Config is
                   if Verbose then
                      Put_Line ("Port:" & Conf.Keypadder_Conf.Port'Image);
                   end if;
+                  if Keypadder_Table.Has ("tabswitch") then
+                     declare
+                        Ts : constant String := As_String (Get (Keypadder_Table, "tabswitch"));
+                     begin
+                        if Ts = "dropdown" then
+                           Conf.Keypadder_Conf.Tabswitch := Dropdown;
+                        elsif Ts = "tabs" then
+                           Conf.Keypadder_Conf.Tabswitch := Tabs;
+                        else
+                           raise Invalid_Value with "unknown tabswitch value";
+                        end if;
+                     end;
+                  end if;
                end;
+
+            --  tabs section
             elsif To_String (TK) = "tab" then
                declare
                   Tabs_Array : constant TOML_Value := Get (Toml_Parse_Result.Value, "tab");
@@ -155,13 +171,21 @@ package body Config is
                            end if;
                         end loop;
                      end;
-                  end loop;
+                  end loop; --  tabs
                end;
             else
                raise Unknown_Configuration_Item with To_String (TK);
             end if;
 
-         end loop;
+         end loop; -- Top_Keys
+
+         if Conf.Keypadder_Conf.Tabswitch = Unset then
+            if Conf.Tabs_Count <= Default_Max_Tabbed then
+               Conf.Keypadder_Conf.Tabswitch := Tabs;
+            else
+               Conf.Keypadder_Conf.Tabswitch := Dropdown;
+            end if;
+         end if;
       end;
       return True;
    exception
