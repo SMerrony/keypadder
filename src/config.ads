@@ -7,6 +7,8 @@ with Ada.Strings.Unbounded;     use Ada.Strings.Unbounded;
 
 with Interfaces; use Interfaces;
 
+with TOML;
+
 package Config is
 
    Default_Max_Tabbed : constant Positive := 7;
@@ -64,6 +66,9 @@ package Config is
    end record;
 
    Conf : Conf_T;
+
+   function Parse_And_Check_Config (Filename : String) return TOML.Read_Result
+      with Pre => (Filename'Length > 0);
 
    function Load_Config_File (Filename : String; Verbose : Boolean := False) return Boolean
       with Pre => (Filename'Length > 0);

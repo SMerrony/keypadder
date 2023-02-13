@@ -4,9 +4,10 @@
 with Ada.Exceptions; use Ada.Exceptions;
 with Ada.Text_IO;    use Ada.Text_IO;
 
+with GNAT.OS_Lib;
 with GNAT.String_Split; use GNAT.String_Split;
 
-with TOML;              use TOML;
+with TOML;              use  TOML;
 with TOML.File_IO;
 
 with Keys;
@@ -74,124 +75,171 @@ package body Config is
          end;
       end loop;
       return Decoded;
+
+   exception
+
+      when Error : Unknown_Key =>
+         Put_Line ("Error loading configuration file...");
+         Put_Line ("Unknown key mnemonic: " & Exception_Message (Error));
+         GNAT.OS_Lib.OS_Exit (-1);
+      when Error : others =>
+         Put_Line ("Error loading configuration file...");
+         Put_Line (Exception_Message (Error));
+         GNAT.OS_Lib.OS_Exit (-1);
    end Decode_Send_String;
+
+   function Parse_And_Check_Config (Filename : String) return Read_Result is
+      Parse_Result : Read_Result;
+   begin
+      Parse_Result := File_IO.Load_File (Filename);
+      if not Parse_Result.Success then
+         raise Could_Not_Parse with Filename & ":"
+           & Parse_Result.Location.Line'Image & ":"
+           & Parse_Result.Location.Column'Image & ": "
+           & To_String (Parse_Result.Message);
+      end if;
+
+      --  Some sanity checking...
+      declare
+         Val, Res : TOML_Value;
+      begin
+         --  Is there a [keypadder] section?
+         Val :=  Get_Or_Null (Parse_Result.Value, "keypadder");
+         if Val.Is_Null then
+            raise Incomplete_Configuration with "Missing [keypadder] section";
+         end if;
+         --  Is the port specified?
+         Res := Get_Or_Null (Val, "port");
+         if Res.Is_Null then
+            raise Incomplete_Configuration with "Missing 'port' setting";
+         end if;
+         --  Is there at least one [tab] section?
+         Val :=  Get_Or_Null (Parse_Result.Value, "tab");
+         if Val.Is_Null then
+            raise Incomplete_Configuration with "Missing [[tab]] section";
+         end if;
+         --  Too many tabs?
+         if Length (Val) > Max_Tabs then
+            raise Too_Many_Tabs with "Tab count exceeds limit of" & Max_Tabs'Image;
+         end if;
+      end;
+      return Parse_Result;
+
+   exception
+
+      when Error : others =>
+         Put_Line ("Error loading configuration file: " & Filename);
+         Put_Line (Exception_Message (Error));
+         GNAT.OS_Lib.OS_Exit (-1);
+   end Parse_And_Check_Config;
 
    function Load_Config_File (Filename : String; Verbose : Boolean := False)
                              return Boolean is
-      Toml_Parse_Result : Read_Result;
+      Toml_Parse_Result : constant Read_Result := Parse_And_Check_Config (Filename);
+      Top_Keys : constant Key_Array := Toml_Parse_Result.Value.Keys;
+      Tab_Ix   : Natural := 0;
    begin
-      Toml_Parse_Result := File_IO.Load_File (Filename);
-      if not Toml_Parse_Result.Success then
-         raise Could_Not_Parse with Filename & ":"
-           & Toml_Parse_Result.Location.Line'Image & ":"
-           & Toml_Parse_Result.Location.Column'Image & ": "
-           & To_String (Toml_Parse_Result.Message);
-      end if;
-
-      declare
-         Top_Keys : constant Key_Array := Toml_Parse_Result.Value.Keys;
-         Tab_Ix   : Natural := 0;
-      begin
-         for TK of Top_Keys loop
-            if Verbose then
-               Put_Line ("Configuration for " & To_String (TK) & " is...");
-            end if;
-
-            --  kepadder section
-            if To_String (TK) = "keypadder" then
-               declare
-                  Keypadder_Table : constant TOML_Value := Get (Toml_Parse_Result.Value, "keypadder");
-               begin
-                  Conf.Keypadder_Conf.Port := Port_T (As_Integer (Get (Keypadder_Table, "port")));
-                  if Verbose then
-                     Put_Line ("Port:" & Conf.Keypadder_Conf.Port'Image);
-                  end if;
-                  if Keypadder_Table.Has ("tabswitch") then
-                     declare
-                        Ts : constant String := As_String (Get (Keypadder_Table, "tabswitch"));
-                     begin
-                        if Ts = "dropdown" then
-                           Conf.Keypadder_Conf.Tabswitch := Dropdown;
-                        elsif Ts = "tabs" then
-                           Conf.Keypadder_Conf.Tabswitch := Tabs;
-                        else
-                           raise Invalid_Value with "unknown tabswitch value";
-                        end if;
-                     end;
-                  end if;
-               end;
-
-            --  tabs section
-            elsif To_String (TK) = "tab" then
-               declare
-                  Tabs_Array : constant TOML_Value := Get (Toml_Parse_Result.Value, "tab");
-                  Tab        : TOML_Value;
-               begin
-                  Conf.Tabs_Count := Length (Tabs_Array);
-                  if Conf.Tabs_Count = 0 then
-                     raise Incomplete_Configuration with "you must configure at least one Tab";
-                  end if;
-                  for T in 1 .. Conf.Tabs_Count loop
-                     Tab_Ix := Tab_Ix + 1;
-                     Tab := Item (Tabs_Array, T);
-                     Conf.Tabs (T).Label   := As_Unbounded_String (Get (Tab, "label"));
-                     Conf.Tabs (T).Columns := Natural (As_Integer (Get (Tab, "cols")));
-                     --  Put_Line ("Tab defined:"  & Dump_As_String (Tab));
-                     if Verbose then
-                        Put_Line ("Tab: " & To_String (Conf.Tabs (T).Label) &
-                                  " with:" & Conf.Tabs (T).Columns'Image & " columns");
-                     end if;
-                     declare
-                        Keys_Array : constant TOML_Value := Get (Tab, "keys");
-                        Key_Table  : TOML_Value;
-                        Blank      : constant Unbounded_String := To_Unbounded_String (" ");
-                     begin
-                        if Verbose then
-                           Put_Line ("Keys defined:"  & Length (Keys_Array)'Image);
-                        end if;
-                        Conf.Tabs (Tab_Ix).Keys_Count := Length (Keys_Array);
-                        for K in 1 .. Length (Keys_Array) loop
-                           Key_Table := Item (Keys_Array, K);
-                           Conf.Tabs (Tab_Ix).Keys (K).Label := As_Unbounded_String (Get (Key_Table, "label"));
-                           if Conf.Tabs (Tab_Ix).Keys (K).Label = "BLANK" then
-                              Conf.Tabs (Tab_Ix).Keys (K).Label := Blank;
-                           end if;
-                           if Has (Key_Table, "send") then
-                              Conf.Tabs (Tab_Ix).Keys (K).Send := As_Unbounded_String (Get (Key_Table, "send"));
-                              Conf.Tabs (Tab_Ix).Keys (K).Send_Events := Decode_Send_String (Conf.Tabs (Tab_Ix).Keys (K).Send);
-                           end if;
-                           if Has (Key_Table, "colspan") then
-                              Conf.Tabs (Tab_Ix).Keys (K).Colspan := Natural (As_Integer (Get (Key_Table, "colspan")));
-                           end if;
-                           if Has (Key_Table, "rowspan") then
-                              Conf.Tabs (Tab_Ix).Keys (K).Rowspan := Natural (As_Integer (Get (Key_Table, "rowspan")));
-                           end if;
-                           if Verbose then
-                              Put_Line ("Key No. " & K'Image & " is: " & To_String (Conf.Tabs (Tab_Ix).Keys (K).Label));
-                           end if;
-                        end loop;
-                     end;
-                  end loop; --  tabs
-               end;
-            else
-               raise Unknown_Configuration_Item with To_String (TK);
-            end if;
-
-         end loop; -- Top_Keys
-
-         if Conf.Keypadder_Conf.Tabswitch = Unset then
-            if Conf.Tabs_Count <= Default_Max_Tabbed then
-               Conf.Keypadder_Conf.Tabswitch := Tabs;
-            else
-               Conf.Keypadder_Conf.Tabswitch := Dropdown;
-            end if;
+      for TK of Top_Keys loop
+         if Verbose then
+            Put_Line ("Configuration for " & To_String (TK) & " is...");
          end if;
-      end;
+
+         --  kepadder section
+         if To_String (TK) = "keypadder" then
+            declare
+               Keypadder_Table : constant TOML_Value := Get (Toml_Parse_Result.Value, "keypadder");
+            begin
+               Conf.Keypadder_Conf.Port := Port_T (As_Integer (Get (Keypadder_Table, "port")));
+               if Verbose then
+                  Put_Line ("Port:" & Conf.Keypadder_Conf.Port'Image);
+               end if;
+               if Keypadder_Table.Has ("tabswitch") then
+                  declare
+                     Ts : constant String := As_String (Get (Keypadder_Table, "tabswitch"));
+                  begin
+                     if Ts = "dropdown" then
+                        Conf.Keypadder_Conf.Tabswitch := Dropdown;
+                     elsif Ts = "tabs" then
+                        Conf.Keypadder_Conf.Tabswitch := Tabs;
+                     else
+                        raise Invalid_Value with "Unknown tabswitch value";
+                     end if;
+                  end;
+               end if;
+            end;
+
+         --  tabs section
+         elsif To_String (TK) = "tab" then
+            declare
+               Tabs_Array : constant TOML_Value := Get (Toml_Parse_Result.Value, "tab");
+               Tab        : TOML_Value;
+            begin
+               Conf.Tabs_Count := Length (Tabs_Array);
+               if Conf.Tabs_Count = 0 then
+                  raise Incomplete_Configuration with "you must configure at least one Tab";
+               end if;
+               for T in 1 .. Conf.Tabs_Count loop
+                  Tab_Ix := Tab_Ix + 1;
+                  Tab := Item (Tabs_Array, T);
+                  Conf.Tabs (T).Label   := As_Unbounded_String (Get (Tab, "label"));
+                  Conf.Tabs (T).Columns := Natural (As_Integer (Get (Tab, "cols")));
+                  --  Put_Line ("Tab defined:"  & Dump_As_String (Tab));
+                  if Verbose then
+                     Put_Line ("Tab: " & To_String (Conf.Tabs (T).Label) &
+                                 " with:" & Conf.Tabs (T).Columns'Image & " columns");
+                  end if;
+                  declare
+                     Keys_Array : constant TOML_Value := Get (Tab, "keys");
+                     Key_Table  : TOML_Value;
+                     Blank      : constant Unbounded_String := To_Unbounded_String (" ");
+                  begin
+                     if Verbose then
+                        Put_Line ("Keys defined:"  & Length (Keys_Array)'Image);
+                     end if;
+                     Conf.Tabs (Tab_Ix).Keys_Count := Length (Keys_Array);
+                     for K in 1 .. Length (Keys_Array) loop
+                        Key_Table := Item (Keys_Array, K);
+                        Conf.Tabs (Tab_Ix).Keys (K).Label := As_Unbounded_String (Get (Key_Table, "label"));
+                        if Conf.Tabs (Tab_Ix).Keys (K).Label = "BLANK" then
+                           Conf.Tabs (Tab_Ix).Keys (K).Label := Blank;
+                        end if;
+                        if Has (Key_Table, "send") then
+                           Conf.Tabs (Tab_Ix).Keys (K).Send := As_Unbounded_String (Get (Key_Table, "send"));
+                           Conf.Tabs (Tab_Ix).Keys (K).Send_Events := Decode_Send_String (Conf.Tabs (Tab_Ix).Keys (K).Send);
+                        end if;
+                        if Has (Key_Table, "colspan") then
+                           Conf.Tabs (Tab_Ix).Keys (K).Colspan := Natural (As_Integer (Get (Key_Table, "colspan")));
+                        end if;
+                        if Has (Key_Table, "rowspan") then
+                           Conf.Tabs (Tab_Ix).Keys (K).Rowspan := Natural (As_Integer (Get (Key_Table, "rowspan")));
+                        end if;
+                        if Verbose then
+                           Put_Line ("Key No. " & K'Image & " is: " & To_String (Conf.Tabs (Tab_Ix).Keys (K).Label));
+                        end if;
+                     end loop;
+                  end;
+               end loop; --  tabs
+            end;
+         else
+            raise Unknown_Configuration_Item with To_String (TK);
+         end if;
+
+      end loop; -- Top_Keys
+
+      if Conf.Keypadder_Conf.Tabswitch = Unset then
+         if Conf.Tabs_Count <= Default_Max_Tabbed then
+            Conf.Keypadder_Conf.Tabswitch := Tabs;
+         else
+            Conf.Keypadder_Conf.Tabswitch := Dropdown;
+         end if;
+      end if;
       return True;
+
    exception
+
       when Error : others =>
          Put_Line ("Error loading configuration file: " & Filename);
-         Put_Line (Exception_Information (Error));
+         Put_Line (Exception_Message (Error));
          return False;
    end Load_Config_File;
 
