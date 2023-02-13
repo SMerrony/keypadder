@@ -127,12 +127,16 @@ keys = [
 label = "Multimedia"
 cols = 3
 keys = [
+  { label = "&#x23EE;",  send = "PREVIOUSSONG" },
   { label = "&#x23EF;",  send = "PLAYPAUSE" },
-  { label = "&#x1F519;", send = "BACK" },
-  { label = "&#x27A1;",   send = "FORWARD" },
-  { label = "&#x1F50A;", send = "VOLUMEUP" },
+  { label = "&#x23ED;",  send = "NEXTSONG" },
+  { label = "&#x1F3A6;", send = "MEDIA" },
+  { label = "&#x23EA;",  send = "LEFT" },
+  { label = "&#x23E9;",  send = "RIGHT" },
   { label = "&#x1F508;", send = "VOLUMEDOWN" },
+  { label = "&#x1F50A;", send = "VOLUMEUP" },
   { label = "&#x1F507;", send = "MUTE" },
   { label = "&#x1F505;", send = "BRIGHTNESSDOWN" },
   { label = "&#x1F506;", send = "BRIGHTNESSUP" },
+  { label = "&#x1F5A5;", send = "SWITCHVIDEOMODE" },
 ]
