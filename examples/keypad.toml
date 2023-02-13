@@ -7,23 +7,28 @@ cols = 3	# No. of columns on this tab
 keys = [
   { label = "&agrave;", send = "RIGHTALT,GRAVE,A" }, # Raw USB keypresses
   { label = "&acirc;",  send = "@,0,0,E,2,SPACE" },  # Unicode method
+  { label = "&Agrave;", send = "RIGHTALT,GRAVE,^A" },
   { label = "&ccedil;", send = "RIGHTALT,COMMA,C" },
 # new row will start here
   { label = "&egrave;", send = "RIGHTALT,GRAVE,E" },
   { label = "&ecirc;",  send = "RIGHTALT,^6,E" },
   { label = "&eacute;", send = "RIGHTALT,APOSTROPHE,E" },
+  { label = "&euml;",   send = "RIGHTALT,^2,E" },
 #
   { label = "&igrave;", send = "RIGHTALT,GRAVE,I" },
   { label = "&icirc;",  send = "RIGHTALT,^6,I" },
   { label = "&iuml;",   send = "RIGHTALT,^2,I" },
+  { label = "BLANK" },
 #
   { label = "&ograve;", send = "RIGHTALT,GRAVE,O" },
   { label = "&ocirc;",  send = "RIGHTALT,^6,O" },
-  { label = "&euml;",   send = "RIGHTALT,^2,E" },
+  { label = "&Ocirc;",  send = "RIGHTALT,^6,^O" },
+  { label = "&oelig;",  send = "@,0,1,5,3,SPACE" },
 #
   { label = "&ugrave;", send = "RIGHTALT,GRAVE,U" },
   { label = "&ucirc;",  send = "RIGHTALT,^6,U" },
-  { label = "&uuml;",   send = "RIGHTALT,^2,U" }
+  { label = "&uuml;",   send = "RIGHTALT,^2,U" },
+  { label = "&euro;",   send = "@,2,0,A,C,SPACE"}
 ]
 
 [[tab]]
