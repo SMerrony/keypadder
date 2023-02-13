@@ -38,11 +38,17 @@ package body Frontend is
          "html {height: 100%;} " &
          "body {min-height: 100%; background-color: darkgray; color: white;}" &
          ".kp-bar-item {font-size: 10mm} " &
+         ".kp-selector {position: absolute; height: 10mm; top: 1px; right: 2px; font-size: 8mm;} " &
          ".kp-pad {align-content: stretch;} " &
          ".kp-btn {margin: 0; font-size: calc(4vw + 4vh + 2vmin); border-radius: 4mm; background-color: black; padding: 2mm; color: white;}" &
-         "</style><meta charset=""UTF-8""><title>Keypadder</title></head>" & ASCII.LF;
+         "</style><meta charset=""UTF-8""><title>Keypadder</title></head>" & ASCII.LF &
+         "<body>";
       Trailer_HTML : constant String :=
-         "<script> function openTab(tabName) { " &
+         "<script>" &
+         "function selectChange(){" &
+         "var selector = document.getElementById('kpselect');" &
+         "openTab(selector.options[selector.selectedIndex].value);}" &
+         "function openTab(tabName) { " &
          "var i; var x = document.getElementsByClassName('kp-pad');" &
          "for (i=0; i<x.length; i++) { x[i].style.display = 'none';}" &
          "document.getElementById(tabName).style.display = 'block'; } " &
@@ -59,13 +65,22 @@ package body Frontend is
    begin
       Append (Main_Page_HTML, Header_HTML);
 
-      --  first the tab headers
-      Append (Main_Page_HTML, "<body><div class=""kp-bar"">");
-      for T in 1 .. Conf.Tabs_Count loop
-         Append (Main_Page_HTML, "<button class=""kp-bar-item"" onclick=""openTab('" &
-                                 Conf.Tabs (T).Label & "')"">" &
-                                 Conf.Tabs (T).Label & "</button>" & ASCII.LF);
-      end loop;
+      --  first the tab headers or selector
+      if Conf.Keypadder_Conf.Tabswitch = Tabs then
+         Append (Main_Page_HTML, "<div class=""kp-bar"">");
+         for T in 1 .. Conf.Tabs_Count loop
+            Append (Main_Page_HTML, "<button class=""kp-bar-item"" onclick=""openTab('" &
+                                    Conf.Tabs (T).Label & "')"">" &
+                                    Conf.Tabs (T).Label & "</button>" & ASCII.LF);
+         end loop;
+      else -- selector
+         Append (Main_Page_HTML, "<div><select class='kp-selector' id='kpselect' onChange='selectChange()'>");
+         for T in 1 .. Conf.Tabs_Count loop
+            Append (Main_Page_HTML, "<option value='" & Conf.Tabs (T).Label & "'>");
+            Append (Main_Page_HTML, Conf.Tabs (T).Label & "</option>");
+         end loop;
+         Append (Main_Page_HTML, "</select>");
+      end if;
       Append (Main_Page_HTML, "</div>" & ASCII.LF);
 
       Append (Main_Page_HTML, "<form id=""kpForm"" onsubmit=""return ajaxget()"">" & ASCII.LF);

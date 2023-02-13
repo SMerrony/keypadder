@@ -9,9 +9,15 @@ with Interfaces; use Interfaces;
 
 package Config is
 
-   type Port_T is range 1 .. 65535;
+   Default_Max_Tabbed : constant Positive := 7;
+   --  Unless otherwise specified in the configuration, this is the
+   --  maximum number of tabs before we switch to a dropdown selector.
+
+   type Port_T      is range 1 .. 65535;
+   type Tabswitch_T is (Unset, Dropdown, Tabs);
    type Keypadder_Conf_T is record
-      Port : Port_T;
+      Port      : Port_T;
+      Tabswitch : Tabswitch_T := Unset;
    end record;
 
    type Up_Down_T is (Up, Down);
@@ -47,7 +53,8 @@ package Config is
       Keys_Count : Natural := 0;
    end record;
 
-   Max_Tabs   : constant Positive := 8;
+   Max_Tabs   : constant Positive := 32;
+   --  Absolute maximum number of tabs.
    type Tabs_T is array (1 .. Max_Tabs) of Tab_T;
 
    type Conf_T is record
@@ -64,6 +71,8 @@ package Config is
    Could_Not_Parse,
    Duplicate_Configuration,
    Incomplete_Configuration,
+   Invalid_Value,
+   Too_Many_Tabs,
    Unknown_Configuration_Item,
    Unknown_Key                 : exception;
 

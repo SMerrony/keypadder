@@ -1,9 +1,10 @@
 [keypadder]
-port = 8082	# HTTP port to use
+port = 8082	            # HTTP port to use (must be set)
+tabswitch = "dropdown"  # optional - either  "tabs" or "dropdown"
 
 [[tab]]   # A new tab
 label = "French"
-cols = 3	# No. of columns on this tab
+cols = 4	# No. of columns on this tab
 keys = [
   { label = "&agrave;", send = "RIGHTALT,GRAVE,A" }, # Raw USB keypresses
   { label = "&acirc;",  send = "@,0,0,E,2,SPACE" },  # Unicode method

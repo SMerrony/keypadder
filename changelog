@@ -2,6 +2,7 @@ keypadder (0.2.0) stable; urgency=low
 
   [SMerrony]
   * Usability:   Minor layout improvements
+  * Usability:   Add dropdown tab selector (Issue #8)
 
   [mgrojo]
   * Usability:   Add support for all the keys available
