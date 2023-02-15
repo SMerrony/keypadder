@@ -176,7 +176,7 @@ package body Config is
             begin
                Conf.Tabs_Count := Length (Tabs_Array);
                if Conf.Tabs_Count = 0 then
-                  raise Incomplete_Configuration with "you must configure at least one Tab";
+                  raise Incomplete_Configuration with "You must configure at least one Tab";
                end if;
                for T in 1 .. Conf.Tabs_Count loop
                   Tab_Ix := Tab_Ix + 1;
@@ -197,6 +197,9 @@ package body Config is
                         Put_Line ("Keys defined:"  & Length (Keys_Array)'Image);
                      end if;
                      Conf.Tabs (Tab_Ix).Keys_Count := Length (Keys_Array);
+                     if Length (Keys_Array) > Max_Keys then
+                        raise Too_Many_Keys with "Too many keys defined in a Tab, maximum is" & Max_Keys'Image;
+                     end if;
                      for K in 1 .. Length (Keys_Array) loop
                         Key_Table := Item (Keys_Array, K);
                         Conf.Tabs (Tab_Ix).Keys (K).Label := As_Unbounded_String (Get (Key_Table, "label"));
@@ -240,6 +243,7 @@ package body Config is
       when Error : others =>
          Put_Line ("Error loading configuration file: " & Filename);
          Put_Line (Exception_Message (Error));
+         Put_Line (Exception_Information (Error));
          return False;
    end Load_Config_File;
 

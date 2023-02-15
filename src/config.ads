@@ -42,8 +42,8 @@ package Config is
       Rowspan     : Natural := 0;
    end record;
 
-   Max_Keys : constant Positive := 88;
-   --  Arbitrary limit to ensure the config parser doesn't go into
+   Max_Keys : constant Positive := 127;
+   --  Somewhat arbitrary limit to ensure the config parser doesn't go into
    --  a crazy loop.
 
    type Keys_T is array (1 .. Max_Keys) of Key_T;
@@ -77,7 +77,7 @@ package Config is
    Duplicate_Configuration,
    Incomplete_Configuration,
    Invalid_Value,
-   Too_Many_Tabs,
+   Too_Many_Keys, Too_Many_Tabs,
    Unknown_Configuration_Item,
    Unknown_Key                 : exception;
 

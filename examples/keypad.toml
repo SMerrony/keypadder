@@ -61,33 +61,6 @@ keys = [
 ]
 
 [[tab]]
-label = "NumPad"
-cols = 4
-keys = [
-   { label = "Num", send = "NUMLOCK" },
-   { label = "/", send = "KPSLASH" },
-   { label = "*", send = "KPASTERISK" },
-   { label = "-", send = "KPMINUS" },
-#
-   { label = "7", send = "KP7" },
-   { label = "8", send = "KP8" },
-   { label = "9", send = "KP9" },
-   { label = "+", rowspan = 2, send = "KPPLUS" },
-#
-   { label = "4", send = "KP4" },
-   { label = "5", send = "KP5" },
-   { label = "6", send = "KP6" },
-#
-   { label = "1", send = "KP1" },
-   { label = "2", send = "KP2" },
-   { label = "3", send = "KP3" },
-   { label = "&crarr;", rowspan = 2, send = "KPENTER" },
-#
-   { label = "0", colspan = 2, send = "KP0" },
-   { label = ".", send = "KPDOT" }
-]
-
-[[tab]]
 label = "Hex"
 cols = 4
 keys = [

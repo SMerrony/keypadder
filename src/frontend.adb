@@ -35,10 +35,9 @@ package body Frontend is
    function Build_Main_Page (Active_Tab : Positive) return String is
       Header_HTML : constant String :=
          "<!DOCTYPE html><html><head><style>" &
-         "html {height: 100%;} " &
-         "body {min-height: 100%; background-color: darkgray; color: white;}" &
-         ".kp-bar-item {font-size: 10mm} " &
-         ".kp-selector {position: absolute; height: 10mm; top: 1px; right: 2px; font-size: 8mm;} " &
+         "body {min-height: 100%; background-color: darkgray; color: white; overflow: scroll;}" &
+         ".kp-bar {margin: 0; padding: 0mm} .kp-bar-item {font-size: 10mm} " &
+         ".kp-selector {position: absolute; height: 12m; top: 1px; right: 2px; font-size: 10mm;} " &
          ".kp-pad {align-content: stretch;} " &
          ".kp-btn {margin: 0; font-size: calc(4vw + 4vh + 2vmin); border-radius: 4mm; background-color: black; padding: 2mm; color: white;}" &
          "</style><meta charset=""UTF-8""><title>Keypadder</title></head>" & ASCII.LF &
@@ -71,7 +70,7 @@ package body Frontend is
          for T in 1 .. Conf.Tabs_Count loop
             Append (Main_Page_HTML, "<button class=""kp-bar-item"" onclick=""openTab('" &
                                     Conf.Tabs (T).Label & "')"">" &
-                                    Conf.Tabs (T).Label & "</button>" & ASCII.LF);
+                                    Conf.Tabs (T).Label & "</button>");
          end loop;
       else -- selector
          Append (Main_Page_HTML, "<div><select class='kp-selector' id='kpselect' onChange='selectChange()'>");
@@ -94,7 +93,8 @@ package body Frontend is
 
          --  the main content of each tab - i.e. the keys
          Append (Main_Page_HTML, "<div style=""margin: 0 auto; display: grid; gap: 1rem; align-content: stretch; " &
-                                 "position: fixed; top: 15mm; left: 0; right: 0; bottom: 0; " &
+                                 "position: fixed; top: 17mm; left: 0; right: 0; bottom: 2px; " &
+                                 "overflow: scroll; " &
                                  "grid-template-columns: repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
          for K in 1 .. Conf.Tabs (T).Keys_Count loop
             Append (Main_Page_HTML, "<input type=""button"" onClick=""return ajaxget(" & T'Image & "," & K'Image & ")"" class=""kp-btn""");
