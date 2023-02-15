@@ -80,7 +80,7 @@ keys = [
 
 There are also two optional layout options: `colspan` and `rowspan`.
 
-The maximum number of keys per tab is currently set to eighty-eight (88).
+The maximum number of keys per tab is currently set to 127.
 
 ### The `label` Item
 This defines what appears on your keypad.
