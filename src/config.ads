@@ -50,14 +50,12 @@ package Config is
       Keys       : Key_Vectors.Vector;
    end record;
 
-   Max_Tabs   : constant Positive := 32;
-   --  Absolute maximum number of tabs.
-   type Tabs_T is array (1 .. Max_Tabs) of Tab_T;
+   package Tab_Vectors is new
+      Ada.Containers.Vectors (Index_Type => Positive, Element_Type => Tab_T);
 
    type Conf_T is record
       Keypadder_Conf : Keypadder_Conf_T;
-      Tabs_Count     : Natural := 0;
-      Tabs           : Tabs_T;
+      Tabs           : Tab_Vectors.Vector;
    end record;
 
    Conf : Conf_T;

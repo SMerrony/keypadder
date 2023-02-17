@@ -47,7 +47,6 @@ if there are eight (8) or more.
 
 ## The `[[tab]]` Section(s)
 You add one `[[tab]]` section for each tab (page) of buttons you want to display.
-The maximum number of tabs is currently set at thirty-two (32).
 There are a couple of compulsory config items for the tab itself, then a table of key definitions (see below).
 
 Every tab must contain a `label`, a `cols`, and a `keys` item.
@@ -79,8 +78,6 @@ keys = [
 ```
 
 There are also two optional layout options: `colspan` and `rowspan`.
-
-The maximum number of keys per tab is currently set to 127.
 
 ### The `label` Item
 This defines what appears on your keypad.

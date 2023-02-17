@@ -119,10 +119,6 @@ package body Config is
          if Val.Is_Null then
             raise Incomplete_Configuration with "Missing [[tab]] section";
          end if;
-         --  Too many tabs?
-         if Length (Val) > Max_Tabs then
-            raise Too_Many_Tabs with "Tab count exceeds limit of" & Max_Tabs'Image;
-         end if;
       end;
       return Parse_Result;
 
@@ -138,7 +134,7 @@ package body Config is
                              return Boolean is
       Toml_Parse_Result : constant Read_Result := Parse_And_Check_Config (Filename);
       Top_Keys : constant Key_Array := Toml_Parse_Result.Value.Keys;
-      Tab_Ix   : Natural := 0;
+      Tabs_Count : Positive;
    begin
       for TK of Top_Keys loop
          if Verbose then
@@ -174,20 +170,17 @@ package body Config is
             declare
                Tabs_Array : constant TOML_Value := Get (Toml_Parse_Result.Value, "tab");
                Tab        : TOML_Value;
+               New_Tab    : Tab_T;
             begin
-               Conf.Tabs_Count := Length (Tabs_Array);
-               if Conf.Tabs_Count = 0 then
-                  raise Incomplete_Configuration with "You must configure at least one Tab";
-               end if;
-               for T in 1 .. Conf.Tabs_Count loop
-                  Tab_Ix := Tab_Ix + 1;
+               Tabs_Count := Length (Tabs_Array);
+               for T in 1 .. Tabs_Count loop
                   Tab := Item (Tabs_Array, T);
-                  Conf.Tabs (T).Label   := As_Unbounded_String (Get (Tab, "label"));
-                  Conf.Tabs (T).Columns := Natural (As_Integer (Get (Tab, "cols")));
+                  New_Tab.Label   := As_Unbounded_String (Get (Tab, "label"));
+                  New_Tab.Columns := Natural (As_Integer (Get (Tab, "cols")));
                   --  Put_Line ("Tab defined:"  & Dump_As_String (Tab));
                   if Verbose then
-                     Put_Line ("Tab: " & To_String (Conf.Tabs (T).Label) &
-                                 " with:" & Conf.Tabs (T).Columns'Image & " columns");
+                     Put_Line ("Tab: " & To_String (New_Tab.Label) &
+                                 " with:" & New_Tab.Columns'Image & " columns");
                   end if;
                   declare
                      Keys_Array : constant TOML_Value := Get (Tab, "keys");
@@ -226,12 +219,14 @@ package body Config is
                            New_Key.Rowspan := 0;
                         end if;
 
-                        Conf.Tabs (Tab_Ix).Keys.Append (New_Key);
+                        New_Tab.Keys.Append (New_Key);
                         if Verbose then
                            Put_Line ("Key No. " & K'Image & " is: " & To_String (New_Key.Label));
                         end if;
                      end loop;
                   end;
+                  Conf.Tabs.Append (New_Tab);
+                  New_Tab.Keys := Key_Vectors.Empty_Vector;
                end loop; --  tabs
             end;
          else
@@ -241,7 +236,7 @@ package body Config is
       end loop; -- Top_Keys
 
       if Conf.Keypadder_Conf.Tabswitch = Unset then
-         if Conf.Tabs_Count <= Default_Max_Tabbed then
+         if Tabs_Count <= Default_Max_Tabbed then
             Conf.Keypadder_Conf.Tabswitch := Tabs;
          else
             Conf.Keypadder_Conf.Tabswitch := Dropdown;

@@ -67,14 +67,14 @@ package body Frontend is
       --  first the tab headers or selector
       if Conf.Keypadder_Conf.Tabswitch = Tabs then
          Append (Main_Page_HTML, "<div class=""kp-bar"">");
-         for T in 1 .. Conf.Tabs_Count loop
+         for T in Conf.Tabs.First_Index .. Conf.Tabs.Last_Index loop
             Append (Main_Page_HTML, "<button class=""kp-bar-item"" onclick=""openTab('" &
                                     Conf.Tabs (T).Label & "')"">" &
                                     Conf.Tabs (T).Label & "</button>");
          end loop;
       else -- selector
          Append (Main_Page_HTML, "<div><select class='kp-selector' id='kpselect' onChange='selectChange()'>");
-         for T in 1 .. Conf.Tabs_Count loop
+         for T in Conf.Tabs.First_Index .. Conf.Tabs.Last_Index loop
             Append (Main_Page_HTML, "<option value='" & Conf.Tabs (T).Label & "'>");
             Append (Main_Page_HTML, Conf.Tabs (T).Label & "</option>");
          end loop;
@@ -84,7 +84,7 @@ package body Frontend is
 
       Append (Main_Page_HTML, "<form id=""kpForm"" onsubmit=""return ajaxget()"">" & ASCII.LF);
       --  now each tab
-      for T in 1 .. Conf.Tabs_Count loop
+      for T in Conf.Tabs.First_Index .. Conf.Tabs.Last_Index loop
          Append (Main_Page_HTML, "<div id=""" & Conf.Tabs (T).Label & """ class=""kp-pad""");
          if T /= Active_Tab then --  hide inactive Tabs
             Append (Main_Page_HTML, " style=""display:none""");

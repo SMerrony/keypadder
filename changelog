@@ -3,10 +3,10 @@ keypadder (0.2.0) stable; urgency=low
   [SMerrony]
   * Usability:   Minor layout improvements
   * Usability:   Add dropdown tab selector (Issue #8)
-  * Usability:   Remove hard-coded limit on no. of keys
+  * Usability:   Remove hard-coded limits on no. of keys and tabs
 
   [mgrojo]
   * Usability:   Add support for all the keys available
 
- -- SMerrony <merrony@gmail.com>  Sun, 12 Feb 2023 10:00:00 +0200
+ -- SMerrony <merrony@gmail.com>  Fri, 17 Feb 2023 10:00:00 +0200
  
