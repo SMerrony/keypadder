@@ -14,7 +14,8 @@ with Keys;
 
 package body Config is
 
-   function Decode_Send_String (User_String : Unbounded_String) return Vector is
+   function Decode_Send_String (User_String : Unbounded_String) return Event_Vectors.Vector is
+      use Event_Vectors;
       use Keys;
       Decoded    : Vector;
       Words      : Slice_Set;
@@ -192,32 +193,42 @@ package body Config is
                      Keys_Array : constant TOML_Value := Get (Tab, "keys");
                      Key_Table  : TOML_Value;
                      Blank      : constant Unbounded_String := To_Unbounded_String (" ");
+                     New_Key    : Key_T;
                   begin
                      if Verbose then
                         Put_Line ("Keys defined:"  & Length (Keys_Array)'Image);
                      end if;
-                     Conf.Tabs (Tab_Ix).Keys_Count := Length (Keys_Array);
-                     if Length (Keys_Array) > Max_Keys then
-                        raise Too_Many_Keys with "Too many keys defined in a Tab, maximum is" & Max_Keys'Image;
-                     end if;
                      for K in 1 .. Length (Keys_Array) loop
                         Key_Table := Item (Keys_Array, K);
-                        Conf.Tabs (Tab_Ix).Keys (K).Label := As_Unbounded_String (Get (Key_Table, "label"));
-                        if Conf.Tabs (Tab_Ix).Keys (K).Label = "BLANK" then
-                           Conf.Tabs (Tab_Ix).Keys (K).Label := Blank;
+
+                        New_Key.Label := As_Unbounded_String (Get (Key_Table, "label"));
+                        if New_Key.Label = "BLANK" then
+                           New_Key.Label := Blank;
                         end if;
+
                         if Has (Key_Table, "send") then
-                           Conf.Tabs (Tab_Ix).Keys (K).Send := As_Unbounded_String (Get (Key_Table, "send"));
-                           Conf.Tabs (Tab_Ix).Keys (K).Send_Events := Decode_Send_String (Conf.Tabs (Tab_Ix).Keys (K).Send);
+                           New_Key.Send        := As_Unbounded_String (Get (Key_Table, "send"));
+                           New_Key.Send_Events := Decode_Send_String (New_Key.Send);
+                        else
+                           New_Key.Send        := Null_Unbounded_String;
+                           New_Key.Send_Events := Event_Vectors.Empty_Vector;
                         end if;
+
                         if Has (Key_Table, "colspan") then
-                           Conf.Tabs (Tab_Ix).Keys (K).Colspan := Natural (As_Integer (Get (Key_Table, "colspan")));
+                           New_Key.Colspan := Natural (As_Integer (Get (Key_Table, "colspan")));
+                        else
+                           New_Key.Colspan := 0;
                         end if;
+
                         if Has (Key_Table, "rowspan") then
-                           Conf.Tabs (Tab_Ix).Keys (K).Rowspan := Natural (As_Integer (Get (Key_Table, "rowspan")));
+                           New_Key.Rowspan := Natural (As_Integer (Get (Key_Table, "rowspan")));
+                        else
+                           New_Key.Rowspan := 0;
                         end if;
+
+                        Conf.Tabs (Tab_Ix).Keys.Append (New_Key);
                         if Verbose then
-                           Put_Line ("Key No. " & K'Image & " is: " & To_String (Conf.Tabs (Tab_Ix).Keys (K).Label));
+                           Put_Line ("Key No. " & K'Image & " is: " & To_String (New_Key.Label));
                         end if;
                      end loop;
                   end;

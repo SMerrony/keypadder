@@ -96,7 +96,7 @@ package body Frontend is
                                  "position: fixed; top: 17mm; left: 0; right: 0; bottom: 2px; " &
                                  "overflow: scroll; " &
                                  "grid-template-columns: repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
-         for K in 1 .. Conf.Tabs (T).Keys_Count loop
+         for K in Conf.Tabs (T).Keys.First_Index .. Conf.Tabs (T).Keys.Last_Index loop
             Append (Main_Page_HTML, "<input type=""button"" onClick=""return ajaxget(" & T'Image & "," & K'Image & ")"" class=""kp-btn""");
             if Conf.Tabs (T).Keys (K).Colspan > 1 then
                Append (Main_Page_HTML, " style=""grid-column: span" & Conf.Tabs (T).Keys (K).Colspan'Image & ";"" ");

@@ -3,6 +3,7 @@ keypadder (0.2.0) stable; urgency=low
   [SMerrony]
   * Usability:   Minor layout improvements
   * Usability:   Add dropdown tab selector (Issue #8)
+  * Usability:   Remove hard-coded limit on no. of keys
 
   [mgrojo]
   * Usability:   Add support for all the keys available

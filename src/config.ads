@@ -32,27 +32,22 @@ package Config is
 
    package Event_Vectors is new
      Ada.Containers.Vectors (Index_Type => Natural, Element_Type => Send_Event_T);
-   use Event_Vectors;
 
    type Key_T is record
       Label       : Unbounded_String;
       Send        : Unbounded_String;  -- the undecoded string from the TOML
-      Send_Events : Vector;
+      Send_Events : Event_Vectors.Vector;
       Colspan,
       Rowspan     : Natural := 0;
    end record;
 
-   Max_Keys : constant Positive := 127;
-   --  Somewhat arbitrary limit to ensure the config parser doesn't go into
-   --  a crazy loop.
-
-   type Keys_T is array (1 .. Max_Keys) of Key_T;
+   package Key_Vectors is new
+      Ada.Containers.Vectors (Index_Type => Positive, Element_Type => Key_T);
 
    type Tab_T is record
       Label      : Unbounded_String;
       Columns    : Natural := 0;
-      Keys       : Keys_T;
-      Keys_Count : Natural := 0;
+      Keys       : Key_Vectors.Vector;
    end record;
 
    Max_Tabs   : constant Positive := 32;
