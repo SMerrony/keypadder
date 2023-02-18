@@ -21,64 +21,59 @@ package body Config is
       Words      : Slice_Set;
    begin
       Create (Words, To_String (User_String), ",", Multiple);
-      for Word_Num in 1 .. Slice_Count (Words) loop
-         declare
-            Word : constant String := Slice (Words, Word_Num);
-         begin
-            if Word'Length > 2 and then Word (Word'First) = '!' and then Word (Word'First + 1) = '^' then
-               Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
-               Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
-               if Keys_M.Contains (Word (Word'First + 2 .. Word'Last)) then
-                  Decoded.Append ((Down, Keys_M (Word (Word'First + 2 .. Word'Last))));
-                  Decoded.Append ((Up,   Keys_M (Word (Word'First + 2 .. Word'Last))));
-                  Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
-                  Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
-               else
-                  raise Unknown_Key with Word;
-               end if;
-            elsif Word (Word'First) = '^' then
-               --  Shifted word...
-               Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
-               if Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
-                  Decoded.Append ((Down, Keys_M (Word (Word'First + 1 .. Word'Last))));
-                  Decoded.Append ((Up,   Keys_M (Word (Word'First + 1 .. Word'Last))));
-                  Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
-               else
-                  raise Unknown_Key with Word;
-               end if;
-            elsif Word (Word'First) = '!' then
-               --  Controlled word...
-               Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
-               if Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
-                  Decoded.Append ((Down, Keys_M (Word (Word'First + 1 .. Word'Last))));
-                  Decoded.Append ((Up,   Keys_M (Word (Word'First + 1 .. Word'Last))));
-                  Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
-               else
-                  raise Unknown_Key with Word;
-               end if;
-            elsif Word (Word'First) = '@' then
-               --  Unicode prefix...
-               Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
-               Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
-               Decoded.Append ((Down, Keys_M ("U")));
-               Decoded.Append ((Up, Keys_M ("U")));
+      for Word of Words loop
+         if Word'Length > 2 and then Word (Word'First) = '!' and then Word (Word'First + 1) = '^' then
+            Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
+            Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
+            if Keys_M.Contains (Word (Word'First + 2 .. Word'Last)) then
+               Decoded.Append ((Down, Keys_M (Word (Word'First + 2 .. Word'Last))));
+               Decoded.Append ((Up,   Keys_M (Word (Word'First + 2 .. Word'Last))));
                Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
                Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
             else
-               if Keys_M.Contains (Word) then
-                  --  Normal word...
-                  Decoded.Append ((Down, Keys_M (Word)));
-                  Decoded.Append ((Up,   Keys_M (Word)));
-               else
-                  raise Unknown_Key with Word;
-               end if;
+               raise Unknown_Key with Word;
             end if;
-         end;
+         elsif Word (Word'First) = '^' then
+            --  Shifted word...
+            Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
+            if Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
+               Decoded.Append ((Down, Keys_M (Word (Word'First + 1 .. Word'Last))));
+               Decoded.Append ((Up,   Keys_M (Word (Word'First + 1 .. Word'Last))));
+               Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
+            else
+               raise Unknown_Key with Word;
+            end if;
+         elsif Word (Word'First) = '!' then
+            --  Controlled word...
+            Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
+            if Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
+               Decoded.Append ((Down, Keys_M (Word (Word'First + 1 .. Word'Last))));
+               Decoded.Append ((Up,   Keys_M (Word (Word'First + 1 .. Word'Last))));
+               Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
+            else
+               raise Unknown_Key with Word;
+            end if;
+         elsif Word (Word'First) = '@' then
+            --  Unicode prefix...
+            Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
+            Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
+            Decoded.Append ((Down, Keys_M ("U")));
+            Decoded.Append ((Up, Keys_M ("U")));
+            Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
+            Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
+         else
+            if Keys_M.Contains (Word) then
+               --  Normal word...
+               Decoded.Append ((Down, Keys_M (Word)));
+               Decoded.Append ((Up,   Keys_M (Word)));
+            else
+               raise Unknown_Key with Word;
+            end if;
+         end if;
       end loop;
       return Decoded;
 
    exception
-
       when Error : Unknown_Key =>
          Put_Line ("Error loading configuration file...");
          Put_Line ("Unknown key mnemonic: " & Exception_Message (Error));
@@ -245,7 +240,6 @@ package body Config is
       return True;
 
    exception
-
       when Error : others =>
          Put_Line ("Error loading configuration file: " & Filename);
          Put_Line (Exception_Message (Error));

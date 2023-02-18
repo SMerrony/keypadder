@@ -67,16 +67,16 @@ package body Frontend is
       --  first the tab headers or selector
       if Conf.Keypadder_Conf.Tabswitch = Tabs then
          Append (Main_Page_HTML, "<div class=""kp-bar"">");
-         for T in Conf.Tabs.First_Index .. Conf.Tabs.Last_Index loop
+         for Tab of Conf.Tabs loop
             Append (Main_Page_HTML, "<button class=""kp-bar-item"" onclick=""openTab('" &
-                                    Conf.Tabs (T).Label & "')"">" &
-                                    Conf.Tabs (T).Label & "</button>");
+                                    Tab.Label & "')"">" &
+                                    Tab.Label & "</button>");
          end loop;
       else -- selector
          Append (Main_Page_HTML, "<div><select class='kp-selector' id='kpselect' onChange='selectChange()'>");
-         for T in Conf.Tabs.First_Index .. Conf.Tabs.Last_Index loop
-            Append (Main_Page_HTML, "<option value='" & Conf.Tabs (T).Label & "'>");
-            Append (Main_Page_HTML, Conf.Tabs (T).Label & "</option>");
+         for Tab of Conf.Tabs loop
+            Append (Main_Page_HTML, "<option value='" & Tab.Label & "'>");
+            Append (Main_Page_HTML, Tab.Label & "</option>");
          end loop;
          Append (Main_Page_HTML, "</select>");
       end if;
