@@ -1,8 +1,9 @@
 --  SPDX-License-Identifier: GPL-3.0-or-later
 --  SPDX-FileCopyrightText: Copyright 2023 Stephen Merrony
 
-with Ada.Exceptions; use Ada.Exceptions;
-with Ada.Text_IO;    use Ada.Text_IO;
+with Ada.Exceptions;    use Ada.Exceptions;
+with Ada.Strings.Fixed; use Ada.Strings.Fixed;
+with Ada.Text_IO;       use Ada.Text_IO;
 
 with GNAT.OS_Lib;
 with GNAT.String_Split; use GNAT.String_Split;
@@ -22,34 +23,68 @@ package body Config is
    begin
       Create (Words, To_String (User_String), ",", Multiple);
       for Word of Words loop
-         if Word'Length > 2 and then Word (Word'First) = '!' and then Word (Word'First + 1) = '^' then
+         if Word'Length > 15 and then Head (Word, 15) = "Ctrl+Alt+Shift+" then
+            Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
+            Decoded.Append ((Down, Keys_M ("LEFTALT")));
+            Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
+            if Keys_M.Contains (Word (Word'First + 15 .. Word'Last)) then
+               Decoded.Append ((Down, Keys_M (Word (Word'First + 15 .. Word'Last))));
+               Decoded.Append ((Up,   Keys_M (Word (Word'First + 15 .. Word'Last))));
+               Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
+               Decoded.Append ((Up, Keys_M ("LEFTALT")));
+               Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
+            else
+               raise Unknown_Key with Word;
+            end if;
+         elsif Word'Length > 11 and then Head (Word, 11) = "Ctrl+Shift+" then
             Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
             Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
-            if Keys_M.Contains (Word (Word'First + 2 .. Word'Last)) then
-               Decoded.Append ((Down, Keys_M (Word (Word'First + 2 .. Word'Last))));
-               Decoded.Append ((Up,   Keys_M (Word (Word'First + 2 .. Word'Last))));
+            if Keys_M.Contains (Word (Word'First + 11 .. Word'Last)) then
+               Decoded.Append ((Down, Keys_M (Word (Word'First + 11 .. Word'Last))));
+               Decoded.Append ((Up,   Keys_M (Word (Word'First + 11 .. Word'Last))));
                Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
                Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
             else
                raise Unknown_Key with Word;
             end if;
-         elsif Word (Word'First) = '^' then
+         elsif Word'Length > 9 and then Head (Word, 9) = "Ctrl+Alt+" then
+            Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
+            Decoded.Append ((Down, Keys_M ("LEFTALT")));
+            if Keys_M.Contains (Word (Word'First + 9 .. Word'Last)) then
+               Decoded.Append ((Down, Keys_M (Word (Word'First + 9 .. Word'Last))));
+               Decoded.Append ((Up,   Keys_M (Word (Word'First + 9 .. Word'Last))));
+               Decoded.Append ((Up, Keys_M ("LEFTALT")));
+               Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
+            else
+               raise Unknown_Key with Word;
+            end if;
+         elsif Word'Length > 6 and then Head (Word, 6) = "Shift+" then
             --  Shifted word...
             Decoded.Append ((Down, Keys_M ("LEFTSHIFT")));
-            if Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
-               Decoded.Append ((Down, Keys_M (Word (Word'First + 1 .. Word'Last))));
-               Decoded.Append ((Up,   Keys_M (Word (Word'First + 1 .. Word'Last))));
+            if Keys_M.Contains (Word (Word'First + 6 .. Word'Last)) then
+               Decoded.Append ((Down, Keys_M (Word (Word'First + 6 .. Word'Last))));
+               Decoded.Append ((Up,   Keys_M (Word (Word'First + 6 .. Word'Last))));
                Decoded.Append ((Up, Keys_M ("LEFTSHIFT")));
             else
                raise Unknown_Key with Word;
             end if;
-         elsif Word (Word'First) = '!' then
+         elsif Word'Length > 5 and then Head (Word, 5) = "Ctrl+" then
             --  Controlled word...
             Decoded.Append ((Down, Keys_M ("LEFTCTRL")));
-            if Keys_M.Contains (Word (Word'First + 1 .. Word'Last)) then
-               Decoded.Append ((Down, Keys_M (Word (Word'First + 1 .. Word'Last))));
-               Decoded.Append ((Up,   Keys_M (Word (Word'First + 1 .. Word'Last))));
+            if Keys_M.Contains (Word (Word'First + 5 .. Word'Last)) then
+               Decoded.Append ((Down, Keys_M (Word (Word'First + 5 .. Word'Last))));
+               Decoded.Append ((Up,   Keys_M (Word (Word'First + 5 .. Word'Last))));
                Decoded.Append ((Up, Keys_M ("LEFTCTRL")));
+            else
+               raise Unknown_Key with Word;
+            end if;
+         elsif Word'Length > 4 and then Head (Word, 4) = "Alt+" then
+            --  Controlled word...
+            Decoded.Append ((Down, Keys_M ("LEFTALT")));
+            if Keys_M.Contains (Word (Word'First + 4 .. Word'Last)) then
+               Decoded.Append ((Down, Keys_M (Word (Word'First + 4 .. Word'Last))));
+               Decoded.Append ((Up,   Keys_M (Word (Word'First + 4 .. Word'Last))));
+               Decoded.Append ((Up, Keys_M ("LEFTALT")));
             else
                raise Unknown_Key with Word;
             end if;
@@ -197,9 +232,11 @@ package body Config is
                         if Has (Key_Table, "send") then
                            New_Key.Send        := As_Unbounded_String (Get (Key_Table, "send"));
                            New_Key.Send_Events := Decode_Send_String (New_Key.Send);
-                        else
+                        elsif New_Key.Label = Blank then
                            New_Key.Send        := Null_Unbounded_String;
                            New_Key.Send_Events := Event_Vectors.Empty_Vector;
+                        else
+                           raise Incomplete_Configuration with "Missing 'send' item for label: " & To_String (New_Key.Label);
                         end if;
 
                         if Has (Key_Table, "colspan") then
@@ -243,7 +280,6 @@ package body Config is
       when Error : others =>
          Put_Line ("Error loading configuration file: " & Filename);
          Put_Line (Exception_Message (Error));
-         Put_Line (Exception_Information (Error));
          return False;
    end Load_Config_File;
 

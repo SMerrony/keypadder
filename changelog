@@ -1,9 +1,15 @@
 keypadder (0.2.0) stable; urgency=low
 
   [SMerrony]
+  * Feature:     Add Alt+ modifier
+  * Feature:     Add dropdown tab selector option (Issue #8)
   * Usability:   Minor layout improvements
-  * Usability:   Add dropdown tab selector (Issue #8)
   * Usability:   Remove hard-coded limits on no. of keys and tabs
+  * Usability:   Remove ^ and ! shortcuts, use Shift+ and Ctrl+ instead
+  * Usability:   Better error reporting for config file mistakes
+  * Docs:        Expand Configuration Guide
+  * Docs:        Extended example/keypad.toml to use all modifier combos
+
 
   [mgrojo]
   * Usability:   Add support for all the keys available

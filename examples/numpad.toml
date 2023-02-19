@@ -32,9 +32,9 @@ keys = [
 label = "Hex"
 cols = 4
 keys = [
-   {label="A",send="A"},{label="B",send="B"},{label="C",send="C"},{label="D",send="D"},
-   {label="7",send="7"},{label="8",send="8"},{label="9",send="9"},{label="E",send="E"},
-   {label="4",send="4"},{label="5",send="5"},{label="6",send="6"},{label="F",send="F"},
+   {label="a",send="A"},{label="b",send="B"},{label="c",send="C"},{label="d",send="D"},
+   {label="7",send="7"},{label="8",send="8"},{label="9",send="9"},{label="e",send="E"},
+   {label="4",send="4"},{label="5",send="5"},{label="6",send="6"},{label="f",send="F"},
    {label="1",send="1"},{label="2",send="2"},{label="3",send="3"},{label="&crarr;",rowspan=2,send="KPENTER"},
    {label="0",colspan=2,send="0"},{label="#",send="BACKSLASH"}
 ]

@@ -13,10 +13,12 @@ It makes use of all of the features currently implemented by the application.
   - [The `label` Item](#the-label-item)
   - [The `colspan` and `rowspan` Items](#the-colspan-and-rowspan-items)
   - [The `send` Item](#the-send-item)
-    - [Simple Examples](#simple-examples)
-    - [^ Examples](#-examples)
-    - [! Examples](#-examples-1)
-    - [@ Examples](#-examples-2)
+    - [Special Keys and Modifiers](#special-keys-and-modifiers)
+      - [`Shift+`](#shift)
+      - [`Ctrl+`](#ctrl)
+      - [`Alt+`](#alt)
+      - [`BLANK`](#blank)
+      - [Unicode (`@`)](#unicode-)
 
 
 ## Overall Structure
@@ -113,33 +115,54 @@ See page 53 of the [Universal Serial Bus HID Usage Tables](https://www.usb.org/s
 
 You must use upper case for these strings.
 
-#### Simple Examples
+Simple Examples:
 * `send = "W"` will send a keystroke (actually a keypress and then keyup) for the `w` character.
 * `send = "KP3"` will send a keypad 3 keystroke
-* `send = "RIGHTALT,GRAVE,A"` will send three keystrokes, possibly* generating a `à`
+* `send = "RIGHTALT,GRAVE,A"` will send three keystrokes, possibly* generating an `à`
 
 *Your system will need to have the right-ALT key configured as the 'compose' key for this to work.
-u888
-There are some additional strings - currently `^`, `!`, `BLANK`, and `@` - which have special meanings defined below.
 
-The `^` symbol directs Keypadder to send the next keystroke shifted.
-#### ^ Examples
-* `send = "^W"` will send a Shift-W keystroke
-* `send = "^F,R,E,D"` with send Shift-F, then unshifted r, e and d keys
+#### Special Keys and Modifiers
 
-The `!` symbol directs Keypadder to send the next keystroke with the "control" modifier.
-You may combine it with the `^` shift modifier - always in the order `!^`.
-#### ! Examples
-* `send = "!S"` will send the Ctrl-S keystroke
-* `send = "!^S"` will send the Ctrl-Shift-S keystroke
+There are some additional strings - currently `Shift+`, `Ctrl+`, `Alt+`, `BLANK`, and `@` - which have special meanings defined below.
+
+##### `Shift+`
+
+The `Shift+` string directs Keypadder to send the next keystroke shifted.
+
+Examples:
+* `send = "Shift+W"` will send a Shift-W keystroke
+* `send = "Shift+F,R,E,D"` with send Shift-F, then unshifted r, e and d keys
+
+##### `Ctrl+`
+
+The `Ctrl+` string directs Keypadder to send the next keystroke with the "control" modifier.
+You may combine it with the `Shift+` shift modifier - always in the order `Ctrl+Shift+`.
+
+Examples:
+* `send = "Ctrl+S"` will send the Ctrl-S keystroke
+* `send = "Ctrl+Shift+S"` will send the Ctrl-Shift-S keystroke
+
+##### `Alt+`
+The `Alt+` string directs Keypadder to send the next keystroke with the "left-alt" modfier.
+You may combine it with the `Ctrl+` modfier - always in the order `Ctrl+Alt+`.
+
+Examples:
+* `send = "Alt+F7"` will send the Left-Alt-F7 keystroke
+* `send = "Ctrl+Alt+C"` will send the Ctrl-LeftAlt-C keystroke
+
+##### `BLANK`
 
 The `BLANK` string simply causes Keypadder to leave the key unlabelled.
+It might be useful for creating large layouts.
+
+##### Unicode (`@`)
 
 The `@` symbol is shorthand for the Unicode prefix.  It is analagous to the Ctrl-Shift-U keyboard combination used to type Unicode characters in Linux.
 
 It should be followed by keys for the Unicode character you desire.  This also works for emojis.
 The application to which you are sending keystrokes must be Unicode-aware for these to be useful.
 
-#### @ Examples
+Examples:
 * `send = "@,0,0,E,2,SPACE"` will send keystrokes for Ctrl-Shift-U 00e2, which produces `â`
 * `send = "@,1,F,6,0,0,SPACE"` will produce a grinning face emoji `😀`
