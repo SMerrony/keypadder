@@ -146,10 +146,12 @@ Examples:
 ##### `Alt+`
 The `Alt+` string directs Keypadder to send the next keystroke with the "left-alt" modfier.
 You may combine it with the `Ctrl+` modfier - always in the order `Ctrl+Alt+`.
+You may combine it with both the `Ctrl+` and `Shift+` modfiers - always in the order `Ctrl+Alt+Shift+`.
 
 Examples:
 * `send = "Alt+F7"` will send the Left-Alt-F7 keystroke
 * `send = "Ctrl+Alt+C"` will send the Ctrl-LeftAlt-C keystroke
+* `send = "Ctrl+Alt+Shift+V"` will send the Ctrl-LeftAlt-Shift-V keystroke
 
 ##### `BLANK`
 
