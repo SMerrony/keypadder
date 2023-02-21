@@ -1,0 +1,446 @@
+[keypadder]
+port = 8082	# HTTP port to use
+
+[[tab]]
+label ="Common Arithmetic & Algebra"
+cols = 4
+keys = [
+   {label="&#x3C;", send="@,3,C,SPACE"}, # LESS THAN
+   {label="&#x3E;", send="@,3,E,SPACE"}, # GREATER THAN
+   {label="&#x2264;", send="@,2,2,6,4,SPACE"}, # LESS THAN OR EQUAL TO
+   {label="&#x2265;", send="@,2,2,6,5,SPACE"}, # GREATER THAN OR EQUAL TO
+   {label="&#xB1;", send="@,B,1,SPACE"}, # PLUS OR MINUS
+   {label="&#x2260;", send="@,2,2,6,0,SPACE"}, # NOT EQUALS
+   {label="&#xF7;", send="@,F,7,SPACE"}, # DIVISION SIGN
+   {label="&#x00D7;", send="@,0,0,D,7,SPACE"}, # TIMES X
+   {label="&#x2212;", send="@,2,2,1,2,SPACE"}, # MINUS
+   {label="&#x2215;", send="@,2,2,1,5,SPACE"}, # DIVISION SLASH
+   {label="&#x2044;", send="@,2,0,4,4,SPACE"}, # FRACTION SLASH
+   {label="&#x221A;", send="@,2,2,1,A,SPACE"}, # SQUARE ROOT RADICAL
+   {label="&#x221B;", send="@,2,2,1,B,SPACE"}, # CUBE ROOT
+   {label="&#x221C;", send="@,2,2,1,C,SPACE"}, # FOURTH ROOT
+   {label="&#x221E;", send="@,2,2,1,E,SPACE"}, # INFINITY
+   {label="&#x2135;", send="@,2,1,3,5,SPACE"}, # ALEF INFINITY SYMBOL
+   {label="&#x192;", send="@,1,9,2,SPACE"}, # FUNCTION ITALIC F
+   {label="&#x2032;", send="@,2,0,3,2,SPACE"}, # PRIME (single quote)
+   {label="&#x2033;", send="@,2,0,3,3,SPACE"}, # DOUBLE PRIME (double quote)
+   {label="&#x2034;", send="@,2,0,3,4,SPACE"}, # TRIPLE PRIME (triple quote)
+   {label="&#x2234;", send="@,2,2,3,4,SPACE"}, # THEREFORE (Triangular Dots)
+   {label="&#x22C5", send="@,2,2,C,5,SPACE"}, # DOT OPERATOR
+   {label="&#xB9;", send="@,B,9,SPACE"}, # SUPERSCRIPT TWO
+   {label="&#xB2;", send="@,B,2,SPACE"}, # SUPERSCRIPT TWO
+   {label="&#xB3;", send="@,B,3,SPACE"}, # SUPERSCRIPT THREE
+   {label="&#x2329;", send="@,2,3,2,9,SPACE"}, # LEFT ANGLE BRACKET
+   {label="&#x232A;", send="@,2,3,2,A,SPACE"}, # RIGHT ANGLE BRACKET
+   {label="&#x2308;", send="@,2,3,0,8,SPACE"}, # LEFT CEILING BRACKET
+   {label="&#x2309;", send="@,2,3,0,9,SPACE"}, # RIGHT CEILING BRACKET
+   {label="&#x230A;", send="@,2,3,0,A,SPACE"}, # LEFT FLOOR BRACKET
+   {label="&#x230B;", send="@,2,3,0,B,SPACE"}, # RIGHT FLOOR BRACKET
+   {label="&#x2295;", send="@,2,2,9,5,SPACE"}, # CIRCLED PLUS (Direct Sum)
+   {label="&#x2297;", send="@,2,2,9,7,SPACE"}, # CIRCLED TIMES (Vector Product)
+]
+[[tab]]
+label ="Superscript and Subscript"
+cols = 4
+keys = [
+   {label="&#x2070;", send="@,2,0,7,0,SPACE"}, # SUPERSCRIPT ZERO
+   {label="&#x2074;", send="@,2,0,7,4,SPACE"}, # SUPERSCRIPT FOUR
+   {label="&#x2075;", send="@,2,0,7,5,SPACE"}, # SUPERSCRIPT FIVE
+   {label="&#x2076;", send="@,2,0,7,6,SPACE"}, # SUPERSCRIPT SIX
+   {label="&#x2077;", send="@,2,0,7,7,SPACE"}, # SUPERSCRIPT SEVEN
+   {label="&#x2078;", send="@,2,0,7,8,SPACE"}, # SUPERSCRIPT EIGHT
+   {label="&#x2079;", send="@,2,0,7,9,SPACE"}, # SUPERSCRIPT NINE
+   {label="&#x207A;", send="@,2,0,7,A,SPACE"}, # SUPERSCRIPT PLUS SIGN
+   {label="&#x207B;", send="@,2,0,7,B,SPACE"}, # SUPERSCRIPT MINUS
+   {label="&#x207C;", send="@,2,0,7,C,SPACE"}, # SUPERSCRIPT EQUALS SIGN
+   {label="&#x207D;", send="@,2,0,7,D,SPACE"}, # SUPERSCRIPT LEFT PARENTHESIS
+   {label="&#x207E;", send="@,2,0,7,E,SPACE"}, # SUPERSCRIPT RIGHT PARENTHESIS
+   {label="&#x2071;", send="@,2,0,7,1,SPACE"}, # SUPERSCRIPT LATIN SMALL LETTER I
+   {label="&#x207F;", send="@,2,0,7,F,SPACE"}, # SUPERSCRIPT LATIN SMALL LETTER N
+]
+[[tab]]
+label ="Subscript Codes"
+cols = 4
+keys = [
+   {label="&#x2080;", send="@,2,0,8,0,SPACE"}, # SUBSCRIPT ZERO
+   {label="&#x2081;", send="@,2,0,8,1,SPACE"}, # SUBSCRIPT ONE
+   {label="&#x2082;", send="@,2,0,8,2,SPACE"}, # SUBSCRIPT TWO
+   {label="&#x2083;", send="@,2,0,8,3,SPACE"}, # SUBSCRIPT THREE
+   {label="&#x2084;", send="@,2,0,8,4,SPACE"}, # SUBSCRIPT FOUR
+   {label="&#x2085;", send="@,2,0,8,5,SPACE"}, # SUBSCRIPT FIVE
+   {label="&#x2086;", send="@,2,0,8,6,SPACE"}, # SUBSCRIPT SIX
+   {label="&#x2087;", send="@,2,0,8,7,SPACE"}, # SUBSCRIPT SEVEN
+   {label="&#x2088;", send="@,2,0,8,8,SPACE"}, # SUBSCRIPT EIGHT
+   {label="&#x2089;", send="@,2,0,8,9,SPACE"}, # SUBSCRIPT NINE
+   {label="&#x208A;", send="@,2,0,8,A,SPACE"}, # SUBSCRIPT PLUS SIGN
+   {label="&#x208B;", send="@,2,0,8,B,SPACE"}, # SUBSCRIPT MINUS
+   {label="&#x208C;", send="@,2,0,8,C,SPACE"}, # SUBSCRIPT EQUALS SIGN
+   {label="&#x208D;", send="@,2,0,8,D,SPACE"}, # SUBSCRIPT LEFT PARENTHESIS
+   {label="&#x208E;", send="@,2,0,8,E,SPACE"}, # SUBSCRIPT RIGHT PARENTHESIS
+   {label="&#x2090;", send="@,2,0,9,0,SPACE"}, # LATIN SUBSCRIPT SMALL LETTER A
+   {label="&#x2091;", send="@,2,0,9,1,SPACE"}, # LATIN SUBSCRIPT SMALL LETTER E
+   {label="&#x2092;", send="@,2,0,9,2,SPACE"}, # LATIN SUBSCRIPT SMALL LETTER O
+   {label="&#x1D62;", send="@,1,D,6,2,SPACE"}, # LATIN SUBSCRIPT SMALL LETTER I
+   {label="&#x1D63;", send="@,1,D,6,3,SPACE"}, # LATIN SUBSCRIPT SMALL LETTER R
+   {label="&#x1D64;", send="@,1,D,6,4,SPACE"}, # LATIN SUBSCRIPT SMALL LETTER U
+   {label="&#x1D65;", send="@,1,D,6,5,SPACE"}, # LATIN SUBSCRIPT SMALL LETTER V
+   {label="&#x2093;", send="@,2,0,9,3,SPACE"}, # LATIN SUBSCRIPT SMALL LETTER X
+   {label="&#x1D66;", send="@,1,D,6,6,SPACE"}, # GREEK SUBSCRIPT SMALL LETTER BETA
+   {label="&#x1D67;", send="@,1,D,6,7,SPACE"}, # GREEK SUBSCRIPT SMALL LETTER GAMMA
+   {label="&#x1D68;", send="@,1,D,6,8,SPACE"}, # GREEK SUBSCRIPT SMALL LETTER RHO
+   {label="&#x1D69;", send="@,1,D,6,9,SPACE"}, # GREEK SUBSCRIPT SMALL LETTER PHI
+   {label="&#x1D6A;", send="@,1,D,6,A,SPACE"}, # GREEK SUBSCRIPT SMALL LETTER CHI
+]
+[[tab]]
+label ="Fractions"
+cols = 4
+keys = [
+   {label="&#xBC;", send="@,B,C,SPACE"}, # VULGAR FRACTION 1/4
+   {label="&#xBD;", send="@,B,D,SPACE"}, # VULGAR FRACTION 1/2
+   {label="&#xBE;", send="@,B,E,SPACE"}, # VULGAR FRACTION 3/4
+   {label="&#x2153;", send="@,2,1,5,3,SPACE"}, # VULGAR FRACTION 1/3
+   {label="&#x2154;", send="@,2,1,5,4,SPACE"}, # VULGAR FRACTION 2/3
+   {label="&#x2155;", send="@,2,1,5,5,SPACE"}, # VULGAR FRACTION 1/5
+   {label="&#x2156;", send="@,2,1,5,6,SPACE"}, # VULGAR FRACTION 2/5
+   {label="&#x2157;", send="@,2,1,5,7,SPACE"}, # VULGAR FRACTION 3/5
+   {label="&#x2158;", send="@,2,1,5,8,SPACE"}, # VULGAR FRACTION 4/5
+   {label="&#x2159;", send="@,2,1,5,9,SPACE"}, # VULGAR FRACTION 1/6
+   {label="&#x215A;", send="@,2,1,5,A,SPACE"}, # VULGAR FRACTION 5/6
+   {label="&#x215B;", send="@,2,1,5,B,SPACE"}, # VULGAR FRACTION 1/8
+   {label="&#x215C;", send="@,2,1,5,C,SPACE"}, # VULGAR FRACTION 3/8
+   {label="&#x215D;", send="@,2,1,5,D,SPACE"}, # VULGAR FRACTION 5/8
+   {label="&#x215E;", send="@,2,1,5,E,SPACE"}, # VULGAR FRACTION 7/8
+]
+[[tab]]
+label ="Statistics"
+cols = 4
+keys = [
+   {label="&#x3BC;", send="@,3,B,C,SPACE"}, # LOWER CASE MU (Mean)
+   {label="&#x3C3;", send="@,3,C,3,SPACE"}, # LOWER CASE SIGMA (Standard Deviation)
+   {label="&#x3C7;", send="@,3,C,7,SPACE"}, # LOWER CASE CHI
+   {label="&#x2211;", send="@,2,2,1,1,SPACE"}, # CAPITAL SIGMA N-ARY SUMMATION
+   {label="&#x220F;", send="@,2,2,0,F,SPACE"}, # CAPITAL PI N-ARY PRODUCT
+   {label="&#x2210;", send="@,2,2,1,0,SPACE"}, # N-ARY COPRODUCT (upside down capital pi)
+]
+[[tab]]
+label ="Measurement Symbols"
+cols = 4
+keys = [
+   {label="&#xB0;", send="@,B,0,SPACE"}, # DEGREE SYMBOL
+   {label="&#xB5;", send="@,B,5,SPACE"}, # MICRO MU SYMBOL
+]
+[[tab]]
+label ="Calculus"
+cols = 4
+keys = [
+   {label="&#x222B;", send="@,2,2,2,B,SPACE"}, # INTEGRAL
+   {label="&#x2206;", send="@,2,2,0,6,SPACE"}, # INCREMENT (Difference or capital Delta)
+   {label="&#x2207;", send="@,2,2,0,7,SPACE"}, # NABLA (Backward Difference, Grad or upside down triangle)
+]
+[[tab]]
+label ="Additional Integral Symbols"
+cols = 4
+keys = [
+   {label="&#x222C;", send="@,2,2,2,C,SPACE"}, # DOUBLE INTEGRAL
+   {label="&#x222D;", send="@,2,2,2,D,SPACE"}, # TRIPLE INTEGRAL
+   {label="&#x2A0C;", send="@,2,A,0,C,SPACE"}, # QUADRUPLE INTEGRAL
+   {label="&#x222E;", send="@,2,2,2,E,SPACE"}, # CONTOUR INTEGRAL
+   {label="&#x222F;", send="@,2,2,2,F,SPACE"}, # SURFACE INTEGRAL
+   {label="&#x2230;", send="@,2,2,3,0,SPACE"}, # VOLUME INTEGRAL
+   {label="&#x2231;", send="@,2,2,3,1,SPACE"}, # CLOCKWISE INTEGRAL
+   {label="&#x2A11;", send="@,2,A,1,1,SPACE"}, # ANTICLOCKWISE INTEGRAL
+   {label="&#x2232;", send="@,2,2,3,2,SPACE"}, # CLOCKWISE CONTOUR INTEGRAL
+   {label="&#x2233;", send="@,2,2,3,3,SPACE"}, # ANTICLOCKWISE CONTOUR INTEGRAL
+]
+[[tab]]
+label ="Letter Symbols"
+cols = 4
+keys = [
+   {label="&#x221E;", send="@,2,2,1,E,SPACE"}, # INFINITY (Sideways 8)
+   {label="&#x2135;", send="@,2,1,3,5,SPACE"}, # ALEF INFINITY SYMBOL
+   {label="&#x2118;", send="@,2,1,1,8,SPACE"}, # WEIERSTRASS POWER SET (Script Capital P)
+   {label="&#x2111;", send="@,2,1,1,1,SPACE"}, # IMAGINARY Part (Blackletter I)
+   {label="&#x211C;", send="@,2,1,1,C,SPACE"}, # REAL NUMBER (Blackletter R)
+   {label="&#x211D;", send="@,2,1,1,D,SPACE"}, # DOUBLE-STRUCK REAL NUMBER (Doublestruck R)
+   {label="&#x2102;", send="@,2,1,0,2,SPACE"}, # COMPLEX NUMBERS (Doublestruck C)
+   {label="&#x2115;", send="@,2,1,1,5,SPACE"}, # NATURAL NUMBERS (Doublestruck N)
+   {label="&#x2119;", send="@,2,1,1,9,SPACE"}, # PRIME NUMBERS (Doublestruck P)
+   {label="&#x211A;", send="@,2,1,1,A,SPACE"}, # RATIONAL NUMBERS (Doublestruck Q)
+   {label="&#x2124;", send="@,2,1,2,4,SPACE"}, # INTEGERS (Doublestruck Z)
+]
+[[tab]]
+label ="Logic & Set Theory"
+cols = 4
+keys = [
+   {label="&#x2200;", send="@,2,2,0,0,SPACE"}, # FOR ALL (Upside-down A)
+   {label="&#x2201;", send="@,2,2,0,1,SPACE"}, # COMPLEMENT (Thin C)
+   {label="&#x2203;", send="@,2,2,0,3,SPACE"}, # THERE EXISTS (Backwards E)
+   {label="&#x2204;", send="@,2,2,0,4,SPACE"}, # THERE DOES NOT EXIST (Backwards E with slash)
+   {label="&#x2205;", send="@,2,2,0,5,SPACE"}, # EMPTY SET (O slash)
+   {label="&#xAC;", send="@,A,C,SPACE"}, # NOT SYMBOL (Corner)
+   {label="&#x2227;", send="@,2,2,2,7,SPACE"}, # LOGICAL AND (Wedge or Upside down V Symbol)
+   {label="&#x2228;", send="@,2,2,2,8,SPACE"}, # LOGICAL OR (V Symbol)
+   {label="&#x22BB;", send="@,2,2,B,B,SPACE"}, # XOR
+   {label="&#x22BC;", send="@,2,2,B,C,SPACE"}, # NAND
+   {label="&#x22BD;", send="@,2,2,B,D,SPACE"}, # NOR
+   {label="&#x2229;", send="@,2,2,2,9,SPACE"}, # INTERSECTION (Cap or Upside Down U)
+   {label="&#x222A;", send="@,2,2,2,A,SPACE"}, # UNION (Cup or U Symbol)
+   {label="&#x2208;", send="@,2,2,0,8,SPACE"}, # ELEMENT OF
+   {label="&#x2209;", send="@,2,2,0,9,SPACE"}, # NOT AN ELEMENT OF
+   {label="&#x220A;", send="@,2,2,0,A,SPACE"}, # SMALL ELEMENT OF
+   {label="&#x220B;", send="@,2,2,0,B,SPACE"}, # CONTAINS AS MEMBER
+   {label="&#x220C;", send="@,2,2,0,C,SPACE"}, # DOES NOT CONTAIN AS MEMBER
+   {label="&#x220D;", send="@,2,2,0,D,SPACE"}, # SMALL CONTAINS AS MEMBER
+   {label="&#x2216;", send="@,2,2,1,6,SPACE"}, # SET MINUS
+   {label="&#x2282;", send="@,2,2,8,2,SPACE"}, # SUBSET OF (Sideways U with cap to left)
+   {label="&#x2283;", send="@,2,2,8,3,SPACE"}, # SUPERSET OF (Sideways U with cap to right)
+   {label="&#x2284;", send="@,2,2,8,4,SPACE"}, # NOT A SUBSET OF (Subset with Slash)
+   {label="&#x2285;", send="@,2,2,8,5,SPACE"}, # NOT A SUPERSET OF (Superset with slash)
+   {label="&#x2286;", send="@,2,2,8,6,SPACE"}, # SUBSET OF OR EQUAL TO (Subset with line below)
+   {label="&#x2287;", send="@,2,2,8,7,SPACE"}, # SUPERSET OF OR EQUAL TO (Superset with line below)
+   {label="&#x2288;", send="@,2,2,8,8,SPACE"}, # NEITHER A SUBSET OF NOR EQUAL TO
+   {label="&#x2289;", send="@,2,2,8,9,SPACE"}, # NEITHER A SUPERSET OF NOR EQUAL TO
+   {label="&#x228A;", send="@,2,2,8,A,SPACE"}, # SUBSET OF WITH NOT EQUAL TO
+   {label="&#x228B;", send="@,2,2,8,B,SPACE"}, # SUPERSET OF WITH NOT EQUAL TO
+   {label="&#x22C4;", send="@,2,2,C,4,SPACE"}, # DIAMOND OPERATOR (Possibility)
+   {label="&#x2243;", send="@,2,2,4,3,SPACE"}, # ASYMPTOTICALLY EQUAL TO One to one Correspondence
+   {label="&#x2244;", send="@,2,2,4,4,SPACE"}, # NOT ASYMPTOTICALLY EQUAL TO
+   {label="&#x228C;", send="@,2,2,8,C,SPACE"}, # MULTISET (U with arrow)
+   {label="&#x228D;", send="@,2,2,8,D,SPACE"}, # MULTISET MULTIPLICATION (U with dot in center)
+   {label="&#x228E;", send="@,2,2,8,E,SPACE"}, # MULTISET UNION (U with plus in center)
+   {label="&#x22D0;", send="@,2,2,D,0,SPACE"}, # DOUBLE SUBSET
+   {label="&#x22D1;", send="@,2,2,D,1,SPACE"}, # DOUBLE SUPERSET
+   {label="&#x22D2;", send="@,2,2,D,2,SPACE"}, # DOUBLE INTERSECTION
+   {label="&#x22D3;", send="@,2,2,D,3,SPACE"}, # DOUBLE UNION
+   {label="&#x22C0;", send="@,2,2,C,0,SPACE"}, # N-ARY LOGICAL AND
+   {label="&#x22C1;", send="@,2,2,C,1,SPACE"}, # N-ARY LOGICAL OR
+   {label="&#x22C2;", send="@,2,2,C,2,SPACE"}, # N-ARY INTERSECTION/td>
+   {label="&#x22C3;", send="@,2,2,C,3,SPACE"}, # N-ARY UNION
+   {label="&#x22CE;", send="@,2,2,C,E,SPACE"}, # CURLY LOGICAL OR
+   {label="&#x22CF;", send="@,2,2,C,F,SPACE"}, # CURLY LOGICAL AND
+   {label="&#x2295;", send="@,2,2,9,5,SPACE"}, # CIRCLED PLUS (Direct Sum)
+   {label="&#x2297;", send="@,2,2,9,7,SPACE"}, # CIRCLED TIMES (Vector Product)
+   {label="&#x2296;", send="@,2,2,9,6,SPACE"}, # CIRCLED MINUS
+   {label="&#x2298;", send="@,2,2,9,8,SPACE"}, # CIRCLED DIVISION SLASH
+]
+[[tab]]
+label ="Other Element Of Symbols"
+cols = 4
+keys = [
+   {label="&#x22F2;", send="@,2,2,F,2,SPACE"}, # ELEMENT OF WITH LONG HORIZONTAL STROKE
+   {label="&#x22F3;", send="@,2,2,F,3,SPACE"}, # ELEMENT OF WITH VERTICAL BAR AT END OF HORIZONTAL STROKE
+   {label="&#x22F4;", send="@,2,2,F,4,SPACE"}, # SMALL ELEMENT OF WITH VERTICAL BAR AT END OF HORIZONTAL STROKE
+   {label="&#x22F5;", send="@,2,2,F,5,SPACE"}, # ELEMENT OF WITH DOT ABOVE
+   {label="&#x22F6;", send="@,2,2,F,6,SPACE"}, # ELEMENT OF WITH OVERBAR
+   {label="&#x22F7;", send="@,2,2,F,7,SPACE"}, # SMALL ELEMENT OF WITH OVERBAR
+   {label="&#x22F8;", send="@,2,2,F,8,SPACE"}, # ELEMENT OF WITH UNDERBAR
+   {label="&#x22F9;", send="@,2,2,F,9,SPACE"}, # ELEMENT OF WITH TWO HORIZONTAL STROKES
+   {label="&#x22FA;", send="@,2,2,F,A,SPACE"}, # CONTAINS WITH LONG HORIZONTAL STROKE
+   {label="&#x22FB;", send="@,2,2,F,B,SPACE"}, # CONTAINS WITH VERTICAL BAR AT END OF HORIZONTAL STROKE
+   {label="&#x22FC;", send="@,2,2,F,C,SPACE"}, # SMALL CONTAINS WITH VERTICAL BAR AT END OF HORIZONTAL STROKE
+   {label="&#x22FD;", send="@,2,2,F,D,SPACE"}, # CONTAINS WITH OVERBAR
+   {label="&#x22FE;", send="@,2,2,F,E,SPACE"}, # SMALL CONTAINS WITH OVERBAR
+   {label="&#x22FF;", send="@,2,2,F,F,SPACE"}, # NOTATION BAG MEMBERSHIP
+]
+[[tab]]
+label ="Geometric Symbols"
+cols = 4
+keys = [
+   {label="&#x221F;", send="@,2,2,1,F,SPACE"}, # RIGHT ANGLE
+   {label="&#x2221;", send="@,2,2,2,1,SPACE"}, # MEASURED ANGLE
+   {label="&#x2222;", send="@,2,2,2,2,SPACE"}, # SPHERICAL ANGLE
+   {label="&#x2223;", send="@,2,2,2,3,SPACE"}, # DIVIDES
+   {label="&#x2224;", send="@,2,2,2,4,SPACE"}, # DOES NOT DIVIDE
+   {label="&#x2225;", send="@,2,2,2,5,SPACE"}, # PARALLEL TO
+   {label="&#x2226;", send="@,2,2,2,6,SPACE"}, # NOT PARALLEL TO
+   {label="&#x22BE;", send="@,2,2,B,E,SPACE"}, # RIGHT ANGLE WITH ARC
+   {label="&#x22BF;", send="@,2,2,B,F,SPACE"}, # RIGHT TRIANGLE
+   {label="&#x22A2;", send="@,2,2,A,2,SPACE"}, # RIGHT TACK
+   {label="&#x22A3;", send="@,2,2,A,3,SPACE"}, # LEFT TACK
+   {label="&#x22A4;", send="@,2,2,A,4,SPACE"}, # DOWN TACK
+]
+[[tab]]
+label ="Logical Proofs"
+cols = 4
+keys = [
+   {label="&#x2235;", send="@,2,2,3,5,SPACE"}, # BECAUSE (Upside down Triangular Dots)
+   {label="&#x220E;", send="@,2,2,0,E,SPACE"}, # END OF PROOF (solid rectangle)
+]
+[[tab]]
+label ="Equivalence and Proportion Operators"
+cols = 4
+keys = [
+   {label="&#x2260;", send="@,2,2,6,0,SPACE"}, # NOT EQUALS
+   {label="&#x2245;", send="@,2,2,4,5,SPACE"}, # APPROXIMATELY EQUAL
+   {label="&#x2248;", send="@,2,2,4,8,SPACE"}, # ALMOST EQUAL (ASYMPTOTIC)
+   {label="&#x2249;", send="@,2,2,4,9,SPACE"}, # NOT ALMOST EQUAL TO
+   {label="&#x223C;", send="@,2,2,3,C,SPACE"}, # TILDE SIMILAR TO
+   {label="&#x2261;", send="@,2,2,6,1,SPACE"}, # IDENTICAL TO (three lines)
+   {label="&#x2262;", send="@,2,2,6,2,SPACE"}, # NOT IDENTICAL TO
+]
+[[tab]]
+label ="Other Equivalence Symbols"
+cols = 4
+keys = [
+   {label="&#x2263;", send="@,2,2,6,3,SPACE"}, # STRICTLY EQUIVALENT TO
+   {label="&#x2262;", send="@,2,2,6,2,SPACE"}, # NOT IDENTICAL TO
+   {label="&#x2266;", send="@,2,2,6,6,SPACE"}, # LESS-THAN OVER EQUAL TO
+   {label="&#x2267;", send="@,2,2,6,7,SPACE"}, # GREATER-THAN OVER EQUAL TO
+   {label="&#x2268;", send="@,2,2,6,8,SPACE"}, # LESS-THAN BUT NOT EQUAL TO
+   {label="&#x2269;", send="@,2,2,6,9,SPACE"}, # GREATER-THAN BUT NOT EQUAL TO
+   {label="&#x226A;", send="@,2,2,6,A,SPACE"}, # MUCH LESS-THAN
+   {label="&#x226B;", send="@,2,2,6,B,SPACE"}, # MUCH GREATER-THAN
+   {label="&#x226C;", send="@,2,2,6,C,SPACE"}, # BETWEEN
+   {label="&#x226D;", send="@,2,2,6,D,SPACE"}, # NOT EQUIVALENT TO
+   {label="&#x226E;", send="@,2,2,6,E,SPACE"}, # NOT LESS-THAN
+   {label="&#x226F;", send="@,2,2,6,F,SPACE"}, # NOT GREATER-THAN
+   {label="&#x2270;", send="@,2,2,7,0,SPACE"}, # NEITHER LESS-THAN NOR EQUAL TO
+   {label="&#x2271;", send="@,2,2,7,1,SPACE"}, # NEITHER GREATER-THAN NOR EQUAL TO
+   {label="&#x2272;", send="@,2,2,7,2,SPACE"}, # LESS-THAN OR EQUIVALENT TO
+   {label="&#x2273;", send="@,2,2,7,3,SPACE"}, # GREATER-THAN OR EQUIVALENT TO
+   {label="&#x2274;", send="@,2,2,7,4,SPACE"}, # NEITHER LESS-THAN NOR EQUIVALENT TO
+   {label="&#x2275;", send="@,2,2,7,5,SPACE"}, # NEITHER GREATER-THAN NOR EQUIVALENT TO
+   {label="&#x2276;", send="@,2,2,7,6,SPACE"}, # LESS-THAN OR GREATER-THAN
+   {label="&#x2277;", send="@,2,2,7,7,SPACE"}, # GREATER-THAN OR LESS-THAN
+   {label="&#x2278;", send="@,2,2,7,8,SPACE"}, # NEITHER LESS-THAN NOR GREATER-THAN
+   {label="&#x2279;", send="@,2,2,7,9,SPACE"}, # NEITHER GREATER-THAN NOR LESS-THAN
+   {label="&#x2241;", send="@,2,2,4,1,SPACE"}, # NOT TILDE
+   {label="&#x2242;", send="@,2,2,4,2,SPACE"}, # MINUS TILDE
+   {label="&#x2243;", send="@,2,2,4,3,SPACE"}, # ASYMPTOTICALLY EQUAL TO
+   {label="&#x2244;", send="@,2,2,4,4,SPACE"}, # NOT ASYMPTOTICALLY EQUAL TO
+   {label="&#x2246;", send="@,2,2,4,6,SPACE"}, # APPROXIMATELY BUT NOT ACTUALLY EQUAL TO
+   {label="&#x2247;", send="@,2,2,4,7,SPACE"}, # NEITHER APPROXIMATELY NOR ACTUALLY EQUAL TO
+   {label="&#x2249;", send="@,2,2,4,9,SPACE"}, # NOT ALMOST EQUAL TO
+   {label="&#x224A;", send="@,2,2,4,A,SPACE"}, # ALMOST EQUAL OR EQUAL TO
+   {label="&#x224B;", send="@,2,2,4,B,SPACE"}, # TRIPLE TILDE
+   {label="&#x224C;", send="@,2,2,4,C,SPACE"}, # ALL EQUAL TO
+]
+[[tab]]
+label ="Other Mathematical Symbols"
+cols = 4
+keys = [
+   {label="&#x2213;", send="@,2,2,1,3,SPACE"}, # MINUS-OR-PLUS SIGN
+   {label="&#x2214;", send="@,2,2,1,4,SPACE"}, # DOT PLUS
+   {label="&#x2217;", send="@,2,2,1,7,SPACE"}, # ASTERISK OPERATOR
+   {label="&#x2218;", send="@,2,2,1,8,SPACE"}, # RING OPERATOR
+   {label="&#x2219;", send="@,2,2,1,9,SPACE"}, # BULLET OPERATOR
+   {label="&#x221D;", send="@,2,2,1,D,SPACE"}, # PROPORTIONAL TO
+   {label="&#x2236;", send="@,2,2,3,6,SPACE"}, # RATIO
+   {label="&#x2237;", send="@,2,2,3,7,SPACE"}, # PROPORTION
+   {label="&#x2238;", send="@,2,2,3,8,SPACE"}, # DOT MINUS
+   {label="&#x2239;", send="@,2,2,3,9,SPACE"}, # EXCESS
+   {label="&#x223A;", send="@,2,2,3,A,SPACE"}, # GEOMETRIC PROPORTION
+   {label="&#x223B;", send="@,2,2,3,B,SPACE"}, # HOMOTHETIC
+   {label="&#x223C;", send="@,2,2,3,C,SPACE"}, # TILDE OPERATOR
+   {label="&#x223D;", send="@,2,2,3,D,SPACE"}, # REVERSED TILDE
+   {label="&#x223E;", send="@,2,2,3,E,SPACE"}, # INVERTED LAZY S
+   {label="&#x223F;", send="@,2,2,3,F,SPACE"}, # SINE WAVE
+   {label="&#x2240;", send="@,2,2,4,0,SPACE"}, # WREATH PRODUCT
+   {label="&#x224D;", send="@,2,2,4,D,SPACE"}, # EQUIVALENT TO
+   {label="&#x224E;", send="@,2,2,4,E,SPACE"}, # GEOMETRICALLY EQUIVALENT TO
+   {label="&#x224F;", send="@,2,2,4,F,SPACE"}, # DIFFERENCE BETWEEN
+   {label="&#x2250;", send="@,2,2,5,0,SPACE"}, # APPROACHES THE LIMIT
+   {label="&#x2251;", send="@,2,2,5,1,SPACE"}, # GEOMETRICALLY EQUAL TO
+   {label="&#x2252;", send="@,2,2,5,2,SPACE"}, # APPROXIMATELY EQUAL TO OR THE IMAGE OF
+   {label="&#x2253;", send="@,2,2,5,3,SPACE"}, # IMAGE OF OR APPROXIMATELY EQUAL TO
+   {label="&#x2254;", send="@,2,2,5,4,SPACE"}, # COLON EQUALS
+   {label="&#x2255;", send="@,2,2,5,5,SPACE"}, # EQUALS COLON
+   {label="&#x2256;", send="@,2,2,5,6,SPACE"}, # RING IN EQUAL TO
+   {label="&#x2257;", send="@,2,2,5,7,SPACE"}, # RING EQUAL TO
+   {label="&#x2258;", send="@,2,2,5,8,SPACE"}, # CORRESPONDS TO
+   {label="&#x2259;", send="@,2,2,5,9,SPACE"}, # ESTIMATES
+   {label="&#x225A;", send="@,2,2,5,A,SPACE"}, # EQUIANGULAR TO
+   {label="&#x225B;", send="@,2,2,5,B,SPACE"}, # STAR EQUALS
+   {label="&#x225C;", send="@,2,2,5,C,SPACE"}, # DELTA EQUAL TO
+   {label="&#x225D;", send="@,2,2,5,D,SPACE"}, # EQUAL TO BY DEFINITION
+   {label="&#x225E;", send="@,2,2,5,E,SPACE"}, # MEASURED BY
+   {label="&#x225F;", send="@,2,2,5,F,SPACE"}, # QUESTIONED EQUAL TO
+   {label="&#x227A;", send="@,2,2,7,A,SPACE"}, # PRECEDES
+   {label="&#x227B;", send="@,2,2,7,B,SPACE"}, # SUCCEEDS
+   {label="&#x227C;", send="@,2,2,7,C,SPACE"}, # PRECEDES OR EQUAL TO
+   {label="&#x227D;", send="@,2,2,7,D,SPACE"}, # SUCCEEDS OR EQUAL TO
+   {label="&#x227E;", send="@,2,2,7,E,SPACE"}, # PRECEDES OR EQUIVALENT TO
+   {label="&#x227F;", send="@,2,2,7,F,SPACE"}, # SUCCEEDS OR EQUIVALENT TO
+   {label="&#x2280;", send="@,2,2,8,0,SPACE"}, # DOES NOT PRECEDE
+   {label="&#x2281;", send="@,2,2,8,1,SPACE"}, # DOES NOT SUCCEED
+   {label="&#x228F;", send="@,2,2,8,F,SPACE"}, # SQUARE IMAGE OF
+   {label="&#x2290;", send="@,2,2,9,0,SPACE"}, # SQUARE ORIGINAL OF
+   {label="&#x2291;", send="@,2,2,9,1,SPACE"}, # SQUARE IMAGE OF OR EQUAL TO
+   {label="&#x2292;", send="@,2,2,9,2,SPACE"}, # SQUARE ORIGINAL OF OR EQUAL TO
+   {label="&#x2293;", send="@,2,2,9,3,SPACE"}, # SQUARE CAP
+   {label="&#x2294;", send="@,2,2,9,4,SPACE"}, # SQUARE CUP
+   {label="&#x2295;", send="@,2,2,9,5,SPACE"}, # CIRCLED PLUS
+   {label="&#x2296;", send="@,2,2,9,6,SPACE"}, # CIRCLED MINUS
+   {label="&#x2297;", send="@,2,2,9,7,SPACE"}, # CIRCLED TIMES
+   {label="&#x2298;", send="@,2,2,9,8,SPACE"}, # CIRCLED DIVISION SLASH
+   {label="&#x2299;", send="@,2,2,9,9,SPACE"}, # CIRCLED DOT OPERATOR
+   {label="&#x229A;", send="@,2,2,9,A,SPACE"}, # CIRCLED RING OPERATOR
+   {label="&#x229B;", send="@,2,2,9,B,SPACE"}, # CIRCLED ASTERISK OPERATOR
+   {label="&#x229C;", send="@,2,2,9,C,SPACE"}, # CIRCLED EQUALS
+   {label="&#x229D;", send="@,2,2,9,D,SPACE"}, # CIRCLED DASH
+   {label="&#x229E;", send="@,2,2,9,E,SPACE"}, # SQUARED PLUS
+   {label="&#x229F;", send="@,2,2,9,F,SPACE"}, # SQUARED MINUS
+   {label="&#x22A0;", send="@,2,2,A,0,SPACE"}, # SQUARED TIMES
+   {label="&#x22AA;", send="@,2,2,A,A,SPACE"}, # SQUARED DOT OPERATOR
+   {label="&#x22A6;", send="@,2,2,A,6,SPACE"}, # ASSERTION
+   {label="&#x22A7;", send="@,2,2,A,7,SPACE"}, # MODELS
+   {label="&#x22A8;", send="@,2,2,A,8,SPACE"}, # TRUE
+   {label="&#x22A9;", send="@,2,2,A,9,SPACE"}, # FORCES
+   {label="&#x22AA;", send="@,2,2,A,A,SPACE"}, # TRIPLE VERTICAL BAR RIGHT TURNSTILE
+   {label="&#x22AB;", send="@,2,2,A,B,SPACE"}, # DOUBLE VERTICAL BAR DOUBLE RIGHT TURNSTILE
+   {label="&#x22AC;", send="@,2,2,A,C,SPACE"}, # DOES NOT PROVE
+   {label="&#x22AD;", send="@,2,2,A,D,SPACE"}, # NOT TRUE
+   {label="&#x22AE;", send="@,2,2,A,E,SPACE"}, # DOES NOT FORCE
+   {label="&#x22AF;", send="@,2,2,A,F,SPACE"}, # NEGATED DOUBLE VERTICAL BAR DOUBLE RIGHT TURNSTILE
+   {label="&#x22B0;", send="@,2,2,B,0,SPACE"}, # PRECEDES UNDER RELATION
+   {label="&#x22B1;", send="@,2,2,B,1,SPACE"}, # SUCCEEDS UNDER RELATION
+   {label="&#x22B2;", send="@,2,2,B,2,SPACE"}, # NORMAL SUBGROUP OF
+   {label="&#x22B3;", send="@,2,2,B,3,SPACE"}, # CONTAINS AS NORMAL SUBGROUP
+   {label="&#x22B4;", send="@,2,2,B,4,SPACE"}, # NORMAL SUBGROUP OF OR EQUAL TO
+   {label="&#x22B5;", send="@,2,2,B,5,SPACE"}, # CONTAINS AS NORMAL SUBGROUP OR EQUAL TO
+   {label="&#x22B6;", send="@,2,2,B,6,SPACE"}, # ORIGINAL OF
+   {label="&#x22B7;", send="@,2,2,B,7,SPACE"}, # IMAGE OF
+   {label="&#x22B8;", send="@,2,2,B,8,SPACE"}, # MULTIMAP
+   {label="&#x22B9;", send="@,2,2,B,9,SPACE"}, # HERMITIAN CONJUGATE MATRIX
+   {label="&#x22BA;", send="@,2,2,B,A,SPACE"}, # INTERCALATE
+   {label="&#x22C4;", send="@,2,2,C,4,SPACE"}, # DIAMOND OPERATOR
+   {label="&#x22C5;", send="@,2,2,C,5,SPACE"}, # DOT OPERATOR
+   {label="&#x22C6;", send="@,2,2,C,6,SPACE"}, # STAR OPERATOR
+   {label="&#x22C7;", send="@,2,2,C,7,SPACE"}, # DIVISION TIMES
+   {label="&#x22C8;", send="@,2,2,C,8,SPACE"}, # BOWTIE
+   {label="&#x22C9;", send="@,2,2,C,9,SPACE"}, # LEFT NORMAL FACTOR SEMIDIRECT PRODUCT
+   {label="&#x22CA;", send="@,2,2,C,A,SPACE"}, # RIGHT NORMAL FACTOR SEMIDIRECT PRODUCT
+   {label="&#x22CB;", send="@,2,2,C,B,SPACE"}, # LEFT SEMIDIRECT PRODUCT
+   {label="&#x22CC;", send="@,2,2,C,C,SPACE"}, # RIGHT SEMIDIRECT PRODUCT
+   {label="&#x22CD;", send="@,2,2,C,D,SPACE"}, # REVERSED TILDE EQUALS
+   {label="&#x22D4;", send="@,2,2,D,4,SPACE"}, # PITCHFORK
+   {label="&#x22D5;", send="@,2,2,D,5,SPACE"}, # EQUAL AND PARALLEL TO
+   {label="&#x22D6;", send="@,2,2,D,6,SPACE"}, # LESS-THAN WITH DOT
+   {label="&#x22D7;", send="@,2,2,D,7,SPACE"}, # GREATER-THAN WITH DOT
+   {label="&#x22D8;", send="@,2,2,D,8,SPACE"}, # VERY MUCH LESS-THAN
+   {label="&#x22D9;", send="@,2,2,D,9,SPACE"}, # VERY MUCH GREATER-THAN
+   {label="&#x22DA;", send="@,2,2,D,A,SPACE"}, # LESS-THAN EQUAL TO OR GREATER-THAN
+   {label="&#x22DB;", send="@,2,2,D,B,SPACE"}, # GREATER-THAN EQUAL TO OR LESS-THAN
+   {label="&#x22DC;", send="@,2,2,D,C,SPACE"}, # EQUAL TO OR LESS-THAN
+   {label="&#x22DD;", send="@,2,2,D,D,SPACE"}, # EQUAL TO OR GREATER-THAN
+   {label="&#x22DE;", send="@,2,2,D,E,SPACE"}, # EQUAL TO OR PRECEDES
+   {label="&#x22DF;", send="@,2,2,D,F,SPACE"}, # EQUAL TO OR SUCCEEDS
+   {label="&#x22E0;", send="@,2,2,E,0,SPACE"}, # DOES NOT PRECEDE OR EQUAL
+   {label="&#x22E1;", send="@,2,2,E,1,SPACE"}, # DOES NOT SUCCEED OR EQUAL
+   {label="&#x22E2;", send="@,2,2,E,2,SPACE"}, # NOT SQUARE IMAGE OF OR EQUAL TO
+   {label="&#x22E3;", send="@,2,2,E,3,SPACE"}, # NOT SQUARE ORIGINAL OF OR EQUAL TO
+   {label="&#x22E4;", send="@,2,2,E,4,SPACE"}, # SQUARE IMAGE OF OR NOT EQUAL TO
+   {label="&#x22E5;", send="@,2,2,E,5,SPACE"}, # SQUARE ORIGINAL OF OR NOT EQUAL TO
+   {label="&#x22E6;", send="@,2,2,E,6,SPACE"}, # LESS-THAN BUT NOT EQUIVALENT TO
+   {label="&#x22E7;", send="@,2,2,E,7,SPACE"}, # GREATER-THAN BUT NOT EQUIVALENT TO
+   {label="&#x22E8;", send="@,2,2,E,8,SPACE"}, # PRECEDES BUT NOT EQUIVALENT TO
+   {label="&#x22E9;", send="@,2,2,E,9,SPACE"}, # SUCCEEDS BUT NOT EQUIVALENT TO
+   {label="&#x22EA;", send="@,2,2,E,A,SPACE"}, # NOT NORMAL SUBGROUP OF
+   {label="&#x22EB;", send="@,2,2,E,B,SPACE"}, # DOES NOT CONTAIN AS NORMAL SUBGROUP
+   {label="&#x22EC;", send="@,2,2,E,C,SPACE"}, # NOT NORMAL SUBGROUP OF OR EQUAL TO
+   {label="&#x22ED;", send="@,2,2,E,D,SPACE"}, # DOES NOT CONTAIN AS NORMAL SUBGROUP OR EQUAL
+   {label="&#x22EE;", send="@,2,2,E,E,SPACE"}, # VERTICAL ELLIPSIS
+   {label="&#x22EF;", send="@,2,2,E,F,SPACE"}, # MIDLINE HORIZONTAL ELLIPSIS
+   {label="&#x22F0;", send="@,2,2,F,0,SPACE"}, # UP RIGHT DIAGONAL ELLIPSIS
+   {label="&#x22F1;", send="@,2,2,F,1,SPACE"}, # DOWN RIGHT DIAGONAL ELLIPSIS
+]
