@@ -104,6 +104,10 @@ package body Frontend is
             if Conf.Tabs (T).Keys (K).Rowspan > 1 then
                Append (Main_Page_HTML, " style=""grid-row: span" & Conf.Tabs (T).Keys (K).Rowspan'Image & ";"" ");
             end if;
+            if Conf.Tabs (T).Keys (K).Bg_Colour /= Null_Unbounded_String then
+               Append (Main_Page_HTML, " style=""background-color: " & Conf.Tabs (T).Keys (K).Bg_Colour & ";"" ");
+            end if;
+            --  the key label
             Append (Main_Page_HTML, " value=""" & Conf.Tabs (T).Keys (K).Label & """>" & ASCII.LF);
          end loop;
          Append (Main_Page_HTML, "</div></div>");

@@ -39,6 +39,7 @@ package Config is
       Send_Events : Event_Vectors.Vector;
       Colspan,
       Rowspan     : Natural := 0;
+      Bg_Colour   : Unbounded_String := Null_Unbounded_String;
    end record;
 
    package Key_Vectors is new

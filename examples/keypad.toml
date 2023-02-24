@@ -11,9 +11,9 @@ keys = [
   { label = "&Agrave;", send = "RIGHTALT,GRAVE,Shift+A" },
   { label = "&ccedil;", send = "RIGHTALT,COMMA,C" },
 # new row will start here
-  { label = "&egrave;", send = "RIGHTALT,GRAVE,E" },
+  { label = "&egrave;", bg = "Teal",    send = "RIGHTALT,GRAVE,E" },
   { label = "&ecirc;",  send = "RIGHTALT,Shift+6,E" },    
-  { label = "&eacute;", send = "RIGHTALT,APOSTROPHE,E" },
+  { label = "&eacute;", bg = "#008800", send = "RIGHTALT,APOSTROPHE,E" },
   { label = "&euml;",   send = "RIGHTALT,Shift+2,E" },
 #
   { label = "&igrave;", send = "RIGHTALT,GRAVE,I" },
@@ -29,7 +29,7 @@ keys = [
   { label = "&ugrave;", send = "RIGHTALT,GRAVE,U" },
   { label = "&ucirc;",  send = "RIGHTALT,Shift+6,U" },
   { label = "&uuml;",   send = "RIGHTALT,Shift+2,U" },
-  { label = "&euro;",   send = "@,2,0,A,C,SPACE"}
+  { label = "&euro;",   bg = "Gold", send = "@,2,0,A,C,SPACE"}
 ]
 
 [[tab]]

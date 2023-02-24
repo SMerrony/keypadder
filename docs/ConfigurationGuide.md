@@ -79,7 +79,7 @@ keys = [
   ...
 ```
 
-There are also two optional layout options: `colspan` and `rowspan`.
+There are also some optional layout options: `colspan`, `rowspan` and `bg`.
 
 ### The `label` Item
 This defines what appears on your keypad.
@@ -103,6 +103,12 @@ Take a look at the sample "NumPad" layout to see a practical example.  Eg.
    ...
 ```
 The enter key is double-height, and the zero key is double-width.
+
+### The `bg` Item
+This option lets you override the background colour of the button using either a standard CSS colour name, 
+or a six-digit hex value preceded by a `#` symbol.
+
+Eg. `bg = "Red"` or `bg = "#FF0000"`
 
 ### The `send` Item
 This defines what keyboard events Keypadder sends when a key is pressed.

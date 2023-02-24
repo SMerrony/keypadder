@@ -251,6 +251,12 @@ package body Config is
                            New_Key.Rowspan := 0;
                         end if;
 
+                        if Has (Key_Table, "bg") then
+                           New_Key.Bg_Colour := As_Unbounded_String (Get (Key_Table, "bg"));
+                        else
+                           New_Key.Bg_Colour := Null_Unbounded_String;
+                        end if;
+
                         New_Tab.Keys.Append (New_Key);
                         if Verbose then
                            Put_Line ("Key No. " & K'Image & " is: " & To_String (New_Key.Label));
