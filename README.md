@@ -38,6 +38,15 @@ and run `alr build` in the top-level directory.
 ***TODO  - Add more detail here once Alire crate is available***
 
 ## Running Keypadder
+
+You need to start Keypadder on your desktop machine,
+then browse to the web page it provides on your mobile device.
+
+Once it is running you use the desktop as normal and can use a keypad to insert keystrokes
+into the currently-focused window.
+
+### On the Desktop
+
 `keypadder -h` will give a list of all options. 
 ```
 $ ./bin/keypadder -h
@@ -49,9 +58,19 @@ Usage of keypadder:
   -v | --verbose      Show lots of detail when running
   ```
 
-**Keypadder must be run with root privileges in order to inject keystrokes into your system.**
+**N.B. Keypadder must be run with root privileges in order to inject keystrokes into your system.**
 
 Eg: `sudo ./bin/keypadder examples/keypad.toml`
 
-### Creating Your Own Keypads
+### On the Phone/Tablet
+
+With a browser, navigate to `http://<ip addr of desktop>:<port configured>/`
+
+Eg: `http://192.168.1.200:8082/`
+
+If your desktop has a name on your LAN, you can use it in place of the IP address.
+
+Eg: `http//stevedesktop.lan:8082/`
+
+## Creating Your Own Keypads
 See our [Configuration Guide](docs/ConfigurationGuide.md).
