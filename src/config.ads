@@ -48,6 +48,7 @@ package Config is
    type Tab_T is record
       Label      : Unbounded_String;
       Columns    : Natural := 0;
+      Fontsize   : Unbounded_String := Null_Unbounded_String;
       Keys       : Key_Vectors.Vector;
    end record;
 

@@ -123,13 +123,14 @@ keys = [
 [[tab]]
 label = "LibreOffice" # Testing all the modifiers
 cols = 2
+fontsize = "20pt"
 keys = [
-   { label = "Help",      send = "F1" },
-   { label = "Options",   send = "Alt+F12" },
-   { label = "Spell",     send = "Shift+F7" },
-   { label = "Thes.",     send = "Ctrl+F7" },
-   { label = "Currency",  send = "Ctrl+Shift+4" },
-   { label = "Percent",   send = "Ctrl+Shift+5" },
-   { label = "Comment",   send = "Ctrl+Alt+C" },
-   { label = "PasteUnf",  send = "Ctrl+Alt+Shift+V" },
+   { label = "Help",           send = "F1" },
+   { label = "Options",        send = "Alt+F12" },
+   { label = "Spelling",       send = "Shift+F7" },
+   { label = "Thesaurus",      send = "Ctrl+F7" },
+   { label = "As Currency",    send = "Ctrl+Shift+4" },
+   { label = "As Percentage",  send = "Ctrl+Shift+5" },
+   { label = "Comment",        send = "Ctrl+Alt+C" },
+   { label = "Paste&NewLine;Unformatted",  send = "Ctrl+Alt+Shift+V" },
 ]

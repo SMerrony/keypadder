@@ -60,63 +60,67 @@ package body Frontend is
          "xhr.send(); return false; }" &
          "</script>" &
          "</form></body></html>";
-      Main_Page_HTML : Unbounded_String := Null_Unbounded_String;
+      Main_HTML : Unbounded_String := Null_Unbounded_String;
    begin
-      Append (Main_Page_HTML, Header_HTML);
+      Append (Main_HTML, Header_HTML);
 
       --  first the tab headers or selector
       if Conf.Keypadder_Conf.Tabswitch = Tabs then
-         Append (Main_Page_HTML, "<div class=""kp-bar"">");
+         Append (Main_HTML, "<div class=""kp-bar"">");
          for Tab of Conf.Tabs loop
-            Append (Main_Page_HTML, "<button class=""kp-bar-item"" onclick=""openTab('" &
+            Append (Main_HTML, "<button class=""kp-bar-item"" onclick=""openTab('" &
                                     Tab.Label & "')"">" &
                                     Tab.Label & "</button>");
          end loop;
       else -- selector
-         Append (Main_Page_HTML, "<div><select class='kp-selector' id='kpselect' onChange='selectChange()'>");
+         Append (Main_HTML, "<div><select class='kp-selector' id='kpselect' onChange='selectChange()'>");
          for Tab of Conf.Tabs loop
-            Append (Main_Page_HTML, "<option value='" & Tab.Label & "'>");
-            Append (Main_Page_HTML, Tab.Label & "</option>");
+            Append (Main_HTML, "<option value='" & Tab.Label & "'>");
+            Append (Main_HTML, Tab.Label & "</option>");
          end loop;
-         Append (Main_Page_HTML, "</select>");
+         Append (Main_HTML, "</select>");
       end if;
-      Append (Main_Page_HTML, "</div>" & ASCII.LF);
+      Append (Main_HTML, "</div>" & ASCII.LF);
 
-      Append (Main_Page_HTML, "<form id=""kpForm"" onsubmit=""return ajaxget()"">" & ASCII.LF);
+      Append (Main_HTML, "<form id=""kpForm"" onsubmit=""return ajaxget()"">" & ASCII.LF);
       --  now each tab
       for T in Conf.Tabs.First_Index .. Conf.Tabs.Last_Index loop
-         Append (Main_Page_HTML, "<div id=""" & Conf.Tabs (T).Label & """ class=""kp-pad""");
+         Append (Main_HTML, "<div id=""" & Conf.Tabs (T).Label & """ class=""kp-pad""");
          if T /= Active_Tab then --  hide inactive Tabs
-            Append (Main_Page_HTML, " style=""display:none""");
+            Append (Main_HTML, " style=""display:none""");
          end if;
-         Append (Main_Page_HTML, ">" & ASCII.LF);
+         Append (Main_HTML, ">" & ASCII.LF);
 
          --  the main content of each tab - i.e. the keys
-         Append (Main_Page_HTML, "<div style=""margin: 0 auto; display: grid; gap: 1rem; align-content: stretch; " &
+         Append (Main_HTML, "<div style=""margin: 0 auto; display: grid; gap: 1rem; align-content: stretch; " &
                                  "position: fixed; top: 17mm; left: 0; right: 0; bottom: 2px; " &
                                  "overflow: scroll; " &
                                  "grid-template-columns: repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
          for K in Conf.Tabs (T).Keys.First_Index .. Conf.Tabs (T).Keys.Last_Index loop
-            Append (Main_Page_HTML, "<input type=""button"" onClick=""return ajaxget(" & T'Image & "," & K'Image & ")"" class=""kp-btn""");
+            Append (Main_HTML, "<input type=""button"" onClick=""return ajaxget(" & T'Image & "," &
+                                    K'Image & ")"" class=""kp-btn"" style=""");
             if Conf.Tabs (T).Keys (K).Colspan > 1 then
-               Append (Main_Page_HTML, " style=""grid-column: span" & Conf.Tabs (T).Keys (K).Colspan'Image & ";"" ");
+               Append (Main_HTML, " grid-column: span" & Conf.Tabs (T).Keys (K).Colspan'Image & "; ");
             end if;
             if Conf.Tabs (T).Keys (K).Rowspan > 1 then
-               Append (Main_Page_HTML, " style=""grid-row: span" & Conf.Tabs (T).Keys (K).Rowspan'Image & ";"" ");
+               Append (Main_HTML, " rid-row: span" & Conf.Tabs (T).Keys (K).Rowspan'Image & "; ");
             end if;
             if Conf.Tabs (T).Keys (K).Bg_Colour /= Null_Unbounded_String then
-               Append (Main_Page_HTML, " style=""background-color: " & Conf.Tabs (T).Keys (K).Bg_Colour & ";"" ");
+               Append (Main_HTML, " background-color: " & Conf.Tabs (T).Keys (K).Bg_Colour & "; ");
+            end if;
+            if Conf.Tabs (T).Fontsize /= Null_Unbounded_String then
+               Append (Main_HTML, " font-size: " & Conf.Tabs (T).Fontsize & "; ");
             end if;
             --  the key label
-            Append (Main_Page_HTML, " value=""" & Conf.Tabs (T).Keys (K).Label & """>" & ASCII.LF);
+            Append (Main_HTML, """ value=""" & Conf.Tabs (T).Keys (K).Label & """>" & ASCII.LF);
          end loop;
-         Append (Main_Page_HTML, "</div></div>");
+         Append (Main_HTML, "</div></div>");
       end loop;
 
       --  javascript to change displayed tab etc.
-      Append (Main_Page_HTML, Trailer_HTML);
+      Append (Main_HTML, Trailer_HTML);
 
-      return To_String (Main_Page_HTML);
+      return To_String (Main_HTML);
    end Build_Main_Page;
 
    procedure Decode_And_Send_Key (T, I : String; Tab : out Positive) is
