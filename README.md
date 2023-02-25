@@ -1,7 +1,7 @@
 # Keypadder
 Keypadder is a programmable virtual keypad for your Linux desktop that you can access via a mobile phone or tablet.
 
-![Screenshot1](./Screenshots/v0_2_0_French.png)
+![Screenshot1](./Screenshots/v0_3_0_French.png)
 ![Screenshot2](./Screenshots/v0_2_0_Emojis.png)
 ![Screenshot3](./Screenshots/v0_1_0_Musescore.png)
 
