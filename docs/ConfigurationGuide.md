@@ -12,6 +12,7 @@ It makes use of all of the features currently implemented by the application.
 - [The `keys` Section](#the-keys-section)
   - [The `label` Item](#the-label-item)
   - [The `colspan` and `rowspan` Items](#the-colspan-and-rowspan-items)
+  - [The `bg` Item](#the-bg-item)
   - [The `send` Item](#the-send-item)
     - [Special Keys and Modifiers](#special-keys-and-modifiers)
       - [`Shift+`](#shift)
@@ -52,6 +53,7 @@ You add one `[[tab]]` section for each tab (page) of buttons you want to display
 There are a couple of compulsory config items for the tab itself, then a table of key definitions (see below).
 
 Every tab must contain a `label`, a `cols`, and a `keys` item.
+There is an optional `fontsize` option.
 
 The `label` item is a simple string displayed at the top of the tab of keys.
 
@@ -62,11 +64,15 @@ Eg.
 ```
 [[tab]]
 label = "French"
-cols = 3	
+cols = 3
+fontsize = "20pt"	
 ...
 ```
+The optional `fontsize` item is a string consisting of a number and unit-specifier.
 
-After these two items comes the meat of the config file: the ``keys`` defintions.
+Eg. `fontsize = "12pt"` or `fontsize = "22mm"`.
+
+Next comes the meat of the config file: the ``keys`` defintions.
 
 ## The `keys` Section
 This is where the keys are defined, in order, from left to right.
@@ -79,7 +85,7 @@ keys = [
   ...
 ```
 
-There are also two optional layout options: `colspan` and `rowspan`.
+There are also some optional layout options: `colspan`, `rowspan` and `bg`.
 
 ### The `label` Item
 This defines what appears on your keypad.
@@ -103,6 +109,12 @@ Take a look at the sample "NumPad" layout to see a practical example.  Eg.
    ...
 ```
 The enter key is double-height, and the zero key is double-width.
+
+### The `bg` Item
+This option lets you override the background colour of the button using either a standard CSS colour name, 
+or a six-digit hex value preceded by a `#` symbol.
+
+Eg. `bg = "Red"` or `bg = "#FF0000"`
 
 ### The `send` Item
 This defines what keyboard events Keypadder sends when a key is pressed.

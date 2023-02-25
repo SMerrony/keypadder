@@ -207,6 +207,11 @@ package body Config is
                   Tab := Item (Tabs_Array, T);
                   New_Tab.Label   := As_Unbounded_String (Get (Tab, "label"));
                   New_Tab.Columns := Natural (As_Integer (Get (Tab, "cols")));
+                  if Has (Tab, "fontsize") then
+                     New_Tab.Fontsize := As_Unbounded_String (Get (Tab, "fontsize"));
+                  else
+                     New_Tab.Fontsize := Null_Unbounded_String;
+                  end if;
                   --  Put_Line ("Tab defined:"  & Dump_As_String (Tab));
                   if Verbose then
                      Put_Line ("Tab: " & To_String (New_Tab.Label) &
@@ -249,6 +254,12 @@ package body Config is
                            New_Key.Rowspan := Natural (As_Integer (Get (Key_Table, "rowspan")));
                         else
                            New_Key.Rowspan := 0;
+                        end if;
+
+                        if Has (Key_Table, "bg") then
+                           New_Key.Bg_Colour := As_Unbounded_String (Get (Key_Table, "bg"));
+                        else
+                           New_Key.Bg_Colour := Null_Unbounded_String;
                         end if;
 
                         New_Tab.Keys.Append (New_Key);
