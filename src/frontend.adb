@@ -2,6 +2,7 @@
 --  SPDX-FileCopyrightText:  Copyright 2023 Stephen Merrony
 
 with Ada.Exceptions;        use Ada.Exceptions;
+with Ada.Strings.Fixed;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Ada.Text_IO;           use Ada.Text_IO;
 
@@ -33,11 +34,12 @@ package body Frontend is
    end Request_CB;
 
    function Build_Main_Page (Active_Tab : Positive) return String is
+      use Ada.Strings.Fixed;
       Header_HTML : constant String :=
          "<!DOCTYPE html><html><head><style>" &
          "body {min-height: 100%; background-color: darkgray; color: white; overflow: scroll;}" &
          ".kp-bar {margin: 0; padding: 0mm} .kp-bar-item {font-size: 10mm} " &
-         ".kp-selector {position: absolute; height: 12m; top: 1px; right: 2px; font-size: 10mm;} " &
+         ".kp-selector {position: absolute; height: 12mm; top: 1px; right: 2px; font-size: 10mm;} " &
          ".kp-pad {align-content: stretch;} " &
          ".kp-btn {margin: 0; font-size: calc(4vw + 4vh + 2vmin); border-radius: 4mm; background-color: black; padding: 2mm; color: white;}" &
          "</style><meta charset=""UTF-8""><title>Keypadder</title></head>" & ASCII.LF &
@@ -51,7 +53,7 @@ package body Frontend is
          "var i; var x = document.getElementsByClassName('kp-pad');" &
          "for (i=0; i<x.length; i++) { x[i].style.display = 'none';}" &
          "document.getElementById(tabName).style.display = 'block'; } " &
-         "function ajaxget(tab, id) { " &
+         "function aget(tab, id) { " &  --  Get via AJAX
          "var form = new FormData(document.getElementById(""kpForm"")); " &
          "form.append(""tab"", tab);  form.append(""id"", id); " &
          "var data = new URLSearchParams(form).toString(); " &
@@ -61,6 +63,7 @@ package body Frontend is
          "</script>" &
          "</form></body></html>";
       Main_HTML : Unbounded_String := Null_Unbounded_String;
+      Tmp_Style : Unbounded_String := Null_Unbounded_String;
    begin
       Append (Main_HTML, Header_HTML);
 
@@ -97,22 +100,26 @@ package body Frontend is
                                  "overflow: scroll; " &
                                  "grid-template-columns: repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
          for K in Conf.Tabs (T).Keys.First_Index .. Conf.Tabs (T).Keys.Last_Index loop
-            Append (Main_HTML, "<input type=""button"" onClick=""return ajaxget(" & T'Image & "," &
-                                    K'Image & ")"" class=""kp-btn"" style=""");
+            Append (Main_HTML, "<input type=""button"" onClick=""return aget(" & Trim (T'Image, Ada.Strings.Left) & "," &
+                                    Trim (K'Image, Ada.Strings.Left) & ")"" class=""kp-btn""");
+            Tmp_Style := Null_Unbounded_String;
             if Conf.Tabs (T).Keys (K).Colspan > 1 then
-               Append (Main_HTML, " grid-column: span" & Conf.Tabs (T).Keys (K).Colspan'Image & "; ");
+               Append (Tmp_Style, " grid-column: span" & Conf.Tabs (T).Keys (K).Colspan'Image & ";");
             end if;
             if Conf.Tabs (T).Keys (K).Rowspan > 1 then
-               Append (Main_HTML, " rid-row: span" & Conf.Tabs (T).Keys (K).Rowspan'Image & "; ");
+               Append (Tmp_Style, " grid-row: span" & Conf.Tabs (T).Keys (K).Rowspan'Image & ";");
             end if;
             if Conf.Tabs (T).Keys (K).Bg_Colour /= Null_Unbounded_String then
-               Append (Main_HTML, " background-color: " & Conf.Tabs (T).Keys (K).Bg_Colour & "; ");
+               Append (Tmp_Style, " background-color: " & Conf.Tabs (T).Keys (K).Bg_Colour & ";");
             end if;
             if Conf.Tabs (T).Fontsize /= Null_Unbounded_String then
-               Append (Main_HTML, " font-size: " & Conf.Tabs (T).Fontsize & "; ");
+               Append (Tmp_Style, " font-size: " & Conf.Tabs (T).Fontsize & "; ");
+            end if;
+            if Tmp_Style /= Null_Unbounded_String then
+               Append (Main_HTML, " style=""" & Tmp_Style & """");
             end if;
             --  the key label
-            Append (Main_HTML, """ value=""" & Conf.Tabs (T).Keys (K).Label & """>" & ASCII.LF);
+            Append (Main_HTML, " value=""" & Conf.Tabs (T).Keys (K).Label & """>" & ASCII.LF);
          end loop;
          Append (Main_HTML, "</div></div>");
       end loop;
