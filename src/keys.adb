@@ -511,12 +511,12 @@ package body Keys is
       use Ada.Strings.Fixed;
       use Ada.Text_IO;
    begin
-      Put_Line ("Mnemonic       Value");
-      Put_Line ("--------------------");
+      Put_Line ("Mnemonic               Value");
+      Put_Line ("----------------------------");
       for K in Keys_M.Iterate loop
-         Put_Line (Head (Key (K), 17, ' ') & Tail (Element (K)'Image, 3, ' '));
+         Put_Line (Head (Key (K), 24, ' ') & Tail (Element (K)'Image, 4, ' '));
       end loop;
-      Put_Line ("--------------------");
+      Put_Line ("----------------------------");
    end List_All_Keys;
 
 end Keys;
