@@ -134,3 +134,37 @@ keys = [
    { label = "Comment",        send = "Ctrl+Alt+C" },
    { label = "Paste&NewLine;Unformatted",  send = "Ctrl+Alt+Shift+V" },
 ]
+
+[[tab]]
+label = "Applications"
+cols = 2
+fontsize = "28pt"
+keys = [
+   # {label="Archive",    send="ARCHIVE"},
+   # {label="Audio",      send="AUDIO"},
+   # {label="BlueTooth",  send="BLUETOOTH"},
+   {label="Calculator", send="CALC"},
+   # {label="Calendar",   send="CALENDAR"},
+   # {label="Camera",     send="CAMERA"},
+   # {label="Chat",       send="CHAT"},
+   # {label="Contacts",   send="ADDRESSBOOK"},
+   # {label="Edit",       send="EDIT"},
+   # {label="Editor",     send="EDITOR"},
+   {label="Email",      send="EMAIL"},
+   {label="File",       send="FILE"},
+   # {label="Graphics",   send="GRAPHICSEDITOR"},
+   # {label="Images",     send="IMAGES"},
+   # {label="Player",     send="PLAYER"},
+   # {label="Presentation", send="PRESENTATION"},
+   {label="Run",        send="Alt+F2"},
+   {label="ScreenLock", send="SCREENLOCK"},
+   # {label="Search",     send="SEARCH"},
+   # {label="Sound",      send="SOUND"},
+   # {label="Spreadsheet",  send="SPREADSHEET"},
+   # {label="Task Mgr",     send="TASKMANAGER"},
+   {label="Terminal",   send="Ctrl+Alt+T"},
+   {label="Tuner",      send="TUNER"},
+   # {label="Video",      send="VIDEO"},
+   # {label="Word Proc.",   send="WORDPROCESSOR"},
+   {label="WWW",        send="WWW"},
+]

@@ -2,6 +2,10 @@ keypadder (0.3.0) stable; urgency=low
 
   [SMerrony]
   * Feature:    Add bg config option for button background colour
+  * Feature:    Add fontsize config option per tab
+  * Docs:       Update for new features
+  * Docs:       Enhance example/keypad.toml to use new features
+  * Bugfix:     Don't truncate mnemonics shown via --dumpkeys
 
 -- SMerrony <merrony@gmail.com>  Fri, 24 Feb 2023 10:00:00 +0200
 
