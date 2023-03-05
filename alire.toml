@@ -14,7 +14,7 @@ characters and Emojis in social media.
 
 It's a great use for one of those old smartphones or tablets you have lying in that drawer!
 """
-version = "0.2.0"
+version = "0.3.0"
 tags = ["linux", "keyboard", "mobile", "programmable", "tablet", "macro", "keypad", "macropad"]
 
 authors = ["Stephen Merrony"]
