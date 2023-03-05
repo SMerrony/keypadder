@@ -168,3 +168,14 @@ keys = [
    # {label="Word Proc.",   send="WORDPROCESSOR"},
    {label="WWW",        send="WWW"},
 ]
+
+[[tab]]
+label = "PokerTH"
+cols = 2
+fontsize = "34pt"
+keys = [
+   {label="All In", bg="DarkGoldenRod", send="F4"}, {label="Close", send="Ctrl+X"},
+   {label="Bet / Raise", bg="Green", send="F3"},    {label="Chat",  send="Ctrl+T"},
+   {label="Call / Check", bg="Blue", send="F2"}, {label="Start / Stop", rowspan=2, send="RIGHTSHIFT"},
+   {label="Fold", bg="Red", send="F1"}
+]
