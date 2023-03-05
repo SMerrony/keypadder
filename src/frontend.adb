@@ -37,11 +37,11 @@ package body Frontend is
       use Ada.Strings.Fixed;
       Header_HTML : constant String :=
          "<!DOCTYPE html><html><head><style>" &
-         "body {min-height: 100%; background-color: darkgray; color: white; overflow: scroll;}" &
-         ".kp-bar {margin: 0; padding: 0mm} .kp-bar-item {font-size: 10mm} " &
-         ".kp-selector {position: absolute; height: 12mm; top: 1px; right: 2px; font-size: 10mm;} " &
-         ".kp-pad {align-content: stretch;} " &
-         ".kp-btn {margin: 0; font-size: calc(4vw + 4vh + 2vmin); border-radius: 4mm; background-color: black; padding: 2mm; color: white;}" &
+         "body {min-height:100%; background-color:darkgray; color:white; overflow:scroll;}" &
+         ".kp-bar {margin:0; padding:0mm} .kp-bar-item {font-size:10mm} " &
+         ".kp-selector {position:absolute; height:12mm; top:1px; right:2px; font-size:10mm;} " &
+         ".kp-pad {align-content:stretch;} " &
+         ".kp-btn {margin:0; font-size:calc(4vw + 4vh + 2vmin); border-radius:4mm; background-color:black; padding:2mm; color:white;}" &
          "</style><meta charset=""UTF-8""><title>Keypadder</title></head>" & ASCII.LF &
          "<body>";
       Trailer_HTML : constant String :=
@@ -95,10 +95,10 @@ package body Frontend is
          Append (Main_HTML, ">" & ASCII.LF);
 
          --  the main content of each tab - i.e. the keys
-         Append (Main_HTML, "<div style=""margin: 0 auto; display: grid; gap: 1rem; align-content: stretch; " &
-                                 "position: fixed; top: 17mm; left: 0; right: 0; bottom: 2px; " &
-                                 "overflow: scroll; " &
-                                 "grid-template-columns: repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
+         Append (Main_HTML, "<div style=""margin:0 auto; display:grid; gap:1rem; align-content:stretch; " &
+                                 "position:fixed; top:17mm; left:0; right:0; bottom:2px; " &
+                                 "overflow:scroll; " &
+                                 "grid-template-columns:repeat(" & Conf.Tabs (T).Columns'Image & ", 1fr);"">");
          for K in Conf.Tabs (T).Keys.First_Index .. Conf.Tabs (T).Keys.Last_Index loop
             Append (Main_HTML, "<input type=""button"" onClick=""return aget(" & Trim (T'Image, Ada.Strings.Left) & "," &
                                     Trim (K'Image, Ada.Strings.Left) & ")"" class=""kp-btn""");
@@ -113,7 +113,7 @@ package body Frontend is
                Append (Tmp_Style, " background-color: " & Conf.Tabs (T).Keys (K).Bg_Colour & ";");
             end if;
             if Conf.Tabs (T).Fontsize /= Null_Unbounded_String then
-               Append (Tmp_Style, " font-size: " & Conf.Tabs (T).Fontsize & "; ");
+               Append (Tmp_Style, " font-size: " & Conf.Tabs (T).Fontsize & ";");
             end if;
             if Tmp_Style /= Null_Unbounded_String then
                Append (Main_HTML, " style=""" & Tmp_Style & """");
