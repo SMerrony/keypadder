@@ -1,0 +1,55 @@
+# Example Keypadder configuration for FlightGear
+
+[keypadder]
+port = 8082
+
+[[tab]]
+label = "Controls"
+cols = 4
+fontsize = "34pt"
+keys = [
+   {label = "Eng.1", send = "Shift+1"},
+   {label = "Eng.2", send = "Shift+2"},
+   {label = "Eng.3", send = "Shift+3"},
+   {label = "Eng.4", send = "Shift+4"},
+
+   {label = "- Mag", send = "Shift+LEFTBRACE"},
+   {label = "+ Mag", send = "Shift+RIGHTBRACE"},
+   {label = "All&NewLine;Engs", send = "BACKSLASH"},
+   {label = "Starter", send = "SPACE"},
+
+   {label = "Gear&NewLine;Up",       send = "G"},
+   {label = "Gear&NewLine;Down",     send = "Shift+G"},
+   {label = "All&NewLine;Brakes",    send = "B"},
+   {label = "Parking&NewLine;Brakes", send = "Shift+B"},
+
+   {label = "Flaps&NewLine;Up",      send = "LEFTBRACE"},
+   {label = "Flaps&NewLine;Down",    send = "RIGHTBRACE"},
+   {label = "Spoilers&NewLine;Up",   send = "K"},
+   {label = "Spoilers&NewLine;Down", send = "J"},
+]
+
+[[tab]]
+label = "AutoPilot"
+cols = 4
+fontsize = "34pt"
+keys = [
+   {label = "Altitude",    send = "Ctrl+A"},
+   {label = "Heading",     send = "Ctrl+H"},
+   {label = "Nav 1",       send = "Ctrl+N"},
+   {label = "Glideslope",  send = "Ctrl+G"},
+
+   {label = "Auto&NewLine;Throttle",   send = "Ctrl+S"},
+   {label = "Pitch",          send = "Ctrl+P"},
+   {label = "Level",          send = "Ctrl+W"},
+   {label = "Terrain&NewLine;Follow", send = "Ctrl+T"},
+
+   {label = "+Alt",        send = "KP8"},
+   {label = "+Hdg",        send = "KPDOT"},
+   {label = "+A/T",        send = "KP9"},
+   {label = "Up 1000'", bg = "Red", rowspan = 2, send = "Ctrl+U"},
+
+   {label = "-Alt",        send = "KP2"},
+   {label = "-Hdg",        send = "KP0"},
+   {label = "-A/T",        send = "KP3"},
+]
