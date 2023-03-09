@@ -46,9 +46,7 @@ package body Frontend is
          "<body>";
       Trailer_HTML : constant String :=
          "<script>" &
-         "function selectChange(){" &
-         "var selector = document.getElementById('kpselect');" &
-         "openTab(selector.options[selector.selectedIndex].value);}" &
+         "function selTab(){var selector=document.getElementById('kpselect');openTab(selector.options[selector.selectedIndex].value);}" &
          "function openTab(tabName) { " &
          "var i; var x = document.getElementsByClassName('kp-pad');" &
          "for (i=0; i<x.length; i++) { x[i].style.display = 'none';}" &
@@ -60,8 +58,7 @@ package body Frontend is
          "var xhr = new XMLHttpRequest(); " &
          "xhr.open(""GET"", ""buttonpress?"" + data); " &
          "xhr.send(); return false; }" &
-         "</script>" &
-         "</form></body></html>";
+         "</script></form></body></html>";
       Main_HTML : Unbounded_String := Null_Unbounded_String;
       Tmp_Style : Unbounded_String := Null_Unbounded_String;
    begin
@@ -76,7 +73,7 @@ package body Frontend is
                                     Tab.Label & "</button>");
          end loop;
       else -- selector
-         Append (Main_HTML, "<div><select class='kp-selector' id='kpselect' onChange='selectChange()'>");
+         Append (Main_HTML, "<div><select class='kp-selector' id='kpselect' onChange='selTab()'>");
          for Tab of Conf.Tabs loop
             Append (Main_HTML, "<option value='" & Tab.Label & "'>");
             Append (Main_HTML, Tab.Label & "</option>");
