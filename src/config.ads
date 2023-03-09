@@ -62,7 +62,7 @@ package Config is
 
    Conf : Conf_T;
 
-   function Parse_And_Check_Config (Filename : String) return TOML.Read_Result
+   function Read_And_Check_Config (Filename : String) return TOML.Read_Result
       with Pre => (Filename'Length > 0);
 
    function Load_Config_File (Filename : String; Verbose : Boolean := False) return Boolean

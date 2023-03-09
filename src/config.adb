@@ -119,7 +119,7 @@ package body Config is
          GNAT.OS_Lib.OS_Exit (-1);
    end Decode_Send_String;
 
-   function Parse_And_Check_Config (Filename : String) return Read_Result is
+   function Read_And_Check_Config (Filename : String) return Read_Result is
       Parse_Result : Read_Result;
    begin
       Parse_Result := File_IO.Load_File (Filename);
@@ -158,14 +158,15 @@ package body Config is
          Put_Line ("Error loading configuration file: " & Filename);
          Put_Line (Exception_Message (Error));
          GNAT.OS_Lib.OS_Exit (-1);
-   end Parse_And_Check_Config;
+   end Read_And_Check_Config;
 
    function Load_Config_File (Filename : String; Verbose : Boolean := False)
                              return Boolean is
-      Toml_Parse_Result : constant Read_Result := Parse_And_Check_Config (Filename);
+      Toml_Parse_Result : constant Read_Result := Read_And_Check_Config (Filename);
       Top_Keys : constant Key_Array := Toml_Parse_Result.Value.Keys;
       Tabs_Count : Positive;
    begin
+      Conf.Tabs.Clear;  --  Ensure Tabs are empty in case we are reloading a configuration
       for TK of Top_Keys loop
          if Verbose then
             Put_Line ("Configuration for " & To_String (TK) & " is...");

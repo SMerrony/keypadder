@@ -20,6 +20,8 @@ procedure Keypadder is
 
    App_SemVer : constant String := "0.3.0";  --  TODO Update App_SemVer for each release
 
+   Max_HTTP_Connections : constant Positive := 2;
+
    Arg_Ix     : Natural := 1;
    Config_Arg : Unbounded_String := Null_Unbounded_String;
    Verbose    : Boolean := False;
@@ -74,7 +76,7 @@ begin
    AWS.Server.Start (WS,
                      Name => "Keypadder Server",
                      Callback => Frontend.Request_CB'Access,
-                     Max_Connection => 3,
+                     Max_Connection => Max_HTTP_Connections,
                      Port => Integer (Config.Conf.Keypadder_Conf.Port));
    Put_Line ("Server is running on " & AWS.Server.Status.Local_URL (WS));
    loop
