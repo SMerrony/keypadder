@@ -6,11 +6,12 @@ keypadder (0.3.0) stable; urgency=low
   * Docs:       Update for new features
   * Docs:       Enhance example/keypad.toml to use new features, add PokerTH map
   * Bugfix:     Don't truncate mnemonics shown via --dumpkeys
+  * Internal:   Reduce size of HTML/JavaScript for main page
 
   [mgrojo]
   * Feature:    Add big Maths symbols example config
 
--- SMerrony <merrony@gmail.com>  Fri, 24 Feb 2023 10:00:00 +0200
+-- SMerrony <merrony@gmail.com>  Sat, 11 Mar 2023 10:00:00 +0200
 
 keypadder (0.2.0) stable; urgency=low
 

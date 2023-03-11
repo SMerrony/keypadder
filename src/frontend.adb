@@ -16,14 +16,12 @@ package body Frontend is
    function Request_CB (Request : AWS.Status.Data) return AWS.Response.Data is
       URI : constant String := AWS.Status.URI (Request);
       Parms : AWS.Parameters.List;
-      Current_Tab_Ix : Positive;
    begin
       if URI = "/" then
          return AWS.Response.Build ("text/html", Build_Main_Page (1));
       elsif URI = "/buttonpress" then
          Parms := AWS.Status.Parameters (Request);
-         Decode_And_Send_Key (To_String (AWS.Parameters.Get (Parms, 1).Value),
-                              To_String (AWS.Parameters.Get (Parms, 2).Value), Current_Tab_Ix);
+         Send_Key (To_String (AWS.Parameters.Get (Parms, 1).Value), To_String (AWS.Parameters.Get (Parms, 2).Value));
          return AWS.Response.Build ("text/html", "OK");
       elsif URI = "/shutdown" then
          Shutting_Down := True;
@@ -42,22 +40,23 @@ package body Frontend is
          ".kp-selector {position:absolute; height:12mm; top:1px; right:2px; font-size:10mm;} " &
          ".kp-pad {align-content:stretch;} " &
          ".kp-btn {margin:0; font-size:calc(4vw + 4vh + 2vmin); border-radius:4mm; background-color:black; padding:2mm; color:white;}" &
-         "</style><meta charset=""UTF-8""><title>Keypadder</title></head>" & ASCII.LF &
-         "<body>";
+         "</style><meta charset=""UTF-8""><title>Keypadder</title></head>" &
+         "<body>" & ASCII.LF;
       Trailer_HTML : constant String :=
          "<script>" &
          "function selTab(){var selector=document.getElementById('kpselect');openTab(selector.options[selector.selectedIndex].value);}" &
-         "function openTab(tabName) { " &
-         "var i; var x = document.getElementsByClassName('kp-pad');" &
-         "for (i=0; i<x.length; i++) { x[i].style.display = 'none';}" &
-         "document.getElementById(tabName).style.display = 'block'; } " &
-         "function aget(tab, id) { " &  --  Get via AJAX
+
+         "function openTab(tabName){var x=document.getElementsByClassName('kp-pad');" &
+         "for (let i=0; i<x.length; i++) {x[i].style.display='none';}" &
+         "document.getElementById(tabName).style.display='block';} " &
+
+         "function aget(tab, id) {" &  --  Get via AJAX
          "var form = new FormData(document.getElementById(""kpForm"")); " &
-         "form.append(""tab"", tab);  form.append(""id"", id); " &
+         "form.append(""tab"", tab); form.append(""id"", id); " &
          "var data = new URLSearchParams(form).toString(); " &
          "var xhr = new XMLHttpRequest(); " &
          "xhr.open(""GET"", ""buttonpress?"" + data); " &
-         "xhr.send(); return false; }" &
+         "xhr.send(); return false;}" &
          "</script></form></body></html>";
       Main_HTML : Unbounded_String := Null_Unbounded_String;
       Tmp_Style : Unbounded_String := Null_Unbounded_String;
@@ -127,17 +126,15 @@ package body Frontend is
       return To_String (Main_HTML);
    end Build_Main_Page;
 
-   procedure Decode_And_Send_Key (T, I : String; Tab : out Positive) is
-      Tab_Ix : constant Positive := Positive'Value (T); -- (Key_ID (Index (Key_ID, "t") + 1 .. Index (Key_ID, "i") - 1));
-      Key_Ix : constant Positive := Positive'Value (I); -- (Key_ID (Index (Key_ID, "i") + 1 .. Key_ID'Last));
+   procedure Send_Key (T, I : String) is
+      Tab_Ix : constant Positive := Positive'Value (T);
+      Key_Ix : constant Positive := Positive'Value (I);
    begin
-      --  Put_Line ("Decoded Tab:" & Tab_Ix'Image & " and Index:" & Key_Ix'Image);
-      Tab := Tab_Ix;
       Injector.Injector_Task.Send (Conf.Tabs (Tab_Ix).Keys (Key_Ix).Send_Events);
    exception
       when Error : others =>
          Put_Line ("Error in Decode_And_Send_Key: ");
          Put_Line (Exception_Information (Error));
-   end Decode_And_Send_Key;
+   end Send_Key;
 
 end Frontend;
