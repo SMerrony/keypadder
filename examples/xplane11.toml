@@ -1,0 +1,47 @@
+[keypadder]
+port = 8082
+
+[[tab]]
+label = "Flight"
+cols = 5
+fontsize = "20pt"
+keys = [
+   {label="Auto&NewLine;Start", send="Ctrl+Shift+E"},
+   {label="Start 1", send="Ctrl+1"},
+   {label="Start 2", send="Ctrl+2"},
+   {label="Start 3", send="Ctrl+3"},
+   {label="Start 4", send="Ctrl+4"},
+
+   {label="Gear&NewLine;Down", send="Ctrl+D"},
+   {label="Gear&NewLine;Up",   send="Ctrl+U"},
+   {label="Spoilers&NewLine;-1", send="3"},
+   {label="Spoilers&NewLine;+1", send="4"},
+   {label="Max&NewLine;Brakes",  send="V"},
+
+   {label="Carb&NewLine;Heat", send="F11"},
+   {label="Leaner", send="F5"},
+   {label="Richer", send="F6"},
+   {label="Rev.&NewLine;Thrust", bg="Red",   send="Shift+SLASH"},
+   {label="TOGA",                bg="Green", send="F13"},
+]
+
+[[tab]]
+label = "View"
+cols = 4
+fontsize = "20pt"
+keys = [
+   {label="Chase",  send="Shift+8"},
+   {label="Circle", send="Shift+4"},
+   {label="Runway", send="Shift+3"},
+   {label="Tower",  send="Shift+5"},
+
+   {label="3D",     send="Shift+9"},
+   {label="Default", bg="Green", send="W"},
+   {label="Fwd&NewLine;2D", send="Alt+W"},
+   {label="Fwd&NewLine;HUD", send="Shift+W"},
+
+   {label="Zoom In", send="EQUAL"},
+   {label="Zoom Out", send="MINUS"},
+   {label="View Down", send="DOWN"},
+   {label="View Up",  send="UP"},
+]
