@@ -26,16 +26,32 @@ It's a great use for one of those old smartphones or tablets you have lying in t
 
 ## Build and Install
 
-A binary (.deb) version for 64-bit Debian-based systems *may* be available as part of a release.
+A binary (.deb) version for modern 64-bit Debian-based systems *may* be available as part of a release.
 
-### Build from Source
-Keypadder is [hosted on GitHub](https://github.com/SMerrony/keypadder).
-It is written entirely in GNU Ada (GNAT) and built using the [Alire](https://alire.ada.dev/) build system.
+The Keypadder source is [hosted on GitHub](https://github.com/SMerrony/keypadder).
+
+It is written entirely in GNU Ada (GNAT).  You may build it using either the [Alire](https://alire.ada.dev/) build system or plain old `gprbuild`.  
+Building via Alire is preferred where it is possible as all necessary dependencies will be obtained for you automatically.
+
+### Alire Build
 
 Until the Alire crate is available, you should download (or clone) the source from Github
 and run `alr build` in the top-level directory.
 
 ***TODO  - Add more detail here once Alire crate is available***
+
+### Gprbuild Build
+
+#### Prerequisites
+You should the development version of `libaws` via your package manager.
+You will also need `ada-toml` from https://github.com/pmderodat/ada-toml - follow the instructions there to install it.
+
+Then...
+
+```
+mkdir obj
+gprbuild -Pnon_alire
+```
 
 ## Running Keypadder
 
